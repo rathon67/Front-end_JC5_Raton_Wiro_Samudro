@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
     {
     return (
       <div>
-      <nav className="navbar navbar-expand-lg navbar-dark " style={{backgroundColor: 'black'}}>
-        <Link to="/index" className="navbar-brand" >RustymoTo</Link>
+      <nav className="navbar navbar-expand-lg navbar-dark sticky-top " style={{backgroundColor: 'black'}}>
+      <img className="navbar-brand" src="./Icon/raton_Motor_spion.png" id="logo_custom" width="12%" alt="logo" />
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
@@ -21,7 +21,7 @@ import { Link } from 'react-router-dom';
               <Link to ="listproduct" className="nav-link" >Feature &amp; Model</Link>
             </li>
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Belanja
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -41,8 +41,7 @@ import { Link } from 'react-router-dom';
           </form>
         </div>
       </nav>
-      <br />
-      <br />
+      
     </div>
     
               

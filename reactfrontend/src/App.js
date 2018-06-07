@@ -28,7 +28,7 @@ class App extends Component {
         <Route path ="/editprofile" component={Editprofile}/> 
         <Route path ="/profile" component={Profile}/> 
         <Route path ="/invoice" component={Invoice}/> 
-        <Route path ="/invoice" component={Invoicehistory}/> 
+        <Route path ="/invoicehistory" component={Invoicehistory}/> 
         <Route path ="/listproduct" component={Listproduct}/> 
         <Route path ="/login" component={Login}/> 
         <Route path ="/register" component={Register}/> 

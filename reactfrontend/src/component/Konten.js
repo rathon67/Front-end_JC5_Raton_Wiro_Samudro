@@ -2,57 +2,48 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 
-
-
-
 class Konten extends Component {
     render() 
     {
     return (
         <div>
          {/* CAROUSEL UTAMA   */}
-        <div id="carouselExampleFade" classNameName="carousel slide carousel-fade" data-ride="carousel">
+         <div id="carousel2_indicator" className="carousel slide carousel-fade" data-ride="carousel">
             <div className="carousel-inner">
               <div className="carousel-item active">
-                <img className="d-block w-100" src='./Image/Royalenfieldcarousel.jpeg' alt="First slide"/>
-                <div className="carousel-caption d-none d-md-block">
-                    <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Nikmati berkendara sesuai Gayamu</h1>
-                    <h3>THE ALL NEW BONNEVILLE SPEEDMASTER brings a new dimension to the Bonneville line-up. With much more classNameic British custom laid-back attitude, forward footpegs, swept-back beach bars and comfortable pillion capability, the new Speedmaster delivers a distinctive cruiser riding style. High specification rider-focused-technology combines with elegant engineering to provide a superior level of handling, comfort and control.</h3>
-                  </div>
+                <img className="d-block w-100" src="Image/Triumph-CS.jpg" alt="First slide" />
+                <article className="carousel-caption d-none d-md-block">
+                <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Nikmati berkendara sesuai Gayamu</h1>
+                <h3 style={{color: 'Black'}}>THE ALL NEW BONNEVILLE SPEEDMASTER brings a new dimension to the Bonneville line-up. With much more classic British custom laid-back attitude, forward footpegs, swept-back beach bars and comfortable pillion capability, the new Speedmaster delivers a distinctive cruiser riding style. High specification rider-focused-technology combines with elegant engineering to provide a superior level of handling, comfort and control.</h3>
+                </article> {/* carousel-caption .// */}
               </div>
               <div className="carousel-item">
-                <img className="d-block w-100" src='./Image/vespasip5.jpg'  alt="Second slide"/>
-                <div className="carousel-caption d-none d-md-block">
-                    <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Disini Pilih Selera Lo</h1>
-                    <h3>The critically acclaimed high-torque engine, with its powerful hot rod ride and raw sound, has a reassuringly high first major service interval of 10,000 mile / 16,000km.</h3>
-                  </div>
+                <img className="d-block w-100" src="Image/vespasip5.jpg" alt="Second slide" />
+                <article className="carousel-caption d-none d-md-block">
+                <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Disini Pilih Selera Lo</h1>
+                <h3 style={{color: 'Black'}}>The critically acclaimed high-torque engine, with its powerful hot rod ride and raw sound, has a reassuringly high first major service interval of 10,000 mile / 16,000km.</h3>
+                            
+                </article> {/* carousel-caption .// */}
               </div>
               <div className="carousel-item">
-                <img className="d-block w-100" src='./Image/Motor_bobber.jpg' alt="Third slide"/>
-                <div className="carousel-caption d-none d-md-block">
-                    <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Tunjukan Siapa kamu dengan kuda besimu</h1>
-                    <h3>Perfect for riders looking for greater touring capability and a more laid-back cruiser style than the Bonneville T120, the new Speedmaster's comfortable yet versatile twin seat set-up offers increased practicality together with all the Bonneville Bobber's attitude.</h3>
-                  </div>
+                <img className="d-block w-100" src="Image/building-a-cafe-racer-triumph.jpg" alt="Third slide" />
+                <article className="carousel-caption d-none d-md-block">
+                <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Tunjukan Siapa kamu dengan kuda besimu</h1>
+                <h3 style={{color: 'Black'}}>Perfect for riders looking for greater touring capability and a more laid-back cruiser style than the Bonneville T120, the new Speedmaster's comfortable yet versatile twin seat set-up offers increased practicality together with all the Bonneville Bobber's attitude.</h3>
+                            
+                </article> {/* carousel-caption .// */}
               </div>
-            
-            <a className="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            </div>
+            <Link to="#carousel2_indicator" className="carousel-control-prev"  role="button" data-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true" />
               <span className="sr-only">Previous</span>
-            </a>
-            <a className="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-              <span  className="carousel-control-next-icon" aria-hidden="true"></span>
+            </Link>
+            <Link to="#carousel2_indicator" className="carousel-control-next"  role="button" data-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true" />
               <span className="sr-only">Next</span>
-            </a>
-            <ol className="carousel-indicators">
-              <li data-target="carousel"
-              data-slide-to="0" className="active"></li>
-              <li data-target="carousel-control-next"
-              data-slide-to="1"></li>
-              <li data-target="carousel-control-next"
-              data-slide-to="2"></li>
-              </ol>
+            </Link>
           </div>
-        </div>
+
         <br></br>
         <br></br>
             {/* Text Judul DI tengah */}
@@ -139,7 +130,7 @@ class Konten extends Component {
         <p className="card-text" style={{color: 'azure'}}>Open now: a priceless collection of motorcycle memorabilia, themed café, on-site store, and fully-guided pre-bookable factory tour.</p>
         <p className="card-text" style={{color: 'azure'}}><small className="text-muted">Last updated 3 weeks ago</small></p>
       </div>
-      <img className="card-img-bottom" src='./Image/main-banner.jpg' alt="Card image cap"/>
+      <img className="card-img-bottom" src='./Image/Royalenfieldcarousel.jpeg' alt="Card image cap"/>
     </div>
 
 <br></br>
@@ -196,7 +187,7 @@ class Konten extends Component {
       </div>
       <div className="col col-sm-4" style={{backgroundColor: 'black'}}>
           <figure className="figure"style={{marginTop: '40px'}}>
-              <img src="./Image/sipclassName.jpg" className="figure-img img-fluid rounded"  alt="A generic square placeholder image with rounded corners in a figure."/>
+              <img src="./Image/custom-triumph.jpg" className="figure-img img-fluid rounded"  alt="A generic square placeholder image with rounded corners in a figure."/>
               <figcaption className="figure-caption" style={{color: 'crimson'}}><h3>Perjalanan Indah dengan Kendaraan yang tepat!</h3></figcaption>
             </figure>
       </div>

@@ -8,6 +8,7 @@ class Profile extends Component
     return(
         (
 <div>
+  <br/>
   <div className="container">
     <h2 style={{textAlign: 'center'}}>Welcome Riders! Costume your Profile Here!</h2><br /><hr />
     <div className="row bg-default">
@@ -21,7 +22,7 @@ class Profile extends Component
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Penyuka Music dan trip on</li>
             <li className="list-group-item">Tour Bali 2019!</li>
-            <li className="list-group-item"> <a href="invoicehistory.html"> Invoice History</a></li>
+            <li className="list-group-item"> <Link to="/invoicehistory"> Invoice History</Link></li>
           </ul>                                   
         </div>
       </div>
