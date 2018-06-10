@@ -10,9 +10,10 @@ class Addcategory extends Component
 {
     return(
         (
-        <div style={{marginTop:'100px'}}>
+        <div style={{marginLeft:'150px'}}>
         <Sidebar/>
         <Header/>
+        <br/><br/><br/><br/>
             <div className="container-fluid">
                 <div className="row" style={{backgroundColor: 'white'}}>
                     <div className="col-lg-3 ">

@@ -11,7 +11,8 @@ class Addproduct extends Component {
       <div>
       <Sidebar/>
       <Header/>
-      <div className="container" style={{marginTop:"80px"}}>
+      <br/><br/><br/>
+      <div style={{marginLeft:"170px"}}>
       {/* Form Add Product*/}
       <div className="container-fluid">
         <div className="row">
@@ -260,7 +261,7 @@ class Addproduct extends Component {
             </div>
             <div className="card-body text-center">
               <button type="button" data-toggle="modal" data-target="#myModal" className="btn btn-primary">Simpan</button>
-              <a href="editproduct.html" className="btn btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</a>
+              <Link to="/editproduct" className="btn btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</Link>
               <button type="button" data-toggle="modal" ref="#myModal" className="btn btn-danger">Delete</button>
               {/* Modal*/}
               <div id="myModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" className="modal fade text-left">

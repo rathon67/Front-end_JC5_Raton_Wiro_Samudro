@@ -13,7 +13,8 @@ class Allcategories extends Component
         <div>
             <Sidebar/>
             <Header/>
-            <div className="container" style={{marginTop:"50px"}}>
+            <br/><br/><br/>
+            <div style={{marginLeft:"160px"}}>
             
             {/* Counts Section */}
             <section className="dashboard-counts section-padding">
@@ -102,7 +103,7 @@ class Allcategories extends Component
                                 <th scope="row">1</th>
                                 <td>Scooter</td>
                                 <td>GudangLama</td>
-                                <td><a href="editcategory.html" className="btn-xs btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</a>
+                                <td><Link to="/editcategory" className="btn-xs btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</Link>
                                     <button type="button" data-toggle="modal" ref="#myModal" className="btn-xs btn-danger">Delete</button>
                                 </td>
                                 </tr>
@@ -110,14 +111,14 @@ class Allcategories extends Component
                                 <th scope="row">2</th>
                                 <td>Motorcycle</td>
                                 <td>Thornton</td>
-                                <td><a href="editcategory.html" className="btn-xs btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</a>
+                                <td><Link to="/editcategory" className="btn-xs btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</Link>
                                     <button type="button" data-toggle="modal" ref="#myModal" className="btn-xs btn-danger">Delete</button></td>
                                 </tr>
                                 <tr>
                                 <th scope="row">3</th>
                                 <td>Costum</td>
                                 <td>Elders</td>
-                                <td><a href="editcategory.html" className="btn-xs btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</a>
+                                <td><Link to="/editcategory" className="btn-xs btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</Link>
                                     <button type="button" data-toggle="modal" ref="#myModal" className="btn-xs btn-danger">Delete</button></td>
                                 </tr>
                             </tbody>

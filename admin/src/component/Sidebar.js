@@ -39,7 +39,7 @@ class Sidebar extends Component {
                     </li>
                     <li><a href="#exampledropdownDropdownbill" aria-expanded="false" data-toggle="collapse"> <i className="icon-bill" />Billing</a>
                     <ul id="exampledropdownDropdownbill" className="collapse list-unstyled ">
-                        <li><Link to="allnvoice.html">All Invoice</Link></li>
+                        <li><Link to="/allInvoice">All Invoice</Link></li>
                     </ul>
                     </li>
                     <li><Link to="/login"> <i className="icon-interface-windows" />Login page</Link></li>

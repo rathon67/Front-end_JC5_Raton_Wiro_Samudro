@@ -10,11 +10,12 @@ class Konten extends Component
 {
     return(
         (
-            <div>
+            <div >
                 
                 <Sidebar/>
                 <Header/>
-            <div style={{marginTop:'50px',marginLeft:'200px'}}>
+                <br/><br/><br/>
+            <div style={{marginLeft:'200px'}}>
             {/* Counts Section */}
             <section className="dashboard-counts section-padding" >
               <div className="container-fluid" >

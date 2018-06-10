@@ -13,7 +13,8 @@ class Allinvoice extends Component
             <div>
               <Sidebar/>
               <Header/>
-              <div className="container" style={{marginTop:"50px"}}>
+              <br/><br/><br/>
+              <div style={{marginLeft:"170px"}}>
             {/* Counts Section */}
             <section className="dashboard-counts section-padding">
               <div className="container-fluid">

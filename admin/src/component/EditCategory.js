@@ -13,9 +13,10 @@ class Editcategory extends Component
             <div>
                 <Sidebar/>
                 <Header/>
+                <br/><br/><br/>
                 {/* Counts Section */}
                 <section className="dashboard-counts section-padding">
-                    <div className="container-fluid">
+                    <div className="container">
                     <div className="row">
                         {/* Count item widget*/}
                         <div className="col-xl-2 col-md-4 col-6">

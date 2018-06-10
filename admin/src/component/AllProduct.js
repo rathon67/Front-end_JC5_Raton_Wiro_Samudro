@@ -13,7 +13,8 @@ class Allproduct extends Component
             <div>
                 <Sidebar/>
                 <Header/>
-                <div className="container" style={{marginTop:"50px"}}>
+                <br/><br/><br/>
+                <div style={{marginLeft:'170px'}}>
                 
                 {/* Counts Section */}
                 <section className="dashboard-counts section-padding">
@@ -76,7 +77,7 @@ class Allproduct extends Component
                     </div>
                     </div>                    
                 </section>
-                </div>
+                
                 {/* Header Section*/}
                 {/* Table Product */}
                 <div className="container-fluid">
@@ -113,7 +114,7 @@ class Allproduct extends Component
                                     <td>Rp 23.000.000</td>
                                     <td>26 Agustus 2018</td>
                                     <td>Tersedia/Booking/Terjual</td>
-                                    <td><a href="editproduct.html" className="btn-xs btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</a>
+                                    <td><Link to="/editproduct" className="btn-xs btn-warning" tabIndex={0} role="button" aria-disabled="true">Edit</Link>
                                         <button type="button" data-toggle="modal" ref="#myModal" className="btn-xs btn-info">View</button>
                                         <button type="button" data-toggle="modal" ref="#myModal" className="btn-xs btn-danger">Delete</button>
                                     </td>                                  
@@ -128,7 +129,7 @@ class Allproduct extends Component
                                     <td>Rp 43.000.000</td>
                                     <td>20 Juni 2018</td>
                                     <td>Tersedia/Booking/Terjual</td>
-                                    <td><a href="editproduct.html" className="btn-xs btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</a>
+                                    <td><Link to="/editproduct" className="btn-xs btn-warning" tabIndex={0} role="button" aria-disabled="true">Edit</Link>
                                         <button type="button" data-toggle="modal" ref="#myModal" className="btn-xs btn-info">View</button>
                                         <button type="button" data-toggle="modal" ref="#myModal" className="btn-xs btn-danger">Delete</button>
                                     </td>
@@ -141,7 +142,7 @@ class Allproduct extends Component
                                     <td>Rp 18.000.000</td>
                                     <td>26 Juli 2018</td>
                                     <td>Tersedia/Booking/Terjual</td>
-                                    <td><a href="editproduct.html" className="btn-xs btn-warning" tabIndex={-1} role="button" aria-disabled="true">Edit</a>
+                                    <td><Link to="/editproduct" className="btn-xs btn-warning" tabIndex={" "} role="button" aria-disabled="true">Edit</Link>
                                         <button type="button" data-toggle="modal" ref="#myModal" className="btn-xs btn-info">View</button>
                                         <button type="button" data-toggle="modal" ref="#myModal" className="btn-xs btn-danger">Delete</button>
                                     </td>
@@ -154,6 +155,7 @@ class Allproduct extends Component
                         </form>            
                     </div>
                     </div>
+                </div>
                 </div>
                 
                 <Footer/>
