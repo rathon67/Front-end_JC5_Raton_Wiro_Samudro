@@ -11,7 +11,7 @@ class Konten extends Component {
          <div id="carousel2_indicator" className="carousel slide carousel-fade" data-ride="carousel">
             <div className="carousel-inner">
               <div className="carousel-item active">
-                <img className="d-block w-100" src="Image/Triumph-CS.jpg" alt="First slide" />
+                <img className="d-block w-100" src="Image/Royalenfieldcarousel.jpeg" alt="First slide" />
                 <article className="carousel-caption d-none d-md-block">
                 <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Nikmati berkendara sesuai Gayamu</h1>
                 <h3 style={{color: 'Black'}}>THE ALL NEW BONNEVILLE SPEEDMASTER brings a new dimension to the Bonneville line-up. With much more classic British custom laid-back attitude, forward footpegs, swept-back beach bars and comfortable pillion capability, the new Speedmaster delivers a distinctive cruiser riding style. High specification rider-focused-technology combines with elegant engineering to provide a superior level of handling, comfort and control.</h3>
@@ -126,11 +126,11 @@ class Konten extends Component {
     {/* Image Cap */}
     <div className="card">
       <div className="card-body" style={{backgroundColor:'black'}}>
-        <h2 className="card-title " style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold', marginTop: '15px'}}>New But classNamesic, Felt the touch</h2>
+        <h2 className="card-title " style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold', marginTop: '15px'}}>New But classic, Felt the touch</h2>
         <p className="card-text" style={{color: 'azure'}}>Open now: a priceless collection of motorcycle memorabilia, themed café, on-site store, and fully-guided pre-bookable factory tour.</p>
         <p className="card-text" style={{color: 'azure'}}><small className="text-muted">Last updated 3 weeks ago</small></p>
       </div>
-      <img className="card-img-bottom" src='./Image/Royalenfieldcarousel.jpeg' alt="Card image cap"/>
+      <img className="card-img-bottom" src='./Image/Triumph-CS.jpg' alt="Card image cap"/>
     </div>
 
 <br></br>

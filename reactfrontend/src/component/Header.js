@@ -15,13 +15,13 @@ import { Link } from 'react-router-dom';
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item ">
-            <Link to="/index" className="nav-link " img src="" >Home</Link>
+            <Link to="/index" className="nav-link " img src="" style={{fontFamily: 'fantasy'}}><h5>Home</h5></Link>
             </li>
             <li className="nav-item">
-              <Link to ="listproduct" className="nav-link" >Feature &amp; Model</Link>
+              <Link to ="listproduct" className="nav-link" style={{fontFamily: 'fantasy'}}><h5>Feature &amp; Model</h5></Link>
             </li>
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{fontFamily: 'fantasy'}}>
                 Belanja
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -32,7 +32,7 @@ import { Link } from 'react-router-dom';
               </div>
             </li>
             <li className="nav-item">
-              <a className="nav-link disabled" href="">Newest</a>
+              <a className="nav-link disabled" href=""style={{fontFamily: 'fantasy'}}>Newest</a>
             </li>
           </ul>
           <form className="form-inline my-2 my-lg-0">

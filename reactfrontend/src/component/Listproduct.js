@@ -14,8 +14,8 @@ class Listproduct extends Component
       <div className="col-xs-3">
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
-            <li className="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li className="breadcrumb-item active"><a href="listproduk.html">List Motor</a></li>
+            <li className="breadcrumb-item"><Link to="/index">Home</Link></li>
+            <li className="breadcrumb-item active"><Link to="/listproduct">List Motor</Link></li>
           </ol>
         </nav>
       </div>

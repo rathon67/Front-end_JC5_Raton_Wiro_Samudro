@@ -23,12 +23,12 @@ class Cetailproduct extends Component {
               
             <div className="row">
                 <div className="col-sm-9">
-                  <img src='./Image/RE-classNameic-500-Brown.jpg' className="img-fluid" alt="Responsive image"/>
+                  <img src='./Image/RE-classic-500-Brown.jpg' className="img-fluid" alt="Responsive image"/>
                 </div>
                 <div className="col-sm-3">
                     <p><h2>Lihat Detail Motor yang kamu Pilih!</h2></p>
                     <button type="button" className="btn btn-light btn-lg" href="#featuredetail">Lihat Detail</button><br/><br/>
-                    <button type="button" className="btn btn-light btn-lg" href="#">Hubungin Dealer</button><br/><br/>
+                    <button type="button" className="btn btn-light btn-lg" href="">Hubungin Dealer</button><br/><br/>
                     <button type="button" className="btn btn-light btn-lg" href="cart.html">Booking</button><br/><br/>
                     <p>
                         <a className="btn btn-light btn-lg" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -92,16 +92,16 @@ class Cetailproduct extends Component {
                 {/*  <!--Navbar sticky  --> */ }
                 <ul className="nav justify-content-center  sticky-top" style={{backgroundColor: 'black'}}>
                     <li className="nav-item" >
-                        <a className="nav-link active" style={{color: 'antiquewhite'}} href="#featuredetail">Feature Detail</a>
+                        <a className="nav-link active" style={{color: 'antiquewhite',fontFamily: 'fantasy'}} href="#featuredetail">Feature Detail</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" style={{color: 'antiquewhite'}} href="#partdetail">Part Detail</a>
+                        <a className="nav-link" style={{color: 'antiquewhite',fontFamily: 'fantasy'}} href="#partdetail">Part Detail</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" style={{color: 'antiquewhite'}} href="#desdetail">Detailing</a>
+                        <a className="nav-link" style={{color: 'antiquewhite',fontFamily: 'fantasy'}} href="#desdetail">Detailing</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" style={{color: 'antiquewhite'}} href="#penawaran">Penawaran</a>
+                        <a className="nav-link" style={{color: 'antiquewhite',fontFamily: 'fantasy'}} href="#penawaran">Penawaran</a>
                     </li>
                 </ul><br/> 
 
