@@ -13,6 +13,7 @@ class Allproduct extends Component
             <div>
                 <Sidebar/>
                 <Header/>
+                <div className="container" style={{marginTop:"50px"}}>
                 
                 {/* Counts Section */}
                 <section className="dashboard-counts section-padding">
@@ -73,8 +74,9 @@ class Allproduct extends Component
                         </div>
                         </div>
                     </div>
-                    </div>
+                    </div>                    
                 </section>
+                </div>
                 {/* Header Section*/}
                 {/* Table Product */}
                 <div className="container-fluid">
@@ -153,6 +155,7 @@ class Allproduct extends Component
                     </div>
                     </div>
                 </div>
+                
                 <Footer/>
                 </div>
 

@@ -5,7 +5,7 @@ class Footer extends Component {
     {
     return (
         <div>
-           <footer className="main-footer">
+           <footer className="footer-bottom">
                 <div className="container-fluid">
                     <div className="row">
                     <div className="col-sm-6 text-center">

@@ -71,7 +71,7 @@ import { Link } from 'react-router-dom';
                     </ul>
                   </li>
                   {/* Log out*/}
-                  <li className="nav-item"><a href="login.html" className="nav-link logout"> <span className="d-none d-sm-inline-block">Logout</span><i className="fa fa-sign-out" /></a></li>
+                  <li className="nav-item"><Link to="/login" className="nav-link logout"> <span className="d-none d-sm-inline-block">Logout</span><i className="fa fa-sign-out" /></Link></li>
                 </ul>
               </div>
             </div>

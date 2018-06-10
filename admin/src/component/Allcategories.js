@@ -13,6 +13,7 @@ class Allcategories extends Component
         <div>
             <Sidebar/>
             <Header/>
+            <div className="container" style={{marginTop:"50px"}}>
             
             {/* Counts Section */}
             <section className="dashboard-counts section-padding">
@@ -75,6 +76,7 @@ class Allcategories extends Component
                 </div>
                 </div>
             </section>
+            </div>
             <div className="container-fluid">
                 <div className="row" style={{backgroundColor: 'white'}}>
                 <div className="col-lg-2 " />
@@ -127,7 +129,8 @@ class Allcategories extends Component
                 </div>
                 <div className="col-lg-2" />
                 </div>
-            </div>
+                </div>
+           <br/><br/><br/><br/>
             <Footer/>            
         </div>
         )

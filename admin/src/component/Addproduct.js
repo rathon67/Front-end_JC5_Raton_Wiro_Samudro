@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import Sidebar from './Sidebar';
-import Header from './Sidebar';
+import Header from './Header';
 import Footer from './Footer';
 // import { Link } from 'react-router-dom'
 
 class Addproduct extends Component {
   render() {
     return (
-      <div style={{marginTop:'50px',marginLeft:'200px'}}>
+      <div>
       <Sidebar/>
       <Header/>
+      <div className="container" style={{marginTop:"80px"}}>
       {/* Form Add Product*/}
       <div className="container-fluid">
         <div className="row">
@@ -317,6 +319,7 @@ class Addproduct extends Component {
           </div>
         </div>
       </section>
+      </div>
       <Footer/>
     </div>
     

@@ -14,7 +14,7 @@ class Konten extends Component
                 
                 <Sidebar/>
                 <Header/>
-            <div className="container" style={{marginTop:'50px'}}>
+            <div style={{marginTop:'50px',marginLeft:'200px'}}>
             {/* Counts Section */}
             <section className="dashboard-counts section-padding" >
               <div className="container-fluid" >
