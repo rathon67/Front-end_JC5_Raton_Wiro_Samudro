@@ -13,8 +13,8 @@ import { Link } from 'react-router-dom';
           <nav className="navbar">
             <div className="container-fluid">
               <div className="navbar-holder d-flex align-items-center justify-content-between">
-                <div className="navbar-header"><a id="toggle-btn" href="#" className="menu-btn"><i className="icon-bars"> </i></a><a href="index.html" className="navbar-brand">
-                    <div className="brand-text d-none d-md-inline-block"><span>RustymoTo</span><strong className="text-primary">Dashboard</strong></div></a></div>
+                <div className="navbar-header"><a id="toggle-btn" href="" className="menu-btn"><i className="icon-bars"> </i></a><Link to="/index" className="navbar-brand">
+                    <div className="brand-text d-none d-md-inline-block"><span>RustymoTo</span><strong className="text-primary">Dashboard</strong></div></Link></div>
                 <ul className="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                   {/* Notifications dropdown*/}
                   <li className="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="nav-link"><i className="fa fa-bell" /><span className="badge badge-warning">12</span></a>
