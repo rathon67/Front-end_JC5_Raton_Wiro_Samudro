@@ -1,8 +1,17 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+
 
 class Login extends Component
 {
+  // compornentDidmount(){
+  //   axios.get('http://localhost/phpmyadmin/#PMAURL-13:db_structure.php?db=db_rustymoto&table=&server=1&target=&token=b236941ac3877b6914ce8981a950d0d1')
+  //   .then((ambilData) =>{
+  //     console.log(ambilData)
+
+  //   })
+  // };
     render()
 {
     return(

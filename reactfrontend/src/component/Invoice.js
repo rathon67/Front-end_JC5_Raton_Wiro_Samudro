@@ -104,7 +104,7 @@ class Invoice extends Component
                             </div>
                         </div>
                         </div>
-                        <a href="profile.html" className="btn-lg btn-warning" tabIndex={-1} role="button" aria-disabled="true">Kembali</a>
+                        <Link to="/profile" className="btn-lg btn-warning" tabIndex={-1} role="button" aria-disabled="true">Kembali</Link>
                     </div>
                     <br /><br /><br /><br /><br /><br />
             </div>

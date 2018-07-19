@@ -21,8 +21,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header/>
-        <Route exact path="/index" component={Konten}/>
+        <Header/> 
+        <Route exact path="/" component={Konten}/>
+ 
         <Route path="/cetail" component={CetailProduct}/>
         <Route path ="/cart" component={Cart}/>
         <Route path ="/editprofile" component={Editprofile}/> 
@@ -31,7 +32,8 @@ class App extends Component {
         <Route path ="/invoicehistory" component={Invoicehistory}/> 
         <Route path ="/listproduct" component={Listproduct}/> 
         <Route path ="/login" component={Login}/> 
-        <Route path ="/register" component={Register}/> 
+        <Route path ="/register" component={Register}/>
+      
         <Route path ="/checkout" component={Checkout}/> 
      
 
@@ -42,3 +44,4 @@ class App extends Component {
 }
 
 export default App;
+
