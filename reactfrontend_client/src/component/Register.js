@@ -1,0 +1,138 @@
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import axios from'axios';
+
+class Register extends Component
+{
+  tambahData = (e) => {
+    axios.post(`http://localhost:8000/register`,{
+      input1:e.namadepan.value,
+      input2:e.namabel.value,
+      input3:e.email.value,
+      input4:e.address.value,
+      input5:e.state.value,
+      input6:e.pos.value,
+      input7:e.password.value,
+      input8:e.phone.value,
+      input9:e.ttl.value,
+      
+    })
+  }
+    render()
+{
+    return(
+        (
+            <div>
+  <br />
+  <br />
+  <br />
+  <br />
+  {/* FORM REGISTER */}
+  <div className="container-fluid">
+    <div className="row">
+      <div className="col-sm-3">
+      </div>
+      <div className="col-sm-6">
+        <form>
+          <div className="form-row">
+            <div className="col-md-4 mb-3">
+              <label htmlFor="validationServer01">First name</label>
+              <input type="text" className="form-control is-valid" ref='namadepan' id="validationServer01" placeholder="First name" defaultValue="Udin" required />
+              <div className="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+            <div className="col-md-4 mb-3">
+              <label htmlFor="validationServer02">Last name</label>
+              <input type="text" className="form-control is-valid" ref='namabel' id="validationServer02" placeholder="Last name" defaultValue="Mantap" required />
+              <div className="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+            <div className="col-md-4 mb-3">
+              <label htmlFor="validationServerUsername">Email</label>
+              <div className="input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text" id="inputGroupPrepend3">@</span>
+                </div>
+                <input type="text" ref='email' className="form-control is-invalid" id="validationServerUsername" placeholder="Username" aria-describedby="inputGroupPrepend3" required />
+                <div className="invalid-feedback">
+                  Please choose a username.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="col-md-6 mb-3">
+              <label htmlFor="validationServer03">Address</label>
+              <input type="text" ref='address' className="form-control is-invalid" id="validationServer03" placeholder="City" required />
+              <div className="invalid-feedback">
+                Please provide a valid address.
+              </div>
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="validationServer04">State</label>
+              <input type="text" ref='state' className="form-control is-invalid" id="validationServer04" placeholder="State" required />
+              <div className="invalid-feedback">
+                Please provide a valid state.
+              </div>
+            </div>
+            <div className="col-md-3 mb-3">
+              <label htmlFor="validationServer05">Zip</label>
+              <input type="number" ref='pos' className="form-control is-invalid" id="validationServer05" placeholder="Zip" required />
+              <div className="invalid-feedback">
+                Please provide a valid zip.
+              </div>
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="col-md-4 mb-3">
+              <label htmlFor="validationServer03">Password</label>
+              <input type="password" ref='password' className="form-control is-invalid" id="validationServer06" placeholder="Password" required />
+              <div className="invalid-feedback">
+                Please Enter new Password.
+              </div>
+            </div>
+            <div className="col-md-4 mb-3">
+              <label htmlFor="validationServer04">Nomer Telepon</label>
+              <input type="text" ref='phone' className="form-control is-invalid" id="validationServer07" placeholder="Number" required />
+              <div className="invalid-feedback">
+                Please provide a valid Phone Number.
+              </div>
+            </div>
+            <div className="col-md-4 mb-3">
+              <label htmlFor="validationServer05">Tanggal lahir</label>
+              <input type="text" ref='ttl' className="form-control is-invalid" id="validationServer08" placeholder="Birthday" required />
+              <div className="invalid-feedback">
+                Please provide a valid birth day with yyyy-mm-dd
+              </div>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="form-check">
+              <input className="form-check-input is-invalid" type="checkbox" defaultValue id="invalidCheck3" required />
+              <label className="form-check-label" htmlFor="invalidCheck3">
+                Agree to terms and conditions
+              </label>
+              <div className="invalid-feedback">
+                You must agree before submitting.
+              </div>
+            </div>
+          </div>
+          <button className="btn btn-outline-success" onClick={() =>this.tambahData(this.refs)} type="submit">Submit form</button>
+          <p className="change_link">  
+            Already a member ?
+            <Link to="/login" className=" btn btn-ligth"> Go and log in </Link>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+</div>
+
+        )
+    );
+}
+}
+export default Register;
