@@ -15,7 +15,8 @@ const db = mysql.createConnection({
     port: '3306',
     user: 'root',
     password: '',
-    database:'db_rustymoto'
+    database:'db_rustymoto',
+    multipleStatements: true
 });
 db.connect();
 
@@ -63,6 +64,21 @@ app.get('/listproduct', (req, res) =>{
         }
     });
 })
+
+ //Di form tambah produk untuk memanggil Category dan Jenis
+
+ app.get('/getdata', (req,res)=> {
+     var sql =`SELECT * FROM tbl_jenis`;
+
+     db.query(sql, (kaloError, hasil)=>{
+         if (kaloError){
+             throw kaloError;
+         } else {
+             res.send(hasil);
+            //  console.log(hasil)
+         }
+     })
+ })
 //menambah data product
 app.post('/tambahData', (req, res) => {
     var fileName= req.files.file.name;
@@ -71,6 +87,7 @@ app.post('/tambahData', (req, res) => {
     var hargaProduk = req.body.harga;
     var namaPembuat = req.body.pembuat;
     var status = req.body.status;
+    var jenisMotor = req.body.jenismotor;
     var status1 = req.body.inputTujuh;
     var status2 = req.body.inputDelapan;
     var formatedMysqlString = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
@@ -86,7 +103,7 @@ app.post('/tambahData', (req, res) => {
             }
         })
     }
-    var sql = `INSERT INTO product VALUES("${''}", "${fileName}", "${namaProduk}","${descProduk}","${hargaProduk}","${namaPembuat}","${status}","${formatedMysqlString}")`;
+    var sql = `INSERT INTO product VALUES("${''}","${jenisMotor}", "${fileName}", "${namaProduk}","${descProduk}","${hargaProduk}","${namaPembuat}","${status}","${formatedMysqlString}")`;
      db.query(sql, (kaloError, hasilnya) => {
          if(kaloError){
              throw kaloError;
@@ -96,6 +113,8 @@ app.post('/tambahData', (req, res) => {
         //  }
      });
  });
+
+ 
 
  //untuk mengambil data perbaris clear except tabel desc(text area)
  //memanggil data product yg di pilih melalui kondisi id pada db 

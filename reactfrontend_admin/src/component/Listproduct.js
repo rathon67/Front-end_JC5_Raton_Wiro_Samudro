@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link, Route} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
@@ -44,21 +45,19 @@ class Listproduct extends Component
             .then((ambilData) =>{
                 // console.log(ambilData.data);
                 this.setState({dataProduk:ambilData.data});
-            })
-        
-
+            })       
 
         }
     render() 
       //map untuk menampung hasil
     {
-                // Logic dimulai disini
+            // Logic dimulai disini
             //   if(this.props.login != 'oke'){
             //     {this.state.redirect= true}
             //     this.props.dispatch({type:'Login', kirim: "Login Gagal, Periksa kembali usernam atau password anda" })
             // }
 
-            // if(this.state.redirect){
+            //   if(this.state.redirect){
             //     return <Redirect to="/"/>
             // }
 
@@ -85,7 +84,7 @@ class Listproduct extends Component
                 <td>{status}</td>
                 <td>{post}</td>
                     <td>
-                        <Link to ={{pathname:"/editdata/", state:{dataID: dataID}}}  className="btn btn-warning btn-xs"><i className="fa fa-edit"></i>Edit</Link>
+                        <Link to ={{pathname:"/editdata/", state:{idMotor: dataID}}}  className="btn btn-warning btn-xs"><i className="fa fa-edit"></i>Edit</Link>
                         <button className=" btn btn-danger btn-xs" onClick={() => this.hapus(dataID)}><i className="fa fa-remove"></i>Hapus</button>
                         
                     </td>

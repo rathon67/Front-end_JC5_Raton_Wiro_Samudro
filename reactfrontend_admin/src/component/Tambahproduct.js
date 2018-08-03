@@ -13,8 +13,21 @@ class Tambahproduct extends Component {
         harga:'',
         pembuat:'',
         status:'',
+        datajenis: [],
+        jenismotor:'',
+
 
         hasil:true
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:8000/getdata')
+        .then((ambilData) => {
+            this.setState({
+                datajenis:ambilData.data
+                // status:status.data
+            })
+        })
     }
     // tambahData = (e) => {
     //     axios.post(`http://localhost:8000/tambahData`,{
@@ -46,7 +59,8 @@ class Tambahproduct extends Component {
             desc:e.descproduk.value,
             harga:e.hargaproduk.value,
             pembuat:e.namapembuat.value,
-            status:e.statusproduk.value
+            status:e.statusproduk.value,
+            jenismotor:this.jenismotor.value
         })
         
     }
@@ -59,9 +73,17 @@ class Tambahproduct extends Component {
         formData.append('harga',this.state.harga);
         formData.append('pembuat',this.state.pembuat);
         formData.append('status',this.state.status);
+        formData.append('jenismotor',this.state.jenismotor);
         axios.post('http://localhost:8000/tambahData/', formData);
     }
     render(){
+        const hasil = this.state.datajenis.map((jenisMotor, index)=>{
+            var urutan = index +1;
+            var jenismotorID=jenisMotor.id_jenis;
+            var jenismotorName=jenisMotor.nama_jenis;
+            return <option key={index} value={jenismotorID}>{jenismotorName}</option>
+
+        })
         return (
                     <div>
                         <div className="wrapper">
@@ -128,10 +150,18 @@ class Tambahproduct extends Component {
 
                                                 {/* Konten */}
                                                 <div className="container">
-                                                    <form className="form-horizontal" onSubmit={this.updateData} encType="multipart/form-data">
+                                                    <form className="form-horizontal" onSubmit={this.tambahData} encType="multipart/form-data">
                                                         <fieldset> 
                                                             <input type="hidden" className="form-control" ref="idproduk" />
-                                                            
+                                                            <div className="form-group">
+                                                                <label className="col-lg-2 control-label">Jenis Motor</label>
+                                                                <div className="col-lg-8">
+                                                                    <select ref={select=>this.jenismotor=select} name="jenismotor" className="form-control" >
+                                                                        {hasil}
+                                                                    </select>
+                                                                    
+                                                                </div>
+                                                            </div>   
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">GambarProduct</label>
                                                                 <div className="col-lg-8">
@@ -165,7 +195,7 @@ class Tambahproduct extends Component {
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">Status</label>
                                                                 <div className="col-lg-8">
-                                                                    <select ref="statusproduk" className="form-control" id="exampleSelect2">
+                                                                    <select ref="statusproduk" className="form-control" >
                                                                     <option defaultValue="Tersedia" ref="tersedia">Tersedia</option>
                                                                     <option defaultValue="Booking" ref="booking">Booking</option>
                                                                     <option defaultValue="Terjual" ref="terjual">Terjual</option>
@@ -177,7 +207,7 @@ class Tambahproduct extends Component {
                                                             <div className="form-group">
                                                                 <div className="col-lg-10 col-lg-offset-2">
                                                                     <button type="reset" className="btn btn-warning"><i className="fa fa-remove"></i> Cancel</button>&nbsp;
-                                                                    <button type="submit" onClick={() => this.tambahData(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
+                                                                    <button type="submit" onClick={() => this.value(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
                                                                     <Link to="/tambahproductcarousel" className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Carousel</Link>
                                                                     {/* <button type="button" onClick={() => this.updateData(this.refs)} className="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
                                                                 </div>

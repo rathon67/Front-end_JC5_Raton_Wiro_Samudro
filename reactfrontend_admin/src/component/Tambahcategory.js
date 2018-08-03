@@ -94,7 +94,7 @@ class Tambahcategory extends Component {
                                                                 <div className="col-lg-10 col-lg-offset-2">
                                                                     <button type="reset" className="btn btn-warning"><i className="fa fa-remove"></i> Cancel</button>&nbsp;
                                                                     <button type="submit" onClick={() => this.tambahData(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>
-                                                                    {/* <button type="button" onClick={() => this.updateData(this.refs)} className="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
+                                                                    {/* <button type="button" onClick={() => this.updateData(this.refs)} clas sName="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
                                                                 </div>
                                                             </div>
                                                         </fieldset>   

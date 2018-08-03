@@ -133,7 +133,7 @@ class Tambahproductcarousel extends Component {
 
                                                 {/* Konten */}
                                                 <div className="container">
-                                                    <form className="form-horizontal" onSubmit={this.updateData} encType="multipart/form-data">
+                                                    <form className="form-horizontal" onSubmit={this.tambahData} encType="multipart/form-data">
                                                         <fieldset> 
                                                             <input type="hidden" className="form-control" ref="idproduk" />
                                                             
@@ -144,9 +144,9 @@ class Tambahproductcarousel extends Component {
                                                                 </div>
                                                             </div>
                                                             <div className="form-group">
-                                                                    <label htmlFor="description" className="col-sm-2 control-label">Edit Deskripsi Carousel</label>
+                                                                    <label htmlFor="description" className="col-sm-2 control-label">Tambah Deskripsi Carousel</label>
                                                                     <div className="col-sm-8">
-                                                                        <textarea ref="desccarou" style={{height:250}} placeholder="Edit Deskripsi" className="form-control" />
+                                                                        <textarea ref="desccarou" style={{height:250}} placeholder="Tambah Deskripsi" className="form-control" />
                                                                     </div>
                                                             </div>
                                                             <div className="form-group">
@@ -171,7 +171,7 @@ class Tambahproductcarousel extends Component {
                                                             <div className="form-group">
                                                                 <div className="col-lg-10 col-lg-offset-2">
                                                                     <button type="reset" className="btn btn-warning"><i className="fa fa-remove"></i> Cancel</button>&nbsp;
-                                                                    <button type="submit" onClick={() => this.tambahData(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
+                                                                    <button type="submit" onClick={() => this.value(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
                                                                     <Link to="/tambahdetaillight" className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Detail Light</Link>
                                                                     {/* <button type="button" onClick={() => this.updateData(this.refs)} className="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
                                                                 </div>
