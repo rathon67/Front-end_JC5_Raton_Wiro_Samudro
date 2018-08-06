@@ -5,8 +5,10 @@ import Footer from './Footer';
 import axios from 'axios';
 
 class Editproduct extends Component {
-    state ={
-        id:'',
+    state = {
+        
+        dataIDMotor:'',
+        jenis:'',
         gambarproduk:'',
         namaproduk:'',
         descproduk:'',
@@ -18,33 +20,33 @@ class Editproduct extends Component {
     }
     //fungsi didmount adalah untuk memunculkan data yang mengandung id yang di tuju di database
     componentDidMount(){
-        var id =this.props.location.state.idMotor;
-        axios.get('http://localhost:8000/panggilid/'+id)
-        //.then adalah untuk bersiap menerima respon dari server backend di atas
-        .then((hasilDariDB)=>{
-            console.log(hasilDariDB);
+        var id =this.props.location.state.dataID;
+        axios.get('http://localhost:8000/editdata/'+id)
+        //.then adalah untuk bersiap menerima respin dari server backend di atas
+        .then(
+            (hasilAmbil)=>{
+            console.log(hasilAmbil);
             this.setState({
-                id :hasilDariDB.data[0].id_motor,
-                jenis:hasilDariDB.data[0].id_jenis,
-                gambarproduk :hasilDariDB.data[0].gambar,
-                namaproduk :hasilDariDB.data[0].nama_motor,
-                descproduk:hasilDariDB.data[0].desc_product,
-                hargaproduk :hasilDariDB.data[0].harga,
-                namapembuat :hasilDariDB.data[0].pembuat,
-                status :hasilDariDB.data[0].status,
+                dataIDMotor :hasilAmbil.data[0].id_motor,
+                jenis :hasilAmbil.data[0].id_jenis,
+                gambarproduk :hasilAmbil.data[0].gambar,
+                namaproduk :hasilAmbil.data[0].nama_motor,
+                descproduk:hasilAmbil.data[0].desc_product,
+                hargaproduk :hasilAmbil.data[0].harga,
+                namapembuat :hasilAmbil.data[0].pembuat,
+                status :hasilAmbil.data[0].status,
             })
         });
-    }
-
-    componentDidMount(){
-    axios.get('http://localhost:8000/getdata')
+        axios.get('http://localhost:8000/getdata')
         .then((ambilData) => {
             this.setState({
                 datajenis:ambilData.data
                 // status:status.data
             })
-        })
+        });
     }
+
+    
     
     //di bagian input file(jika terjadi perubahan ma akan dijalankan fungsi "onchange")
     onchange =(e)=>{
@@ -53,13 +55,17 @@ class Editproduct extends Component {
             this.setState({
                 gambarproduk:e.target.files[0],
             });
+            // case'jenismotor':
+            // this.setState({
+            //     jenis:e.target.textarea
+            // })
             break
         }
     }
     value = (e) =>{
     this.setState({
         id: e.idproduk.value,
-        // gambarproduk:e.gambarproduk,
+        
         namaproduk :e.namaproduk.value,
         descproduk:e.descproduk.value,
         hargaproduk: e.hargaproduk.value,
@@ -74,6 +80,7 @@ class Editproduct extends Component {
         e.preventDefault();
         let formData = new FormData();
         formData.append('id', this.state.id);
+        // formData.append('jenis', this.state.jenismotor);
         formData.append('file', this.state.gambarproduk);       
         formData.append('namaproduk', this.state.namaproduk);
         formData.append('descproduk', this.state.descproduk);
@@ -89,7 +96,7 @@ class Editproduct extends Component {
             var jenismotorID=jenisMotor.id_jenis;
             var jenismotorName=jenisMotor.nama_jenis;
             return <option key={index} value={jenismotorID}>{jenismotorName}</option>
-        })
+        });
         return (
                     <div>
                         <div className="wrapper">
@@ -159,27 +166,27 @@ class Editproduct extends Component {
                                                     <form className="form-horizontal" onSubmit={this.updateData} encType="multipart/form-data">
                                                         <fieldset>
                                                              {/*untuk mengambil ID Motor  */}
-                                                            <input type="text"ref="idproduk" value={this.state.id}/>
+                                                             <input type="hidden" className="form-control" ref="idproduk" Value={this.state.dataIDMotor}/>
+                                                        
                                                             {/* untuk mengambil ID motor */}
-                                                            <div className="form-group">
+                                                            {/* <div className="form-group">
                                                                 <label className="col-lg-2 control-label">Jenis Motor</label>
                                                                 <div className="col-lg-8">
-                                                                    <select ref={select=>this.jenismotor=select} name="jenismotor" className="form-control" >
+                                                                    <select  ref={select=>this.jenismotor=select} name="jenismotor" onChange={this.onchange} Value={this.state.jenis} className="form-control" >
                                                                         {hasil}
-                                                                    </select>
-                                                                    
+                                                                    </select>                                                                    
                                                                 </div>
-                                                            </div> 
+                                                            </div>  */}
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">GambarProduct</label>
                                                                 <div className="col-lg-8">
-                                                                    <input name="gambarproduk" onChange={this.onchange} type="file" className="form-control" id="inputGambar" defaultValue={this.state.gambarproduk} placeholder="input nama product"/>
+                                                                    <input name="gambarproduk" onChange={this.onchange} type="file"  className="form-control" id="inputGambar" Value={this.state.gambarproduk} placeholder="input nama product"/>
                                                                 </div>
                                                             </div>
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">Nama Product</label>
                                                                 <div className="col-lg-8">
-                                                                    <input ref="namaproduk" type="text" className="form-control" id="inputNama" defaultValue={this.state.namaproduk} placeholder="Input Nama Product" />
+                                                                    <input ref="namaproduk" type="text" className="form-control" id="inputNama" Value={this.state.namaproduk} placeholder="Input Nama Product" />
                                                                 </div>
                                                                 </div>
                                                                 <div className="form-group">
@@ -191,19 +198,19 @@ class Editproduct extends Component {
                                                             <div className="form-group">
                                                                 <label  className="col-lg-2 control-label">Harga</label>
                                                                 <div className="col-lg-8">
-                                                                    <input ref="hargaproduk" type="text" className="form-control" id="inputharga" defaultValue={this.state.hargaproduk} placeholder="Input Harga" />
+                                                                    <input ref="hargaproduk" type="text" className="form-control" id="inputharga" Value={this.state.hargaproduk} placeholder="Input Harga" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">Pembuat</label>
                                                                 <div className="col-lg-8">
-                                                                    <input ref="namapembuat" type="text" className="form-control" id="inputNama" defaultValue={this.state.namapembuat} placeholder="Input Nama Pembuat" />
+                                                                    <input ref="namapembuat" type="text" className="form-control" id="inputNama" Value={this.state.namapembuat} placeholder="Input Nama Pembuat" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">Status</label>
                                                                 <div className="col-lg-8">
-                                                                    <select ref="statusproduk" className="form-control" id="exampleSelect2" defaultValue={this.state.statusproduk}>
+                                                                    <select ref="statusproduk" className="form-control" id="exampleSelect2" Value={this.state.statusproduk}>
                                                                     <option defaultValue="Tersedia" ref="tersedia">Tersedia</option>
                                                                     <option defaultValue="Booking" ref="booking">Booking</option>
                                                                     <option defaultValue="Terjual" ref="terjual">Terjual</option>

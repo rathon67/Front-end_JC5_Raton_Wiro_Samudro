@@ -52,4 +52,4 @@ app.get('/productall', function (req, res) {
 
 
 //port localhost paling bawah
-app.listen(3002);
+app.listen(8002);

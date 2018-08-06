@@ -84,8 +84,9 @@ class Listproduct extends Component
                 <td>{status}</td>
                 <td>{post}</td>
                     <td>
-                        <Link to ={{pathname:"/editdata/", state:{idMotor: dataID}}}  className="btn btn-warning btn-xs"><i className="fa fa-edit"></i>Edit</Link>
-                        <button className=" btn btn-danger btn-xs" onClick={() => this.hapus(dataID)}><i className="fa fa-remove"></i>Hapus</button>
+                    <Link onClick={()=>{this.Tombolpicture(dataID);}} className="btn btn-warning fa fa-pencil" to="/editdata/"></Link> &nbsp;
+                        <Link to ={{pathname:'/editdata', state:{dataID: dataID}}} className="btn btn-warning btn-xs"><i className="fa fa-edit"></i>Edit</Link>
+                        <button className="btn btn-danger btn-xs" onClick={() => this.hapus(dataID)}><i className="fa fa-remove"></i>Hapus</button>
                         
                     </td>
                 </tr>
@@ -186,4 +187,4 @@ class Listproduct extends Component
                 );
     }
 }
-export default Listproduct;
+export default connect(mapStateToProps)(Listproduct);

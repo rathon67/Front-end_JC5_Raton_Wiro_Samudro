@@ -10,7 +10,7 @@ class Konten extends Component {
 
   componentDidMount() {
     var self =this;
-    axios.get('http://localhost:3002/productall')
+    axios.get('http://localhost:8002/productall')
     .then((ambilData)=>{
       self.setState({product:ambilData.data,})
       console.log(this.state.product)
@@ -20,7 +20,9 @@ class Konten extends Component {
     {
       // data product untuk di olah
       const data =this.state.product.map((item, index)=>{
+        var urut =index+1;
         var id=item.id_motor;
+        var jenis=item.id_jenis;
         var gambar=item.gambar;
         var namamotor=item.namamotor;
         var descmotor=item.desc_product;
@@ -28,7 +30,29 @@ class Konten extends Component {
         var pembuat= item.pembuat;
         var status =item.status;
         var posted = item.posted;
-      })
+        return (
+        <div key={urut} className="col">
+            <div className="card" style={{width: '18rem'}}>
+                <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambar}`}  style={{width: 'auto', height: '200px'}} alt="Card image cap"/>
+                <div className="card-body" >
+                  <h5 className="card-title bg-light" style={{fontFamily:'serif',fontWeight: 'bold'}} >{namamotor}</h5>
+                  <p className="card-text"> {descmotor}</p>
+                </div>
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item">{status}</li>
+                  <li className="list-group-item">Rp {harga}</li>
+                  <li className="list-group-item">{pembuat}</li>
+                </ul>
+                <div className="card-body">
+                  <Link to="/cetail" className="card-link">Lihat Detail</Link>
+                  <Link to="/cart" className="card-link"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Tambahkan ke Daftar belanja</Link>
+                  
+                </div>
+              </div>
+        </div>
+        )
+      }
+    );
     return (
         <div>
          {/* CAROUSEL UTAMA   */}
@@ -75,7 +99,7 @@ class Konten extends Component {
               <div className="row justify-content-md-center">
                 <div className="col col-lg-2"></div>
                 <div className="col-md-auto">
-                  <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Feature Motorycles or Scooters</h1>
+                  <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Newest Feature Motorycles or Scooters</h1>
                 </div>
                 <div className="col col-lg-2"></div>
               </div>
@@ -87,64 +111,11 @@ class Konten extends Component {
             {/* Ini bagian Card display item (reordering class) */}
   <div className="container">
       <div className="row">
-        <div className="col">
-            <div className="card" style={{width: '18rem'}}>
-                <img className="card-img-top" src='./Image/BSA4.jpg'  style={{width: 'auto', height: '200px'}} alt="Card image cap"/>
-                <div className="card-body" >
-                  <h5 className="card-title bg-light" style={{fontFamily:'serif',fontWeight: 'bold'}} >New But classNamesic, Felt the touch</h5>
-                  <p className="card-text"> Open now: a priceless collection of motorcycle memorabilia, themed café, on-site store, and fully-guided pre-bookable factory tour.</p>
-                </div>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item">BSA 1948 Build Up Restoration</li>
-                  <li className="list-group-item">Rp 57.000.000</li>
-                  <li className="list-group-item">Motorst Garage</li>
-                </ul>
-                <div className="card-body">
-                  <Link to="/cetail" className="card-link">Lihat Detail</Link>
-                  <Link to="/cart" className="card-link"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Tambahkan ke Daftar belanja</Link>
-                  
-                </div>
-              </div>
-        </div>
-        <div className="col order-12">
-            <div className="card" style={{width: '18rem'}}>
-                <img className="card-img-top" src='./Image/lambretta-scooter-125dl-1969-going-underground-250cc-[5]-2269-p.jpg' style={{width: 'auto', height: '200px'}} alt="Card image cap"/>
-                <div className="card-body">
-                  <h5 className="card-title bg-light" style={{fontFamily:'serif',fontWeight: 'bold'}}>Best Offer For you!</h5>
-                  <p className="card-text">New Model with great color and artistic paint</p>
-                </div>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item">Lambretta Li 150 1967</li>
-                  <li className="list-group-item">Rp 44.000.000</li>
-                  <li className="list-group-item"> Motorst Garage</li>
-                </ul>
-                <div className="card-body">
-                  <Link to="/cetail" className="card-link">Lihat Detail</Link>
-                  <Link to="/cart" className="card-link">Tambahkan ke Daftar belanja<i className="fa fa-shopping-cart" aria-hidden="true"></i></Link>
-                </div>
-              </div>
-        </div>
-        <div className="col order-1">
-            <div className="card" style={{width: '18rem'}}>
-                <img className="card-img-top" src='./Image/custom-honda-cbr-cafe-racer-cbr250rr-sport-bike-motorcycle-250-2.jpg' style={{width: 'auto', height: '200px'}} alt="Card image cap"/>
-                <div className="card-body">
-                  <h5 className="card-title bg-light" style={{fontFamily:'serif',fontWeight: 'bold'}}>Cafe racer!</h5>
-                  <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item">Caferacer Honda Rebuild</li>
-                  <li className="list-group-item">Rp. 88.0000.0000</li>
-                  <li className="list-group-item">MH Garage</li>
-                </ul>
-                <div className="card-body">
-                  <Link to="/cetail" className="card-link">Lihat Detail</Link>
-                  <Link to="/cart" className="card-link">Tambahkan ke Daftar belanja<i className="fa fa-shopping-cart" aria-hidden="true"></i></Link>
-                </div>
-              </div>
-        </div>
-    
-        </div>
-    </div>
+      {/* Data product dari Database */}
+        {data}
+      {/*Akhir*/}
+      </div>
+  </div>
     <br></br>
     <br></br>
     {/* Image Cap */}

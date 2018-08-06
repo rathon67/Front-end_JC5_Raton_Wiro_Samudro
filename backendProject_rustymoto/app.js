@@ -118,7 +118,7 @@ app.post('/tambahData', (req, res) => {
 
  //untuk mengambil data perbaris clear except tabel desc(text area)
  //memanggil data product yg di pilih melalui kondisi id pada db 
- app.get('/panggilid/:id', (req, res) => {
+ app.get('/editdata/:id', (req, res) => {
     //  console.log(req.params.id);
     var grabData= `SELECT * FROM product WHERE id_motor = ${req.params.id}`;
     db.query(grabData, (kaloError, hasilnya) => {
@@ -147,6 +147,7 @@ app.post('/tambahData', (req, res) => {
 //untuk update data product 
     app.post('/ubahData', (req, res) => {
     var id = req.body.id;
+    var jenisMotor=req.body.jenismotor;
     var fileName = req.files.file.name;
     var namaProduk = req.body.namaproduk;
     var descProduk =req.body.descproduk;
@@ -167,7 +168,7 @@ app.post('/tambahData', (req, res) => {
             }
         })
     }
-    var queryUpdate = `UPDATE product SET gambar ="${fileName}",nama_motor = "${namaProduk}",desc_product="${descProduk}", 
+    var queryUpdate = `UPDATE product SET  gambar ="${fileName}",nama_motor ="${namaProduk}",desc_product="${descProduk}", 
                         harga = "${hargaProduk}", pembuat = "${namaPembuat}",status="${statuS}",posted="${formatedMysqlString}" WHERE id_motor="${id}"`;
     db.query(queryUpdate, (err, result) => {
         if(err){
