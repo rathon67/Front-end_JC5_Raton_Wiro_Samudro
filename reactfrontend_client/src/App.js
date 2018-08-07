@@ -14,6 +14,7 @@ import Login from './component/Login';
 import Register from './component/Register';
 import Profile from './component/Profile';
 import Checkout from './component/Checkout';
+import Logout from './component/Logout';
 
 
 
@@ -23,7 +24,7 @@ class App extends Component {
       <div>
         <Header/> 
         <Route exact path="/" component={Login}/>
- 
+        <Route path="/logout" component={Logout}/>
         <Route path="/cetail" component={CetailProduct}/>
         <Route path ="/cart" component={Cart}/>
         <Route path ="/editprofile" component={Editprofile}/> 

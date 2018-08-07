@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies()
 
 class Konten extends Component {
   state={
-    product :[]
+    product :[],
+   
   }
 
   componentDidMount() {
@@ -18,6 +21,8 @@ class Konten extends Component {
   }
     render() 
     {
+       
+     
       // data product untuk di olah
       const data =this.state.product.map((item, index)=>{
         var urut =index+1;
@@ -44,9 +49,9 @@ class Konten extends Component {
                   <li className="list-group-item">{pembuat}</li>
                 </ul>
                 <div className="card-body">
-                  <Link to="/cetail" className="card-link">Lihat Detail</Link>
-                  <Link to="/cart" className="card-link"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Tambahkan ke Daftar belanja</Link>
-                  
+                
+                  <Link to="/cetail" className="card-link">Lihat Detail</Link>&nbsp;
+                  <Link to={{pathname:'/cart', state:{dataID:id}}} className="card-link"> <i className="fa fa-shopping-cart">Tambah ke Daftar Belanja</i></Link>
                 </div>
               </div>
         </div>

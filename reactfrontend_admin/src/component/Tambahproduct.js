@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import {Link, Route} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 class Tambahproduct extends Component {
     state= {
@@ -77,6 +80,12 @@ class Tambahproduct extends Component {
         axios.post('http://localhost:8000/tambahData/', formData);
     }
     render(){
+        //login cookies
+        if (cookies.get('adminID') === undefined)
+        {
+            return <Redirect to='/'/>
+        }
+        //akhir cookies
         const hasil = this.state.datajenis.map((jenisMotor, index)=>{
             var urutan = index +1;
             var jenismotorID=jenisMotor.id_jenis;

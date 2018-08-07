@@ -1,64 +1,39 @@
 import React, { Component } from 'react';
-import {Link, Route, Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
-function mapStateToProps(state){
-          return {
-          hasilkirim: state.hasil_login
-          };
-}
+const cookies = new Cookies();
+
+
+
 class Login extends Component {
         state = {
-            statusRedirect: false,
-            statusLogin: '',
-            hasil_kepastian:''
+            statusRedirect: false
+           
         }
         
-        fungsiLogin = (e) => {
-          var self = this
-          axios.post(`http://localhost:8000/login`, {
-              username: e.email.value,
-              password: e.password.value
-          }).then((kepastian) =>{
-              //bikin jadi varibale yang hasil kepastian
-              var hasil_kepastian= kepastian.data
-              self.props.dispatch({type:'Login', kirim: hasil_kepastian })
-              self.setState({
-                          statusRedirect: true
-                      });
-              // if(kepastian.data === 'oke'){
-              //     self.setState({
-              //         statusRedirect: true
-              //     });
-              // } else {
-              //     self.setState({
-              //         statusLogin: 'Login gagal, username atau password salah'
-              //     })
-              // }
-              //sekarang berganti ke sini        
+        fungsiLogin = (e) => {         
+          var email = e.email.value;
+          var password = e.password.value;
+          axios.post('http://localhost:8000/adminlogin', {
+            email: email,
+            password: password
+        }).then((response)=> {
+              var adminID = response.data;
+              // console.log(response.data);
+              cookies.set('adminID', adminID, {path: '/'});
+              this.setState({
+                  statusRedirect: true
+              });
+            });   
         
-          });   
-          
-          
-          {/*{
-              if(kepastian.data === 'oke'){
-                  this.setState({
-                      statusRedirect: true
-                  });
-              } else {
-                  this.setState({
-                      statusLogin: 'Login gagal, username atau password salah'
-                  })
-              }
-          })*/}
         }
-        fungsiRedirect = () => {
-          if(this.state.statusRedirect){
-              return <Redirect to="/"/>
-            }  
-        }
+     
     render() 
     {
+      if (this.state.statusRedirect) return <Redirect to="/dashboard"/>
+
         return (
                 <div>
                   <br/><br/><br/><br/>
@@ -81,7 +56,7 @@ class Login extends Component {
                                 <div className="form-group">
                                   <input className="form-control" placeholder="Enter Your Password" ref="password" type="password"  />
                                 </div>
-                                <button type="button" type="submit" onClick={() => this.fungsiLogin(this.refs)} className="btn btn-danger btn-block">Login</button>
+                                <button type="button" onClick={() => this.fungsiLogin(this.refs)} className="btn btn-danger btn-block">Login</button>
                                 <p>New Member? <Link to="./Register" className="">Sign up</Link></p>
                               </fieldset>
                             </form>

@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import {Link, Route} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
-function mapStateToProps(state){
-    return {
-     login: state.hasil_login
-    };
-}
+const cookies = new Cookies()
+
 class Listproduct extends Component 
 {
         state = {
-            dataProduk:[],
-            redirect:false
-
+            dataProduk:[],            
         }
         /**
          * 
@@ -49,21 +45,15 @@ class Listproduct extends Component
 
         }
     render() 
-      //map untuk menampung hasil
-    {
-            // Logic dimulai disini
-            //   if(this.props.login != 'oke'){
-            //     {this.state.redirect= true}
-            //     this.props.dispatch({type:'Login', kirim: "Login Gagal, Periksa kembali usernam atau password anda" })
-            // }
-
-            //   if(this.state.redirect){
-            //     return <Redirect to="/"/>
-            // }
-
-            //   {/*untuk mengecek hasil login */}
-            //     // console.log(this.props.login)
-            //tidak kaitan dengan yg atas 
+      
+    {   
+        //cookies
+        if (cookies.get('adminID') === undefined)
+        {
+            return <Redirect to='/'/>
+        }
+        //akhir cookies condition
+         
                 const daftarProduk= this.state.dataProduk.map((isi, urutan )=>{
                 var urut = urutan+1;
                 var dataID = isi.id_motor;
@@ -187,4 +177,4 @@ class Listproduct extends Component
                 );
     }
 }
-export default connect(mapStateToProps)(Listproduct);
+export default Listproduct;

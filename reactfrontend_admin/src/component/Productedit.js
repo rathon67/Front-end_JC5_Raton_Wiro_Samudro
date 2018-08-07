@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import {Link, Route} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 class Productedit extends Component {
     state ={
@@ -56,6 +59,10 @@ class Productedit extends Component {
     }
 
     render(){
+        if (cookies.get('adminID') === undefined)
+        {
+            return <Redirect to='/'/>
+        }
         return (
                     <div>
                         <div className="wrapper">

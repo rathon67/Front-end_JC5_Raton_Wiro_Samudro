@@ -31,6 +31,7 @@ import TambahdetailRangka from './component/TambahdetailRangka';
 import TambahdetailKelistrikan from './component/TambahdetailKelistrikan';
 import Tambahproduct1 from './component/Tambahproduct.1';
 import Editproduct from './component/Editproduct';
+import Logout from './component/Logout';
 
 class App extends Component 
 {
@@ -39,6 +40,7 @@ class App extends Component
         return (
                     <div>                        
                         <Route exact path="/" component={Login}/>
+                        <Route path="/logout" component={Logout}/>
                         <Route path="/User" component={User}/>
                         {/* <Route path="/Producttambah" component={Producttambah}/> */}
                         {/* <Route path="/Productlist" component={Productlist}/>                         */}

@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 class Invoicehistory extends Component
 {
     render()
 {
+   //Cookies login
+   if (cookies.get('userID') === undefined)
+   {
+       return <Redirect to='/'/>
+   }
+   //akhir cookies login
     return(
         (
             <div>

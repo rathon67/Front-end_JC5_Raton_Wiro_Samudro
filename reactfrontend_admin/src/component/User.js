@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
-import {Link, Route} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 class User extends Component 
 {
     render() 
     {
+        //Cookies login
+        if (cookies.get('adminID') === undefined)
+        {
+            return <Redirect to='/'/>
+        }
+        //akhir cookies login
+
         return (
                     <div>
                         <div className="wrapper">

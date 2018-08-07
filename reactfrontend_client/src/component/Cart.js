@@ -1,10 +1,45 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import axios from 'axios';
+
+const cookies = new Cookies();
 
 class Cart extends Component
 {
+    state ={
+        dataIDCart:'',        
+        namaproduk:'',
+        hargaproduk:'',
+
+    }
+    componentDidMount(){
+        var id =this.props.location.state.dataID;
+        axios.get('http://localhost:8002/getCartID/'+id)
+        .then(
+            (hasilAmbil)=>{
+                console.log(hasilAmbil);
+                this.setState({
+                    dataIDCart:hasilAmbil.data[0].id_motor,
+                    // jenis :hasilAmbil.data[0].id_jenis,
+                    // gambarproduk :hasilAmbil.data[0].gambar,
+                    namaproduk :hasilAmbil.data[0].nama_motor,
+                    // descproduk:hasilAmbil.data[0].desc_product,
+                    hargaproduk :hasilAmbil.data[0].harga,
+                    // namapembuat :hasilAmbil.data[0].pembuat,
+                    // status :hasilAmbil.data[0].status,
+                })
+            }
+        )
+    }
     render()
 {
+    //Cookies login
+    if (cookies.get('userID') === undefined)
+    {
+        return <Redirect to='/'/>
+    }
+    //akhir cookies login
     return(
         (
         <div>
@@ -42,7 +77,7 @@ class Cart extends Component
                     </tr>
                     <tr>
                         <td>
-                            <a href="" className="btn btn-primary">Lanjut Bayar</a>
+                            <a href="" className="btn btn-primary">Lanjut Bayar</a>&nbsp;
                             <a href="" className="btn btn-primary">Jadwalkan Test ride</a>
                         </td>
                         <td colSpan={3}><Link to="/checkout" className="pull-right btn btn-success">Checkout</Link></td>

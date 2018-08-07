@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 import $ from 'jquery';
 import Categoryedit from './Categoryedit';
 import Producttambah from './Producttambah';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 class Product extends Component {
     state = 
@@ -47,6 +50,12 @@ class Product extends Component {
 
     render() 
     {
+        //cookies login
+        if (cookies.get('adminID') === undefined)
+        {
+            return <Redirect to='/'/>
+        }
+        //akhir cookies login
         const hasil = this.state.dataproduk.map(
             (isi, urutan) => {
                 console.log(isi)

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import {Link, Route} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 class Editproduct extends Component {
     state = {
@@ -91,6 +94,13 @@ class Editproduct extends Component {
 
     }
     render(){
+        //Cookies login
+        if (cookies.get('adminID') === undefined)
+        {
+            return <Redirect to='/'/>
+        }
+        //akhir cookies login
+
         const hasil = this.state.datajenis.map((jenisMotor, index)=>{
             var urutan = index +1;
             var jenismotorID=jenisMotor.id_jenis;

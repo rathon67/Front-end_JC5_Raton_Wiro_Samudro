@@ -21,23 +21,33 @@ const db = mysql.createConnection({
 db.connect();
 
 //Login Fungsi 
-//Login Admin
-app.post('/', (req, res) => {
-    var sql = `SELECT * FROM newusers`;
-    dbs.query(sql, (error, result) => {
+
+app.get('/', (req, res)=> {
+    res.send('Halaman Dasboard')
+})
+
+//login admin with session
+app.post('/adminlogin', (req, res) => {
+    var Email =req.body.email;
+    var Password =req.body.password;
+
+    console.log(Email)
+    console.log(Password)
+    var sql = `SELECT * FROM tbl_admin`;
+    db.query(sql, (error, result) => {
         if(error) {
             throw error;
-        } else {
-            var username = req.body.username;
-            var password = req.body.password;
-            
+        } else { 
             for(var i=0; i < result.length; i++ ){
-                if(username === result[i].Username && password === result[i].Password){
-                    var status = 'oke';
-                    res.send(status);
-                    break;
-                } else if(i === result.length - 1) {
-                    res.send('gagal');
+                if(Email === result[i].email && Password === result[i].password){
+                  console.log('Login Berhasil')
+                  //console.log(result[i].id)
+                  var userID= result[i].id_admin;
+                  res.send((userID).toString());
+                  break;  
+                } 
+                else if (i === result.length - 1) {                   
+                    console.log('Data tidak sesuai. silahkan Input correct Account')
                 }
             }
         }
@@ -203,7 +213,7 @@ app.post('/tambahdataCat', (req,res)=>{
         }
     });
 })
-
+ 
 // untuk menampilkan list category
     app.get('/listcategory', (req,res) => {
         var panggilData ='SELECT * FROM tbl_kategori';

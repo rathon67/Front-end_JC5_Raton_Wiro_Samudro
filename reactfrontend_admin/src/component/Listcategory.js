@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import {Link, Route} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 class Listcategory extends Component 
 {
@@ -36,6 +39,12 @@ class Listcategory extends Component
     }
     render() 
     {
+        //cookies
+        if (cookies.get('adminID') === undefined)
+        {
+            return <Redirect to='/'/>
+        }
+        //cookies end
         const daftarCategory = this.state.dataCategory.map((isi, urutan)=>{
             var urut= urutan +1;
             var categoryID = isi.id_kategori;
