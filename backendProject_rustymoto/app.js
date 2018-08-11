@@ -158,7 +158,7 @@ app.post('/tambahData', (req, res) => {
     app.post('/ubahData', (req, res) => {
     var id = req.body.id;
     var jenisMotor=req.body.jenismotor;
-    var fileName = req.files.file.name;
+    
     var namaProduk = req.body.namaproduk;
     var descProduk =req.body.descproduk;
     var hargaProduk = req.body.hargaproduk;
@@ -168,25 +168,38 @@ app.post('/tambahData', (req, res) => {
     
 //ketika mendapat kiriman berupa file maka akan di jalankan fungsi ini
     if(req.files){
+        var fileName = req.files.file.name;
         var fungsiFile = req.files.file;
         fungsiFile.mv("./tampunganFile/"+fileName, (kaloError) => {
             if(kaloError){
                 console.log(kaloError);
-                res.send('Upload failed');
+                // res.send('Upload failed');
             } else {
-                res.send('Upload berhasil');
+                    var queryUpdate = `UPDATE product SET  gambar ="${fileName}",nama_motor ="${namaProduk}",desc_product="${descProduk}", 
+                        harga = "${hargaProduk}", pembuat = "${namaPembuat}",status="${statuS}",posted="${formatedMysqlString}" WHERE id_motor="${id}"`;
+                    db.query(queryUpdate, (err, result) => {
+                        if(err){
+                            throw err;
+                        } else {
+                            res.send('Update berhasil !');
+                        }
+                    });
+                
             }
         })
-    }
-    var queryUpdate = `UPDATE product SET  gambar ="${fileName}",nama_motor ="${namaProduk}",desc_product="${descProduk}", 
-                        harga = "${hargaProduk}", pembuat = "${namaPembuat}",status="${statuS}",posted="${formatedMysqlString}" WHERE id_motor="${id}"`;
-    db.query(queryUpdate, (err, result) => {
-        if(err){
-            throw err;
-        } else {
-            res.send('Update berhasil !');
-        }
+    } else {
+            var queryUpdate = `UPDATE product SET nama_motor ="${namaProduk}",desc_product="${descProduk}", 
+            harga = "${hargaProduk}", pembuat = "${namaPembuat}",status="${statuS}",posted="${formatedMysqlString}" WHERE id_motor="${id}"`;
+        db.query(queryUpdate, (err, result) => {
+            if(err){
+                throw err;
+            } else {
+                res.send('Update berhasil !');
+            }
     });
+
+    }
+    
 });
 
 
@@ -248,24 +261,57 @@ app.post('/tambahdataproductcarou', (req,res)=>{
     var fileName1= req.files.file1.name;
     var fileName2= req.files.file2.name;
     var fileName3= req.files.file3.name;
-    if(req.files){
+    if(judul !== '' && desc !== '' && fileName1 !== '' && fileName2 !== '' && fileName3 !== ''){
         var fungsiFile1=req.files.file1;
         var fungsiFile2=req.files.file2;
         var fungsiFile3=req.files.file3;
-        fungsiFile1.mv("./filedetailCarou/" +fileName1),
-        fungsiFile2.mv("./filedetailCarou/" +fileName2),
-        fungsiFile3.mv("./filedetailCarou/" +fileName3)
-    }        
-        var sql=`INSERT INTO tbl_productcarou VALUES ("${''}","${judul}","${desc}","${fileName1}","${fileName2}","${fileName3}")`;
-        db.query(sql,(err,result)=>{
+        fungsiFile1.mv("./filedetailCarou/" +fileName1, (err)=>{
+            if (err){
+                console.log('upload gagal');
+            } else {
+                console.log('upload sukses')
+                var sql=`INSERT INTO tbl_productcarou VALUES ("${''}",${judul}","${desc}","${fileName1}")`;
+                db.query(sql, (err, result)=>{
+                    if(err){
+                        throw err;
+                    }else{
+                        res.send('1');
+                    }
+                })
+            }
+        }),
+        fungsiFile2.mv("./filedetailCarou/" +fileName2, (err) => {
             if(err){
-                throw err;
-            }else{
-                res.send('data berhasil di simpan ^^')
+                console.log('upload gagal');
+            }else {
+                console.log('upload sukses')
+                var sql=` INSER INTO tbl_productcarou (gambar2) VALUES ("${fileName2}")`;
+                db.quert(sql, (err, result)=>{
+                    if(err){
+                        throw err;
+                    }else {
+                        res.send('1');
+                    }
+                })
             }
         })
-    
-
+        fungsiFile3.mv("./filedetailCarou/" +fileName3, (err) => {
+            if(err){
+                console.log('upload gagal');
+            }else {
+                console.log('upload sukses')
+                var sql=` INSER INTO tbl_productcarou (gambar3) VALUES ("${fileName3}")`;
+                db.quert(sql, (err, result)=>{
+                    if(err){
+                        throw err;
+                    }else {
+                        res.send('1');
+                    }
+                })
+            }
+        })
+    }       
+  
 })
 //MENAMBAH DATA PRODUCT DETAILING
 

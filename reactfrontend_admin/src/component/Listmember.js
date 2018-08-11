@@ -41,7 +41,6 @@ componentDidMount =() => {
                     var ttl =isi.ttl;
                     return <tr key={urutan} className="success">
                     <td>{urut}</td>
-
                     <td>{namaDepan}</td>
                     <td>{namaBel}</td>
                     <td>{email}</td>

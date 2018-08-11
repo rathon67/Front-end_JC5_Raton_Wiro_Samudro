@@ -23,7 +23,7 @@ app.use(express.static(__dirname));
 var cors = require('cors')
 app.use(cors());
 
-// boddy parser yang kita terima berbentuk jason dari react jadi harus di include
+// boddy parser yang kita terima berbentuk json dari react jadi harus di include
 app.use(bodyParser.json());
 
 
@@ -41,6 +41,7 @@ db.connect();
 app.get('/', (req, res)=> {
   res.send('Halaman Dasboard')
 });
+
 app.post('/userlogin', (req, res) => {
   var Email =req.body.email;
   var Password =req.body.password;
@@ -81,19 +82,71 @@ app.get('/productall', function (req, res) {
         
       });
   })
-// akhir dari produk di konten
+/** akhir dari produk di konten */
+
+
+
+/** add to cart */
+app.post('/addtoCart', (req, res)=>{
+  var idproduct = req.body.e
+  var idUser = req.body.idUser
+  // console.log(idproduct)
+  // console.log(idUser)
+  var tarikdataProduct = ` SELECT * FROM product WHERE id_motor ="${idproduct}"`
+  db.query(tarikdataProduct, (kaloError, hasilnya) =>{
+    if(kaloError) {
+      throw kaloError;
+    }else{
+      // console.log(hasilnya)
+      var idCart=hasilnya[0].id_motor;
+      var namaMotor=hasilnya[0].nama_motor;
+      var hargaMotor= hasilnya[0].harga;
+      idUser = idUser
+      var posted = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
+      // console.log(idUser)
+      // console.log(idCart)
+      // console.log(namaMotor)
+      // console.log(hargaMotor)
+      
+      var sql = ` INSERT INTO tbl_cart VALUES ("${''}","${idUser}","${idCart}","${namaMotor}","${hargaMotor}","${posted}")`;
+      db.query(sql, (kaloError, hasilnya) =>{
+        if(kaloError){
+          throw kaloError;
+        }else{
+          console.log('data Cart bersahil di input')
+        }
+      })      
+    }
+  })
+})
+
+/** melempar id cart konten ke cart */
+// app.post('/getdataCartID', (req, res) => {
+//   var sqlCart = `SELECT * FROM tbl_cart`;
+//   db.query(sqlCart, (kaloError,hasilnya) =>{
+//     if(kaloError){
+//       throw kaloError;
+//     } else {
+//       res.send(hasilnya)
+//     }
+//   })
+// })
 
 //memanggil sebuah parameter id di cart
-app.get('/getCartID/:id', (req, res) =>{
-  var grabData = `SELECT * FROM product WHERE id_motor=${req.params.id}`;
+app.post('/getCartID', (req, res) =>{
+  var idUser=req.body.idUser;
+  var grabData = `SELECT * FROM tbl_cart WHERE id_user=${idUser}`;
   db.query(grabData, (kaloError, hasilnya)=>{
     if(kaloError){
       throw kaloError;
     }else{
       res.send(hasilnya);
     }
-  })
+  })  
 });
-//akhir dari ID
+//akhir dari data pada cart
+
+/** Proses memanggil data Cart */
+
 //port localhost paling bawah
 app.listen(8002);

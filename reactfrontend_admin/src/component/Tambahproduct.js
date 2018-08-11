@@ -184,21 +184,21 @@ class Tambahproduct extends Component {
                                                                 </div>
                                                                 </div>
                                                                 <div className="form-group">
-                                                                    <label htmlFor="description" className="col-sm-2 control-label">Edit Deskripsi Iklan</label>
+                                                                    <label htmlFor="description" className="col-sm-2 control-label">Deskripsi</label>
                                                                     <div className="col-sm-8">
-                                                                        <textarea ref="descproduk" style={{height:250}} placeholder="Edit Deskripsi" className="form-control" />
+                                                                        <textarea ref="descproduk" style={{height:250}} placeholder="Deskripsi" className="form-control" />
                                                                     </div>
                                                                 </div>
                                                             <div className="form-group">
                                                                 <label  className="col-lg-2 control-label">Harga</label>
                                                                 <div className="col-lg-8">
-                                                                    <input ref="hargaproduk" type="text" className="form-control" id="inputEmail" placeholder="Input Harga" />
+                                                                    <input ref="hargaproduk" type="number" className="form-control" id="inputEmail" placeholder="Rp." />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">Pembuat</label>
                                                                 <div className="col-lg-8">
-                                                                    <input ref="namapembuat" type="text" className="form-control" id="inputNama" placeholder="Input Nama Pembuat" />
+                                                                    <input ref="namapembuat" type="text" className="form-control" id="inputNama" placeholder="Builder" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group">

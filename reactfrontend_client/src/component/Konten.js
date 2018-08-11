@@ -8,6 +8,9 @@ const cookies = new Cookies()
 class Konten extends Component {
   state={
     product :[],
+    // Redirect: false,
+    LoginDulu: false
+    
    
   }
 
@@ -18,10 +21,41 @@ class Konten extends Component {
       self.setState({product:ambilData.data,})
       console.log(this.state.product)
     })
+   
   }
+
+  addtoCart = (event) => {
+    if(cookies.get('userID') !== undefined){
+      var idUser= cookies.get('userID')
+    axios.post('http://localhost:8002/addtoCart',{
+      e:event,
+      idUser:idUser   
+
+    }).then((Response) =>{
+      // this.setState({
+      //   Redirect :true
+      // })
+    })
+    }else {
+      this.setState({
+        LoginDulu :true
+      })
+    
+   }
+  }
+  
     render() 
     {
-       
+      // if(this.state.Redirect ===true){
+      //   return <Redirect to='/cart'/>
+      // }
+      // else if
+      //   (this.state.LoginDulu)
+      //     return <Redirect to='/'/>
+        
+      
+      // if(this.state.Redirect) return <Redirect to='/cart'/>
+      if(this.state.LoginDulu) return <Redirect to='/'/>
      
       // data product untuk di olah
       const data =this.state.product.map((item, index)=>{
@@ -50,8 +84,9 @@ class Konten extends Component {
                 </ul>
                 <div className="card-body">
                 
-                  <Link to="/cetail" className="card-link">Lihat Detail</Link>&nbsp;
-                  <Link to={{pathname:'/cart', state:{dataID:id}}} className="card-link"> <i className="fa fa-shopping-cart">Tambah ke Daftar Belanja</i></Link>
+                  <Link to="/cetail" className="card-link" className="btn btn-info">Lihat Detail</Link>&nbsp;&nbsp;
+                  {/* <Link to={{pathname:'/cart', state:{dataID:id}}} className="card-link"> <i className="fa fa-shopping-cart">Tambah ke Daftar Belanja</i></Link> */}
+                  <button onClick ={()=>this.addtoCart(id)} className="card-link" className="btn btn-success"> <Link to ='/cart'><i className="fa fa-shopping-cart">Tambah ke Daftar Belanja</i></Link></button>
                 </div>
               </div>
         </div>

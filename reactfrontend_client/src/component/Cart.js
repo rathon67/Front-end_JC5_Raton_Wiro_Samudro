@@ -9,29 +9,34 @@ class Cart extends Component
 {
     state ={
         dataIDCart:'',        
-        namaproduk:'',
-        hargaproduk:'',
+        namaMotor:'',
+        harga:'',
+        
+        
 
     }
     componentDidMount(){
-        var id =this.props.location.state.dataID;
-        axios.get('http://localhost:8002/getCartID/'+id)
+        var idUser= cookies.get('userID')
+        axios.post('http://localhost:8002/getCartID/', {
+            idUser:idUser
+        })
         .then(
             (hasilAmbil)=>{
                 console.log(hasilAmbil);
                 this.setState({
-                    dataIDCart:hasilAmbil.data[0].id_motor,
-                    // jenis :hasilAmbil.data[0].id_jenis,
-                    // gambarproduk :hasilAmbil.data[0].gambar,
-                    namaproduk :hasilAmbil.data[0].nama_motor,
-                    // descproduk:hasilAmbil.data[0].desc_product,
-                    hargaproduk :hasilAmbil.data[0].harga,
-                    // namapembuat :hasilAmbil.data[0].pembuat,
-                    // status :hasilAmbil.data[0].status,
+                    dataIDCart:hasilAmbil.data[0].id_cart,
+                    dataIDUser:hasilAmbil.data[0].id_user,                   
+                    idproduct :hasilAmbil.data[0].id_product,                   
+                    namaMotor :hasilAmbil.data[0].nama_item,
+                    harga:hasilAmbil.data[0].harga_item,                   
+                                                      
                 })
             }
         )
     }
+
+      
+
     render()
 {
     //Cookies login
@@ -40,6 +45,15 @@ class Cart extends Component
         return <Redirect to='/'/>
     }
     //akhir cookies login
+    
+    // const CartID= this.state.location.map((data)=>{
+    //     var id =data.id_cart;
+    //     var idUser=data.id_user;
+    //     var idProduct=data.id_product;
+    //     var namaMotor=data.nama_item;
+    //     var tglCart=data.cart_time;
+    // })
+  
     return(
         (
         <div>
@@ -59,31 +73,31 @@ class Cart extends Component
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td>Vespa 1962 <a href="">X</a></td>
-                        <td>Rp. 11.500.000</td>
-                        <td>Rp. 11.500.000</td>
+                        <td>{this.state.namaMotor}<a href="">X</a></td>
+                        <td>Rp. {this.state.harga}</td>
+                        <td>Rp. {this.state.harga}</td>
                     </tr>
                     <tr>
                         <th colSpan={3}><span className="pull-right">Sub Total</span></th>
-                        <th>Rp. 11.500.000</th>
+                        <th>Rp. {this.state.harga}</th>
                     </tr>
                     <tr>
-                        <th colSpan={3}><span className="pull-right">Pajak 20%</span></th>
-                        <th>Rp. 500.000</th>
+                        <th colSpan={3}><span className="pull-right">Tax 10% </span></th>
+                        <th>Rp. {this.state.harga}</th>
                     </tr>
                     <tr>
                         <th colSpan={3}><span className="pull-right">Total</span></th>
-                        <th>Rp. 12.000.000</th>
+                        <th>Rp. {this.state.hargaPotong }</th>
                     </tr>
                     <tr>
                         <td>
-                            <a href="" className="btn btn-primary">Lanjut Bayar</a>&nbsp;
+                            <button onClick={() =>this.simpanData()} className="btn btn-danger">Tambah Motor</button>&nbsp;
                             <a href="" className="btn btn-primary">Jadwalkan Test ride</a>
                         </td>
                         <td colSpan={3}><Link to="/checkout" className="pull-right btn btn-success">Checkout</Link></td>
                     </tr>
                     </tbody>
-                </table>          
+                </table>
                 </div>
                 
                 <br/>

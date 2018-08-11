@@ -177,7 +177,7 @@ class Tambahproduct1 extends Component {
                                                                             <div className="form-group">
                                                                                 <label  className="col-lg-2 control-label">Harga</label>
                                                                                 <div className="col-lg-8">
-                                                                                    <input ref="hargaproduk" type="text" className="form-control" id="inputEmail" placeholder="Input Harga" />
+                                                                                    <input ref="hargaproduk" type="number" className="form-control" id="inputEmail" placeholder="Input Harga" />
                                                                                 </div>
                                                                             </div>
                                                                             <div className="form-group">

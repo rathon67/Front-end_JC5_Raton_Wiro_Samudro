@@ -30,19 +30,14 @@ class Tambahproductcarousel extends Component {
 
     onchange =(e) => {
         switch(e.target.name){
-            case'carou1':
+            case'carousel':
             this.setState({
                 gambar1:e.target.files[0],
-            });
-            case'carou2':
-            this.setState({
                 gambar2:e.target.files[0],
-            });
-            case'carou3':
-            this.setState({
-                gambar3:e.target.files[0],
+                gambar3:e.target.files[0]          
             });
             break;
+            default:
         }
     }
 
@@ -64,7 +59,15 @@ class Tambahproductcarousel extends Component {
         formData.append('judulcarou',this.state.judulcarou);
         formData.append('desccarou',this.state.desccarou);
       
-        axios.post('http://localhost:8000/tambahdataproductcarou/', formData);
+        axios.post('http://localhost:8000/tambahdataproductcarou/', formData)
+        .then((hasil)=> {
+            var respon=hasil.data;
+            if(respon === 1){
+                this.setState({
+                    status:true
+                })
+            }
+        })
     }
     render(){
         return (
@@ -152,19 +155,19 @@ class Tambahproductcarousel extends Component {
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">GambarProduct</label>
                                                                 <div className="col-lg-8">
-                                                                    <input name="carou1" onChange={this.onchange} type="file" className="form-control" id="inputGambar" placeholder="input nama product"/>
+                                                                    <input name="carou1" onChange={this.onchange} type="file" className="form-control"  placeholder="input nama product"/>
                                                                 </div>
                                                             </div>
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">GambarProduct</label>
                                                                 <div className="col-lg-8">
-                                                                    <input name="carou2" onChange={this.onchange} type="file" className="form-control" id="inputGambar" placeholder="input nama product"/>
+                                                                    <input name="carou2" onChange={this.onchange} type="file" className="form-control"  placeholder="input nama product"/>
                                                                 </div>
                                                             </div>
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">GambarProduct</label>
                                                                 <div className="col-lg-8">
-                                                                    <input name="carou3" onChange={this.onchange} type="file" className="form-control" id="inputGambar" placeholder="input nama product"/>
+                                                                    <input name="carou3" onChange={this.onchange} type="file" className="form-control"  placeholder="input nama product"/>
                                                                 </div>
                                                             </div>                                                
                                                             

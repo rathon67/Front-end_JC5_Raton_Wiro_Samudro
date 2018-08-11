@@ -200,7 +200,7 @@ class Editproduct extends Component {
                                                                 </div>
                                                                 </div>
                                                                 <div className="form-group">
-                                                                    <label htmlFor="description" className="col-sm-2 control-label">Edit Deskripsi Iklan</label>
+                                                                    <label htmlFor="description" className="col-sm-2 control-label">Edit Deskripsi</label>
                                                                     <div className="col-sm-8">
                                                                         <textarea ref="descproduk" style={{height:250}} placeholder="Edit Deskripsi" className="form-control" />
                                                                     </div>
@@ -208,7 +208,7 @@ class Editproduct extends Component {
                                                             <div className="form-group">
                                                                 <label  className="col-lg-2 control-label">Harga</label>
                                                                 <div className="col-lg-8">
-                                                                    <input ref="hargaproduk" type="text" className="form-control" id="inputharga" Value={this.state.hargaproduk} placeholder="Input Harga" />
+                                                                    <input ref="hargaproduk" type="number" className="form-control" id="inputharga" Value={this.state.hargaproduk} placeholder="Input Harga" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group">
@@ -222,8 +222,8 @@ class Editproduct extends Component {
                                                                 <div className="col-lg-8">
                                                                     <select ref="statusproduk" className="form-control" id="exampleSelect2" Value={this.state.statusproduk}>
                                                                     <option defaultValue="Tersedia" ref="tersedia">Tersedia</option>
-                                                                    <option defaultValue="Booking" ref="booking">Booking</option>
-                                                                    <option defaultValue="Terjual" ref="terjual">Terjual</option>
+                                                                    {/* <option defaultValue="Booking" ref="booking">Booking</option>
+                                                                    <option defaultValue="Terjual" ref="terjual">Terjual</option> */}
                                                                     </select>
                                                                     
                                                                 </div>
