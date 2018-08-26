@@ -15,7 +15,7 @@ class Tambahproduct extends Component {
         desc:'',
         harga:'',
         pembuat:'',
-        status:'',
+        idMotor:[],
         datajenis: [],
         jenismotor:'',
 
@@ -26,9 +26,17 @@ class Tambahproduct extends Component {
     componentDidMount() {
         axios.get('http://localhost:8000/getdata')
         .then((ambilData) => {
+            console.log(ambilData)
             this.setState({
-                datajenis:ambilData.data
-                // status:status.data
+                datajenis:ambilData.data,                
+            })
+        })
+        
+        axios.get(`http://localhost:8000/getdataidmotor`)
+        .then((dataMotor)=>{
+            console.log(dataMotor)
+            this.setState({
+                idMotor:dataMotor.data[0]
             })
         })
     }
@@ -217,7 +225,7 @@ class Tambahproduct extends Component {
                                                                 <div className="col-lg-10 col-lg-offset-2">
                                                                     <button type="reset" className="btn btn-warning"><i className="fa fa-remove"></i> Cancel</button>&nbsp;
                                                                     <button type="submit" onClick={() => this.value(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
-                                                                    <Link to="/tambahproductcarousel" className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Carousel</Link>
+                                                                    <Link to={{pathname:'/tambahproductcarousel', state:{idMotor: this.state.idMotor}}} className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Carousel</Link>
                                                                     {/* <button type="button" onClick={() => this.updateData(this.refs)} className="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
                                                                 </div>
                                                             </div>

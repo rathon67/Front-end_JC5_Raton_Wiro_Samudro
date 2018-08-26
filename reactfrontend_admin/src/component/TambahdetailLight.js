@@ -10,19 +10,17 @@ class TambahdetailLight extends Component {
         gambar:'',
         detaillampu:'',
         
+        idMotor:[]
+        
     }
-    // tambahData = (e) => {
-    //     axios.post(`http://localhost:8000/tambahData`,{
-    //         inputSatu: e.gambarproduk.value,
-    //         inputDua: e.namaproduk.value,
-    //         inputTiga: e.descproduk.value,
-    //         inputEmpat: e.hargaproduk.value,
-    //         inputLima: e.namapembuat.value,
-    //         inputEnam: e.statusproduk.value,
-    //         inputTujuh: e.booking.value,
-    //         inputDelapan: e.terjual.value
-    //     })
-    // }
+    
+    componentDidMount(){
+        var idMotor= this.props.location.state.idMotor.id_motor;
+        console.log(idMotor)
+        this.setState({
+            idMotor
+        })
+    }
 
     onchange =(e) => {
         switch(e.target.name){

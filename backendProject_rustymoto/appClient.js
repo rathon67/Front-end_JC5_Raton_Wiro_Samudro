@@ -70,6 +70,18 @@ app.post('/userlogin', (req, res) => {
 });
 //akhir login
 
+/**untuk proses perubahan pada header */
+app.post('/profileuser', (req,res)=>{
+ var userCookies= req.body.idUser;
+  console.log(userCookies)
+ var sql= `SELECT * FROM tbl_user WHERE id_user=${userCookies}`;
+ db.query(sql,(err,result) =>{
+   if(err) throw err;
+   res.send(result)
+ })
+})
+/** akhir dari proses perubahan pada header */
+
 //menampilkan produk di konten(halaman utama)
 app.get('/productall', function (req, res) {
 
@@ -98,7 +110,7 @@ app.post('/addtoCart', (req, res)=>{
       throw kaloError;
     }else{
       // console.log(hasilnya)
-      var idCart=hasilnya[0].id_motor;
+      var idMotor=hasilnya[0].id_motor;
       var namaMotor=hasilnya[0].nama_motor;
       var hargaMotor= hasilnya[0].harga;
       idUser = idUser
@@ -107,33 +119,42 @@ app.post('/addtoCart', (req, res)=>{
       // console.log(idCart)
       // console.log(namaMotor)
       // console.log(hargaMotor)
-      
-      var sql = ` INSERT INTO tbl_cart VALUES ("${''}","${idUser}","${idCart}","${namaMotor}","${hargaMotor}","${posted}")`;
-      db.query(sql, (kaloError, hasilnya) =>{
-        if(kaloError){
-          throw kaloError;
-        }else{
-          console.log('data Cart bersahil di input')
-        }
-      })      
+      for(var i=0; i<hasilnya.length; i++){
+        var dataP= ` SELECT id_product FROM tbl_cart WHERE id_product =${idMotor}`
+        db.query(dataP, (err, result)=>{
+          if(err){
+            throw err;
+          } else {
+            if(result.length == 0 ){
+              var sql = ` INSERT INTO tbl_cart VALUES ("${''}","${idUser}","${idMotor}","${namaMotor}","${hargaMotor}","${posted}")`;
+                db.query(sql, (kaloError, hasilnya) =>{
+                if(kaloError){
+                  throw kaloError;
+                }else{   
+                  res.send('1')
+                }
+              }) 
+              }else{
+                 res.send('-1')
+            }
+          }
+        })
+      }
+      // var sql = ` INSERT INTO tbl_cart VALUES ("${''}","${idUser}","${idMotor}","${namaMotor}","${hargaMotor}","${posted}")`;
+      // db.query(sql, (kaloError, hasilnya) =>{
+      //   if(kaloError){
+      //     throw kaloError;
+      //   }else{   
+      //     console.log('data Cart berhasil di input')
+      //   }
+      // })      
     }
   })
 })
 
-/** melempar id cart konten ke cart */
-// app.post('/getdataCartID', (req, res) => {
-//   var sqlCart = `SELECT * FROM tbl_cart`;
-//   db.query(sqlCart, (kaloError,hasilnya) =>{
-//     if(kaloError){
-//       throw kaloError;
-//     } else {
-//       res.send(hasilnya)
-//     }
-//   })
-// })
 
-//memanggil sebuah parameter id di cart
-app.post('/getCartID', (req, res) =>{
+/** memanggil sebuah parameter id di cart */
+app.post('/getCartItem', (req, res) =>{
   var idUser=req.body.idUser;
   var grabData = `SELECT * FROM tbl_cart WHERE id_user=${idUser}`;
   db.query(grabData, (kaloError, hasilnya)=>{
@@ -142,11 +163,127 @@ app.post('/getCartID', (req, res) =>{
     }else{
       res.send(hasilnya);
     }
-  })  
+  })
+    
 });
-//akhir dari data pada cart
+/** akhir dari data pada cart */
 
-/** Proses memanggil data Cart */
+/**Delete Cart item */
+app.post('/hapusdataitemCart', (req,res)=>{
+  var id=req.body.id
+  var hapusItem= `DELETE FROM tbl_cart WHERE id_cart=?`;
+  db.query(hapusItem,id, (err,hasil)=>{
+    if (err)
+    throw err;
+  })
+})
+/** akhir dari delete cart item */
 
+/** mengolah data Cart */
+/** jumlah subtotal */
+app.get('/jumlahsubHarga', (req, res)=>{
+  var sumSubharga = `SELECT SUM(harga_item) AS sum FROM tbl_cart WHERE id_user=2`;
+  db.query(sumSubharga, (err,hasil)=>{
+    if (err){
+    throw err;
+    }else {
+      // console.log(hasil)
+      res.send(hasil);
+    }
+  })
+})
+/**akhir dari subtotal */
+app.get('/taxTotal', (req,res)=>{
+  var tax= `SELECT harga_item FROM tbl_cart WHERE id_user=2`;
+  db.query(tax, (err,hasil)=>{
+    if(err){
+      throw err;
+    }else{
+      var hasilTax=[]
+      var totalTax=0;
+      for(var i=0; i<hasil.length; i++){
+        hasilTax = hasil[i].harga_item * 0.1;
+        var totalTax = totalTax + hasilTax;
+      }
+      res.send(totalTax.toString())
+      // console.log(totalTax.toString())
+    }
+  })
+})
+/** akhir dari pengolahan data Cart */
+
+/**checkout section */
+/** tambah data checkout */
+app.post('/tambahdataCheckout', (req,res)=>{
+  var email =req.body.email;
+  var nama =req.body.nama;
+  var alamat =req.body.alamat;
+  var kota = req.body.kota;
+  var pos =req.body.pos;
+  var phone =req.body.phone;
+  var waktuOrder = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
+  
+  var idCart=req.body.idCart;
+  // console.log(idCart[0].id_cart)
+  var takeorderID = 'SELECT kode_checkout FROM tbl_checkout'
+      db.query(takeorderID, (err, results) =>
+      {
+        if (err) throw err
+        else
+        {
+          var length = results.length;
+          // console.log(length)
+          // console.log(results)
+          
+          var kodeCheckout = 0;
+          (length === 0) ? kodeCheckout = 0 : kodeCheckout = parseInt(results[length-1].kode_checkout);
+          var INV = kodeCheckout + 1;
+          var kodeCK = '';
+          
+          if (INV < 10)  kodeCK = kodeCK + '0000' + INV
+          else if (INV >= 10 && INV < 100) kodeCK = kodeCK + '000' + INV
+          else if (INV >= 100 && INV < 1000) kodeCK = kodeCK + '00' + INV
+          else if (INV >= 1000 && INV < 10000) kodeCK = kodeCK + '0' + INV
+          else kodeCK = kodeCK + INV
+          // generate Invoice Code
+          // console.log(kodeCK)
+          for (var i =0; i<idCart.length; i++){
+                
+          // console.log(idCart[i].id_cart)
+          var sql =` INSERT INTO tbl_checkout VALUES ("${''}","${idCart[i].id_cart}","${kodeCK}","${email}","${nama}","${alamat}","${kota}","${pos}","${phone}","${''}","${waktuOrder}")`;
+          db.query(sql, (err, result)=>{
+            if (err){
+              throw err;
+            }
+          })
+          }
+        }
+      });
+
+  // for (var i =0; i<idCart.length; i++){
+  //   var number= 1000;      
+  //       console.log(idCart[i].id_cart)
+  //   var sql =` INSERT INTO tbl_checkout VALUES ("${''}","${idCart[i].id_cart}","${kodeCheckout}",${email}","${nama}","${alamat}","${kota}","${pos}","${phone}","${waktuOrder}")`;
+  // db.query(sql, (err, result)=>{
+  //   if (err){
+  //     throw err;
+  //   }
+  // })
+  // }
+})
+
+
+/** get id cart */
+app.get(`/idcarttoChecout`, (req,res)=>{
+
+  sql=` SELECT id_cart FROM tbl_cart`;
+  db.query(sql, (err,result)=>{
+    if(err){
+      throw err;
+    }else{
+      res.send(result);
+    }
+  })
+})
 //port localhost paling bawah
 app.listen(8002);

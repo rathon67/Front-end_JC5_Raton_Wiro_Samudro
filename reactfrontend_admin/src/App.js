@@ -6,13 +6,13 @@ import Footer from './component/Footer';
 import Login from './component/Login';
 import Dashboard from './component/Dashboard';
 import User from './component/User';
-import Producttambah from './component/Producttambah';
-import Productlist from './component/Productlist';
-import Categorylist from './component/Categorylist';
-import Productedit from './component/Productedit';
-import Categoryedit from './component/Categoryedit';
+// import Producttambah from './component/Producttambah';
+// import Productlist from './component/Productlist';
+// import Categorylist from './component/Categorylist';
+// import Productedit from './component/Productedit';
+// import Categoryedit from './component/Categoryedit';
 import Invoice from './component/Invoice';
-import Invoiceprint from './component/Invoiceprint';
+
 import Listcategory from './component/Listcategory';
 import Listproduct from './component/Listproduct';
 import Listmember from './component/Listmember';
@@ -32,6 +32,10 @@ import TambahdetailKelistrikan from './component/TambahdetailKelistrikan';
 import Tambahproduct1 from './component/Tambahproduct.1';
 import Editproduct from './component/Editproduct';
 import Logout from './component/Logout';
+import CheckoutConfirmation from './component/CheckoutConfirmation';
+import Datapembayaran from './component/Datapembayaran';
+import detailpembayaran from './component/Detailpembayaran';
+import Invoicedetail from './component/Invoicedetail';
 
 class App extends Component 
 {
@@ -48,7 +52,7 @@ class App extends Component
                         {/* <Route path="/Invoice" component={Invoice}/> */}
                         {/* <Header /> */}
                         <Route path="/Dashboard" component={Dashboard}/>
-                        {/* <Route path="/Invoiceprint" component={Invoiceprint}/> */}
+    
                         {/* <Route path="/Categorylist" component={Categorylist}/> */}
                         {/* <Route path="/Categoryedit" component={Categoryedit}/> */}
                         <Route path="/listcategory" component={Listcategory}/>
@@ -70,7 +74,11 @@ class App extends Component
                         <Route path="/tambahdetailrangka" component={TambahdetailRangka}/>
                         <Route path="/tambahdetailkelistrikan" component={TambahdetailKelistrikan}/>
                         <Route path="/tambahproduct1" component={Tambahproduct1}/>
-                        {/* <Route path="/Invoice" component={Invoice}/> */}
+                        <Route path="/checkoutkonfirmasi" component={CheckoutConfirmation}/>
+                        <Route path="/datapembayaran" component={Datapembayaran}/>
+                        <Route path="/detailpembayaran" component={detailpembayaran}/>
+                        <Route path="/Invoice" component={Invoice}/>
+                        <Route path="/Invoicedetail" component={Invoicedetail}/>
                         {/* <Footer /> */}
                     </div>
                 );

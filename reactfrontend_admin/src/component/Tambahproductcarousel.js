@@ -12,6 +12,8 @@ class Tambahproductcarousel extends Component {
         gambar3:'',
         judulcarou:'',
         desccarou:'',
+
+        idMotor:''
         
 
     }
@@ -28,6 +30,13 @@ class Tambahproductcarousel extends Component {
     //     })
     // }
 
+    componentDidMount(){
+        var idMotor=this.props.location.state.idMotor.id_motor;
+        this.setState({
+            idMotor:idMotor
+        })
+    }
+
     onchange =(e) => {
         switch(e.target.name){
             case'carousel':
@@ -43,7 +52,7 @@ class Tambahproductcarousel extends Component {
 
     value =(e) => {
         this.setState({
-           
+            idmotor:e.idmotor.value,
             judulcarou:e.judulcarou.value,
             desccarou:e.desccarou.value,
             
@@ -56,6 +65,7 @@ class Tambahproductcarousel extends Component {
         formData.append('file1',this.state.gambar1);
         formData.append('file2',this.state.gambar2);
         formData.append('file3',this.state.gambar3);
+        formData.append('idmotor',this.state.idmotor);
         formData.append('judulcarou',this.state.judulcarou);
         formData.append('desccarou',this.state.desccarou);
       
@@ -70,6 +80,10 @@ class Tambahproductcarousel extends Component {
         })
     }
     render(){
+        // const idmotorMap= this.state.idmotor.map((isi, urutan)=>{
+        //     var idMotorsimpan =isi.id_motor;
+
+        // })
         return (
                     <div>
                         <div className="wrapper">
@@ -138,7 +152,7 @@ class Tambahproductcarousel extends Component {
                                                 <div className="container">
                                                     <form className="form-horizontal" onSubmit={this.tambahData} encType="multipart/form-data">
                                                         <fieldset> 
-                                                            <input type="hidden" className="form-control" ref="idproduk" />
+                                                            <input type="text" className="form-control" ref="idmotor" value={this.state.idMotor} disabled/>
                                                             
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">JUDUL MOTOR</label>
@@ -175,7 +189,7 @@ class Tambahproductcarousel extends Component {
                                                                 <div className="col-lg-10 col-lg-offset-2">
                                                                     <button type="reset" className="btn btn-warning"><i className="fa fa-remove"></i> Cancel</button>&nbsp;
                                                                     <button type="submit" onClick={() => this.value(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
-                                                                    <Link to="/tambahdetaillight" className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Detail Light</Link>
+                                                                    <Link to={{pathname:'/tambahdetaillight', state:{idMotor: this.state.idMotor}}} className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Detail Light</Link>
                                                                     {/* <button type="button" onClick={() => this.updateData(this.refs)} className="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
                                                                 </div>
                                                             </div>

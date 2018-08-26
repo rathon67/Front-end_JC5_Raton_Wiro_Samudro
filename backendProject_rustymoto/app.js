@@ -1,6 +1,7 @@
 const express= require('express');
 const koneksi = require('cors');
 const app= express();
+app.use(`/filebuktiTransfer`, express.static(`filebuktiTransfer`));
 app.use(koneksi());
 
 const bodyParser =require('body-parser');
@@ -83,11 +84,25 @@ app.get('/listproduct', (req, res) =>{
      db.query(sql, (kaloError, hasil)=>{
          if (kaloError){
              throw kaloError;
-         } else {
-             res.send(hasil);
-            //  console.log(hasil)
-         }
+         }  else {
+            res.send(hasil)
+            
+        }
      })
+ })
+
+ //mengambil id motor untuk di kirim ke tambah carousel
+ app.get('/getdataidmotor',(req,res)=>{
+    sql =`SELECT * FROM
+    product
+    ORDER BY id_motor DESC limit 1`;
+    db.query(sql, (err,result)=>{
+        if(err){
+            throw err;
+        }else{
+            res.send(result)
+        }
+    })
  })
 //menambah data product
 app.post('/tambahData', (req, res) => {
@@ -118,9 +133,7 @@ app.post('/tambahData', (req, res) => {
          if(kaloError){
              throw kaloError;
          } 
-        //  else {
-        //      res.end('Data berhasil disimpan')
-        //  }
+        
      });
  });
 
@@ -256,12 +269,13 @@ app.post('/hapusdataCat', (req,res) => {
 
 // MENAMBAH DETAIL CAROUSEL  UPLOAD 3 GAMBAR
 app.post('/tambahdataproductcarou', (req,res)=>{
+    var idmotor=req.body.idmotor
     var judul =req.body.judulcarou;
     var desc =req.body.desccarou;
     var fileName1= req.files.file1.name;
     var fileName2= req.files.file2.name;
     var fileName3= req.files.file3.name;
-    if(judul !== '' && desc !== '' && fileName1 !== '' && fileName2 !== '' && fileName3 !== ''){
+    if(idmotor !== '' && judul !== '' && desc !== '' && fileName1 !== '' && fileName2 !== '' && fileName3 !== ''){
         var fungsiFile1=req.files.file1;
         var fungsiFile2=req.files.file2;
         var fungsiFile3=req.files.file3;
@@ -270,7 +284,7 @@ app.post('/tambahdataproductcarou', (req,res)=>{
                 console.log('upload gagal');
             } else {
                 console.log('upload sukses')
-                var sql=`INSERT INTO tbl_productcarou VALUES ("${''}",${judul}","${desc}","${fileName1}")`;
+                var sql=`INSERT INTO tbl_productcarou VALUES ("${''}","${idmotor}","${judul}","${desc}","${fileName1}")`;
                 db.query(sql, (err, result)=>{
                     if(err){
                         throw err;
@@ -354,7 +368,7 @@ app.post('/tambahdatalampu', (req,res) =>{
                 console.log(kaloError);
                 res.send('uploadfailed');
             }else {
-                res.send('upload sukses');
+                // res.send('upload sukses');
             }
         })
     }
@@ -364,7 +378,7 @@ db.query(sql,(err,result)=>{
     if(err){
         throw err;
     }else{
-        res.send('data lampu berhasil di tambah')
+        // res.send('data lampu berhasil di tambah')
     }
     });
 })
@@ -381,7 +395,7 @@ app.post('/tambahdatagearbox', (req,res) =>{
                 console.log(kaloError);
                 res.send('uploadfailed');
             }else {
-                res.send('upload sukses');
+                // res.send('upload sukses');
             }
         })
     }
@@ -391,7 +405,7 @@ db.query(sql,(err,result)=>{
     if(err){
         throw err;
     }else{
-        res.send('data gearbox berhasil di tambah')
+        // res.send('data gearbox berhasil di tambah')
     }
     });
 })
@@ -408,7 +422,7 @@ app.post('/tambahdatasadle', (req,res) =>{
                 console.log(kaloError);
                 res.send('uploadfailed');
             }else {
-                res.send('upload sukses');
+                // res.send('upload sukses');
             }
         })
     }
@@ -418,7 +432,7 @@ db.query(sql,(err,result)=>{
     if(err){
         throw err;
     }else{
-        res.send('data sadle berhasil di tambah')
+        // res.send('data sadle berhasil di tambah')
     }
     });
 })
@@ -500,6 +514,163 @@ db.query(sql,(err,result)=>{
         })
     })
 
+// menampilkan data Checkout
+app.get('/getDataCheckout', (req,res)=>{
+    var sql= `SELECT * FROM tbl_checkout JOIN tbl_cart on tbl_cart.id_cart = tbl_checkout.id_cart GROUP BY tbl_checkout.kode_checkout`;
+    db.query(sql, (err,result)=>{
+        if (err){
+            throw err;
+        }else{
+            res.send(result)
+            // console.log(result)
+        }
+    })
+})
+
+/** update status pada Checkout triple fungsi*/
+app.post(`/updateStatusLunas`, (req,res)=>{
+    var idklick1 =req.body.kodeCheckout;
+    var sql= `UPDATE tbl_checkout SET status='${1}' WHERE kode_checkout =${idklick1};`
+    sql+= `SELECT * FROM tbl_checkout WHERE kode_checkout =${idklick1};`
+    sql+= `SELECT tbl_checkout.id_cart, tbl_cart.nama_item, tbl_cart.harga_item,tbl_cart.id_user  
+    FROM tbl_checkout
+    JOIN tbl_cart ON tbl_cart.id_cart=tbl_checkout.id_cart
+    WHERE tbl_checkout.kode_checkout =${idklick1};`
+    sql+=`SELECT COUNT(*) AS jml_motor FROM tbl_checkout WHere kode_checkout=${idklick1};`
+    db.query(sql, (err,result)=>{
+        if(err){
+            throw err;
+        }else{  console.log(result)  
+                    var tgl_buat = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
+                    var idCheckout =result[1][0].id_checkout
+                    // console.log(typeof(idCheckout)) 
+                    console.log(idCheckout)
+                    var idCart =result[1][0].id_cart
+                    var kode_checkout=result[1][0].kode_checkout
+                    var email=result[1][0].email
+                    var nama=result[1][0].nama
+                    var alamat=result[1][0].alamat
+                    var kota=result[1][0].kota
+                    var pos=result[1][0].pos
+                    var phone=result[1][0].phone
+                    var status=result[1][0].status
+                    var namaMotor=result[2][0].nama_item
+                    var hargaitem=result[2][0].harga_item
+                    var iduser=result[2][0].id_user
+                    var jmlmotordibeli=result[3][0].jml_motor
+                    var sql =`INSERT INTO tbl_invoice VALUES ("${''}","${idCheckout}","${iduser}","${namaMotor}","${jmlmotordibeli}","${nama}","${email}","${hargaitem}","${status}","${tgl_buat}")`;
+                    db.query(sql, (err,result)=>{
+                        if(err){
+                            throw err;
+                        }else{
+                            // console.log(result)
+                        }
+                    })
+        }
+    })
+})
+/** tambah data invoice */
+app.post(`/tambahDataInvoice`, (req,res)=>{
+    var idCheckout =req.body.id
+    var sql =`INSERT INTO tbl_invoice VALUES ("${''}","${'id_checkout'}","${'id_user'}","${'namaproduk'}","${'jumlahproduk'}","${'nama'}","${'email'}","${'harga'}","${'status'}","${'tgl_invoice'}")`
+
+})
+
+/**akhir dari tambah data invoice */
+
+app.post(`/updateStatusAngsur`, (req,res)=>{
+    var id =req.body.id;
+    var sql= `UPDATE tbl_checkout SET status='${2}' WHERE id_checkout =${id}`;
+    db.query(sql, (err,result)=>{
+        if(err){
+            throw err;
+        }else{
+            res.send('update status menjadi Angsur')
+        }
+    })
+})
+
+app.post(`/updateStatusGagal`, (req,res)=>{
+    var id =req.body.id;
+    var sql= `UPDATE tbl_checkout SET status='${3}' WHERE id_checkout =${id}`;
+    db.query(sql, (err,result)=>{
+        if(err){
+            throw err;
+        }else{
+            res.send('update status menjadi gagal')
+        }
+    })
+})
+
+/**menyimpan bukti pembayaran */
+app.post('/kirimbuktiPembayaran', (req,res)=>{
+    var idUser =req.body.idUser;
+    var fileName= req.files.file.name;
+    var deskPembayaran= req.body.deskPembayaran;
+    var posted =(new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
+    if (req.files){
+        var fungsiFile= req.files.file;
+        // console.log(idUser)
+        // console.log(fileName)
+        // console.log(deskPembayaran)
+        // console.log(fungsiFile) 
+
+        fungsiFile.mv("./filebuktiTransfer/" +fileName ,(kaloError) =>{
+            if(kaloError){
+                console.log(kaloError);
+                res.send('uploadfailed');
+            }else {
+                res.send('upload sukses');
+            }
+        })
+    }
+    var sql=`INSERT INTO tbl_buktipembayaran VALUES ("${``}","${idUser}","${fileName}","${deskPembayaran}","${posted})`;
+    db.query(sql,(err,result)=>{
+        if(err){
+            throw err;
+        }else{
+            // res.send('data pembayaran berhasil di upload')
+        }
+    });
+})
+
+/** menampilkan semua bukti transfer/ pembayaran */
+app.get('/getdataPembayaran', (req,res)=>{ 
+    var sql=` SELECT * FROM tbl_buktipembayaran`;
+    db.query(sql,(err,result)=>{
+        if(err){
+            throw err;
+        }else{
+            res.send(result)
+        }
+    })
+})
+/** akhir dari proses bukti pembayaran */
+/** menampilkan get data detail pembayaran */
+app.get ('/getDetailPembayaran/:id', (req,res)=>{
+    var sql =`SELECT * FROM tbl_buktipembayaran WHERE id_user=${req.params.id}`;
+    // console.log(sql)
+    db.query(sql,(err,result)=>{
+        if(err){
+            throw err;
+        }else{
+            res.send(result)
+        }
+    })
+})
+/** akhir dari get data detail pembayaran */
+
+/**untuk menampilkan data invoice */
+app.get (`/getdataInvoice`, (req,res)=>{
+    var sql=`SELECT * FROM tbl_invoice`;
+    db.query(sql,(err,result)=>{
+        if(err){
+            throw err;
+        }else{
+            res.send(result)
+        }
+    })
+})
 
     app.listen(8000, () => {
         console.log('Server started at port 8000 ...')

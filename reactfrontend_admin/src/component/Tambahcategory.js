@@ -68,7 +68,7 @@ class Tambahcategory extends Component {
                                             <div className="col-md-12">
                                                 <div className="card">
                                                     <div className="headercos">
-                                                    <h3 className="title">Tambah Data Category</h3><p></p>
+                                                    <h3 className="title ">Tambah Data Category</h3><p></p>
                                                         {/* <input type="submit" defaultValue="Entri Baru" /> &nbsp; */}
                                                         <img src="assets/img/faces/3.png" style={{borderRadius: 12, height: 24, width: 24}}/> &nbsp;
                                                         <span className="headercos">Menggunakan Akun Admin Sebagai <Link to="">Nama </Link><p /></span>

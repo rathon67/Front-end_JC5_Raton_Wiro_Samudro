@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+
 import Header from './component/Header';
+import HeaderLogin from './component/HeaderLogin';
 import Footer1 from './component/Footer1';
 import Konten from './component/Konten';
 import CetailProduct from './component/Cetailproduct';
@@ -18,11 +21,16 @@ import Logout from './component/Logout';
 
 
 
+
 class App extends Component {
   render() {
+    const cookies = new Cookies()
+    let cookieid =cookies.get('userID')
+    let Navigation =(!cookieid) ? <Header/> :  <HeaderLogin/>
+
     return (
       <div>
-        <Header/> 
+        {Navigation} 
         <Route exact path="/" component={Login}/>
         <Route path="/logout" component={Logout}/>
         <Route path="/cetail" component={CetailProduct}/>
@@ -33,11 +41,8 @@ class App extends Component {
         <Route path ="/invoicehistory" component={Invoicehistory}/> 
         <Route path ="/listproduct" component={Listproduct}/> 
         <Route path ="/konten" component={Konten}/> 
-        <Route path ="/register" component={Register}/>
-      
-        <Route path ="/checkout" component={Checkout}/> 
-     
-
+        <Route path ="/register" component={Register}/>      
+        <Route path ="/checkout" component={Checkout}/>
         <Footer1/>
       </div>
     );

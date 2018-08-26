@@ -32,28 +32,24 @@ class Konten extends Component {
       idUser:idUser   
 
     }).then((Response) =>{
-      // this.setState({
-      //   Redirect :true
-      // })
+      var block = Response.data
+      if(block == -1){
+        console.log('gagal cuy')
+      }
+      this.setState({
+        Redirect :true
+      })
     })
     }else {
       this.setState({
         LoginDulu :true
-      })
-    
-   }
+      })    
+    }
+   window.location.reload();
   }
   
     render() 
     {
-      // if(this.state.Redirect ===true){
-      //   return <Redirect to='/cart'/>
-      // }
-      // else if
-      //   (this.state.LoginDulu)
-      //     return <Redirect to='/'/>
-        
-      
       // if(this.state.Redirect) return <Redirect to='/cart'/>
       if(this.state.LoginDulu) return <Redirect to='/'/>
      
@@ -84,9 +80,9 @@ class Konten extends Component {
                 </ul>
                 <div className="card-body">
                 
-                  <Link to="/cetail" className="card-link" className="btn btn-info">Lihat Detail</Link>&nbsp;&nbsp;
+                  <Link to="/cetail" className="card-link" className="btn btn-info">Lihat Detail</Link><br/><br/>
                   {/* <Link to={{pathname:'/cart', state:{dataID:id}}} className="card-link"> <i className="fa fa-shopping-cart">Tambah ke Daftar Belanja</i></Link> */}
-                  <button onClick ={()=>this.addtoCart(id)} className="card-link" className="btn btn-success"> <Link to ='/cart'><i className="fa fa-shopping-cart">Tambah ke Daftar Belanja</i></Link></button>
+                  <button onClick ={()=>this.addtoCart(id)} className="card-link" className="btn btn-warning"> <Link to ='/cart'><i className="fa fa-shopping-cart">&nbsp;Tambah ke Daftar Belanja</i></Link></button>
                 </div>
               </div>
         </div>

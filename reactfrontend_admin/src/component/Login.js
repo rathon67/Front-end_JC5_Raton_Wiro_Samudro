@@ -56,7 +56,7 @@ class Login extends Component {
                                 <div className="form-group">
                                   <input className="form-control" placeholder="Enter Your Password" ref="password" type="password"  />
                                 </div>
-                                <button type="button" onClick={() => this.fungsiLogin(this.refs)} className="btn btn-danger btn-block">Login</button>
+                                <button type="button" onClick={() => this.fungsiLogin(this.refs)} className="btn btn-success btn-block">Login</button>
                                 <p>New Member? <Link to="./Register" className="">Sign up</Link></p>
                               </fieldset>
                             </form>

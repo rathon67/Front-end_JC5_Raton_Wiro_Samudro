@@ -122,7 +122,7 @@ class Register extends Component
           <button className="btn btn-outline-success" onClick={() =>this.tambahData(this.refs)} type="submit">Submit form</button>
           <p className="change_link">  
             Already a member ?
-            <Link to="/login" className=" btn btn-ligth"> Go and log in </Link>
+            <Link to="/" className=" btn btn-ligth"> Go and log in </Link>
           </p>
         </form>
       </div>

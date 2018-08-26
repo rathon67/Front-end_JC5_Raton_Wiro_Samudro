@@ -139,7 +139,7 @@ class Listproduct extends Component
                                                 <div className="card card-plain">
                                                 <div className="headercos">
                                                         <h3 className="title" style={{fontSize: '30px'}}>Add Product</h3><p></p>
-                                                        <button><Link to="/tambahproduct"><i className="fa fa-plus"></i>Tambah Product</Link></button> &nbsp;
+                                                        <button className="btn btn-success" ><Link to="/tambahproduct" style={{color:"black"}}><i className="fa fa-plus"></i>Tambah Product</Link></button> &nbsp;
                                                         <img src="assets/img/faces/3.png" style={{borderRadius: 12, height: 24, width: 24}}/> &nbsp;
                                                         <span className="headercos">Menggunakan Akun Admin Sebagai <Link to="">Nama</Link><p /></span>
                                                             {/* <div className="headercos">Menggunakan Akun Admin Sebagai <Link to="user.html">Okki </Link><p /></div> */}

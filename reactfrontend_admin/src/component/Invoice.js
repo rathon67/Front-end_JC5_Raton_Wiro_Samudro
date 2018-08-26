@@ -2,11 +2,61 @@ import React, { Component } from 'react';
 import {Link, Route} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import axios from 'axios';
 
 class Invoice extends Component 
 {
+    state={
+        dataInvoice:[]
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:8000/getdataInvoice')
+        .then((ambilData)=>{
+            console.log(ambilData)
+            this.setState({
+                dataInvoice:ambilData.data
+            })
+            
+        })
+    }
     render() 
     {
+        const dataInv = this.state.dataInvoice.map((item, index)=>{
+            var urut =index+1;
+            var idINV=item.id_invoice
+            var namaCos=item.nama
+            var Email=item.email
+            var Tanggal=item.tgl_buat
+            var Harga=item.harga
+            var status=item.status
+            var gantiStatus='';
+                if(status === 0){
+                     gantiStatus ='Belum Check'
+                }else if(status ===1){
+                    gantiStatus ='Lunas'
+                }else if(status ===2){
+                    gantiStatus='Angsur'
+                }else if(status ===3){
+                    gantiStatus='Gagal'
+                }
+            return <tr key={index} style={{textAlign: 'center'}} className="success">
+                <td>{urut}</td>
+                <td>{idINV}</td>
+                <td>{namaCos}</td>
+                <td>{Email}</td>
+                <td>{Tanggal}</td>
+                <td>{Harga}</td>
+                <td>{status}</td>
+                    <td>
+                    {/* <Link onClick={()=>{this.Tombolpicture(dataID);}} className="btn btn-warning fa fa-pencil" to="/editdata/"></Link> &nbsp; */}
+                        {/* <Link to ={{pathname:'/editdata', state:{dataID: dataID}}} className="btn btn-warning btn-xs"><i className="fa fa-edit"></i></Link> */}
+                        <Link to="/detailinvoice" className="btn btn-danger btn-sm" >Lihat</Link>
+                        
+                    </td>
+                </tr>
+            
+        })
         return (
                     <div>
                         <div className="wrapper">
@@ -56,59 +106,37 @@ class Invoice extends Component
                                         </div>
                                     </div>
                                 </nav>
-                                <div className="content">
+                                
+                                 <div className="content">
                                     <div className="container-fluid">
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <div className="card card-plain">
-                                                    <div className="header">
-                                                        <h4 className="title">History Invoice</h4>
+                                                <div className="headercos">
+                                                        {/* <h3 className="title" style={{fontSize: '30px'}}>Add Category</h3><p></p> */}
+                                                        <button className="btn btn-success" ><Link to="/tambahcategory" style={{color:"black"}}><i className="fa fa-plus"></i>Tambah Category</Link></button> &nbsp;
+                                                        <img src="assets/img/faces/3.png" style={{borderRadius: 12, height: 24, width: 24}}/> &nbsp;
+                                                        <span className="headercos">Menggunakan Akun Admin Sebagai <Link to="">Nama</Link><p /></span>
+                                                            {/* <div className="headercos">Menggunakan Akun Admin Sebagai <Link to="user.html">Okki </Link><p /></div> */}
+                                                            {/* di atas ini yang original */}
                                                     </div>
                                                     <div className="content table-responsive table-full-width">
                                                         <table className="table table-hover">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>No. Invoice</th>
-                                                                    <th>ID Invoice</th>
-                                                                    <th>Costumer</th>
-                                                                    <th>Email</th>
-                                                                    <th>Tanggal</th>
-                                                                    <th>Harga</th>
-                                                                    <th>Status</th>
-                                                                    <th>Detail</th>
+                                                                <tr style={{background: '#6D8C70', fontFamily:'monospace'}}>
+                                                                    
+                                                                    <th style={{textAlign: 'center'}}>No. Invoice</th>
+                                                                    <th style={{textAlign: 'center'}}>ID Invoice</th>
+                                                                    <th style={{textAlign: 'center'}}>Costumer</th>
+                                                                    <th style={{textAlign: 'center'}}>Email</th>
+                                                                    <th style={{textAlign: 'center'}}>Tanggal</th>
+                                                                    <th style={{textAlign: 'center'}}>Harga</th>
+                                                                    <th style={{textAlign: 'center'}}>Status</th>
+                                                                    <th style={{textAlign: 'center'}}>Detail</th>                                                                    
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>001C</td>
-                                                                    <td>Mahmud Aziz</td>
-                                                                    <td>mahmudaz@gmail.com</td>
-                                                                    <td>27/05/2018</td>
-                                                                    <td>Rp. 13 Miliar</td>
-                                                                    <td>Credit</td>
-                                                                    <td><Link to="./Invoiceprint">Lihat Detail</Link></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>2</td>
-                                                                    <td>002C</td>
-                                                                    <td>Dani Komarudin</td>
-                                                                    <td>danikomar@gmail.com</td>
-                                                                    <td>07/06/2018</td>
-                                                                    <td>Rp. 10 Miliar</td>
-                                                                    <td>Lunas</td>
-                                                                    <td><Link to="./Invoiceprint">Lihat Detail</Link></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>3</td>
-                                                                    <td>003C</td>
-                                                                    <td>Putri Tania</td>
-                                                                    <td>putritania@gmail.com</td>
-                                                                    <td>04/06/2018</td>
-                                                                    <td>Rp. 11 Miliar</td>
-                                                                    <td>Pending</td>
-                                                                    <td><Link to="./Invoiceprint">Lihat Detail</Link></td>
-                                                                </tr>
+                                                            <tbody>                                                                                                                         
+                                                              {dataInv}
                                                             </tbody>
                                                         </table>
                                                     </div>

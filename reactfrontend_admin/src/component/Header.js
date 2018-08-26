@@ -21,7 +21,7 @@ class Header extends Component
                                     </li>
                                     <li className="active">
                                         <Link to="./User">
-                                            <i className="ti-user" />
+                                            <i className="ti-crown" />
                                             <p>Admin Profile</p>
                                         </Link>
                                     </li>
@@ -41,6 +41,18 @@ class Header extends Component
                                         <Link to="./listproduct">
                                             <i className="ti-view-list-alt" />
                                             <p>Products</p>
+                                        </Link>
+                                    </li>
+                                    <li  className="active">
+                                        <Link to="./checkoutkonfirmasi">
+                                            <i className="ti-check-box" />
+                                            <p>Checkout</p>
+                                        </Link>
+                                    </li>
+                                    <li  className="active">
+                                        <Link to="./datapembayaran">
+                                            <i className="ti-money" />
+                                            <p>Billing</p>
                                         </Link>
                                     </li>
                                     <li  className="active">
