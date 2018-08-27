@@ -73,7 +73,7 @@ class Invoice extends Component
                                                 <span className="icon-bar bar2" />
                                                 <span className="icon-bar bar3" />
                                             </button>
-                                            <Link to="#" className="navbar-brand" >Dashboard</Link>
+                                            <Link to="#" className="navbar-brand" >Invoice Page</Link>
                                         </div>
                                         <div className="collapse navbar-collapse">
                                             <ul className="nav navbar-nav navbar-right">
@@ -116,7 +116,7 @@ class Invoice extends Component
                                                 <div className="card card-plain">
                                                 <div className="headercos">
                                                         {/* <h3 className="title" style={{fontSize: '30px'}}>Add Category</h3><p></p> */}
-                                                        <button className="btn btn-success" ><Link to="/tambahcategory" style={{color:"black"}}><i className="fa fa-plus"></i>Tambah Category</Link></button> &nbsp;
+                                                        {/* <button className="btn btn-success" ><Link to="/tambahcategory" style={{color:"black"}}><i className="fa fa-plus"></i>Tambah Category</Link></button> &nbsp; */}
                                                         <img src="assets/img/faces/3.png" style={{borderRadius: 12, height: 24, width: 24}}/> &nbsp;
                                                         <span className="headercos">Menggunakan Akun Admin Sebagai <Link to="">Nama</Link><p /></span>
                                                             {/* <div className="headercos">Menggunakan Akun Admin Sebagai <Link to="user.html">Okki </Link><p /></div> */}

@@ -695,20 +695,26 @@ app.get (`/getdataInvoice`, (req,res)=>{
     })
 })
 
-app.get('/getdataInvoiceDetail', (req,res)=>{
-    var invID=req.body.invID
-    var sql=`SELECT tbl_invoice.nama_product, tbl_invoice.jumlah_product, tbl_invoice.nama, tbl_invoice.email, tbl_invoice.harga, tbl_invoice.tgl_buat, tbl_checkout.kota, tbl_checkout.pos, tbl_checkout.phone
+app.get('/getdataInvoiceDetail/:id', (req,res)=>{
+    var invID=req.params.id
+    var sql=`SELECT tbl_invoice.nama_product, tbl_invoice.jumlah_product, tbl_invoice.nama, tbl_invoice.email, tbl_invoice.harga, tbl_invoice.tgl_buat, tbl_checkout.kota, tbl_checkout.pos, tbl_checkout.phone,tbl_checkout.alamat
     FROM tbl_invoice 
-    JOIN tbl_checkout ON tbl_checkout.id_checkout = tbl_invoice.id_checkout WHERE id_invoice=${invID}`;
+    JOIN tbl_checkout ON tbl_checkout.id_checkout = tbl_invoice.id_checkout WHERE tbl_invoice.id_invoice=${invID}`;
     db.query(sql,(err,result)=>{
         if(err){
             throw err;
         }else{
             res.send(result)
+            console.log(result)
             
         }
     })
 })
+/**get data motor pada invoice detail */
+// app.get('/getdataCheckoutonDetailInvoice/:id', (req,res)=>{
+//     var invID=req.params.id
+//     var sql=`SELECT`
+// })
 
     app.listen(8000, () => {
         console.log('Server started at port 8000 ...')

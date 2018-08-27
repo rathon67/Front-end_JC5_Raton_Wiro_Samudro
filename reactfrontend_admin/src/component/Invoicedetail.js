@@ -8,6 +8,7 @@ class Invoicedetail extends Component
 {
     state ={
         detailInv:[],
+        dataInvoiceproduct:[],
 
         namaProduct:'',
         jmlpro:'',
@@ -18,12 +19,13 @@ class Invoicedetail extends Component
         kota:'',
         pos:'',
         phone:'',
+        alamat:'',
         kodeINV:''
     }
     componentDidMount(){
         var invID = this.props.location.state.idINV;
         console.log(invID)
-        axios.get(`http://localhost:8000/getdataInvoiceDetail`+invID)
+        axios.get(`http://localhost:8000/getdataInvoiceDetail/`+invID)
         .then((ambilData)=>{
             console.log(ambilData)
             this.setState({
@@ -31,17 +33,27 @@ class Invoicedetail extends Component
 
                     namaProduct:ambilData.data[0].nama_product,
                     jmlpro:ambilData.data[0].jumlah_product,
-                    namaCos:ambilData.data[0],
-                    email:ambilData.data[0],
-                    harga:ambilData.data.harga,
-                    tanggal:ambilData.data.tgl_buat,
-                    kota :ambilData.data.kota,
-                    pos :ambilData.data.pos,
-                    phone:ambilData.data.phone,
-                    kodeINV:ambilData.data.belum
+                    namaCos:ambilData.data[0].nama,
+                    email:ambilData.data[0].email,
+                    harga:ambilData.data[0].harga,
+                    tanggal:ambilData.data[0].tgl_buat,
+                    kota :ambilData.data[0].kota,
+                    pos :ambilData.data[0].pos,
+                    phone:ambilData.data[0].phone,
+                    alamat:ambilData.data[0].alamat,
+                    kodeINV:ambilData.data[0].belum,
+
+                    hargaSum:ambilData.data[0].harga,
                 
             })
         })
+        
+        // axios.get(`http://localhost:8000/getdataCheckoutonDetailInvoice/`+invID)
+        // .then((ambilData)=>{
+        //     this.setState({
+        //         dataInvoiceproduct:ambilData.data
+        //     })
+        // })
     }
     render() 
     {
@@ -74,7 +86,7 @@ class Invoicedetail extends Component
                                                 <span className="icon-bar bar2" />
                                                 <span className="icon-bar bar3" />
                                             </button>
-                                            <Link to="#" className="navbar-brand" >Dashboard</Link>
+                                            <Link to="#" className="navbar-brand" >Data Detail Invoice</Link>
                                         </div>
                                         <div className="collapse navbar-collapse">
                                             <ul className="nav navbar-nav navbar-right">
@@ -121,16 +133,16 @@ class Invoicedetail extends Component
                                         <div className="col-md-6">
                                             <address>
                                             <strong>Billed To:</strong><br />
-                                            {this.state.nama}<br />
+                                            {this.state.namaCos}<br />
                                             {this.state.email}
                                             </address>
                                         </div>
                                         <div className="col-md-6 text-right">
                                             <address>
                                             <strong>Shipped To:</strong><br />
-                                            Gg paliman Pasar Manggis Rt 04/02 kelurahan Guntur<br />
-                                            Setia Budi, Jakarta Selatan<br />
-                                            Indonesia, 727222
+                                            {this.state.alamat}<br />
+                                            Setia Budi, {this.state.kota}<br />
+                                            Indonesia, {this.state.pos}
                                             </address>
                                         </div>
                                         </div>
@@ -138,13 +150,13 @@ class Invoicedetail extends Component
                                         <div className="col-md-6">
                                             <address>
                                             <strong>Payment Method:</strong><br />
-                                            <br />
+                                            Transfer<br />
                                             </address>
                                         </div>
                                         <div className="col-md-6 text-right">
                                             <address>
                                             <strong>Order Date:</strong><br />
-                                            March 7th, 2018<br /><br />
+                                            {this.state.tanggal}<br /><br />
                                             </address>
                                         </div>
                                         </div>
@@ -171,10 +183,10 @@ class Invoicedetail extends Component
                                                 <tbody>
                                                 {/* foreach ($order->lineItems as $line) or some such thing here */}
                                                 <tr>
-                                                    <td>Vespa VBB 1962</td>
+                                                    <td>{this.state.namaProduct}</td>
                                                     <td className="text-center">1 Unit</td>
-                                                    <td className="text-center">{this.state.namaProduct}</td>
-                                                    <td className="text-right">Rp. 12.000.000,00</td>
+                                                    <td className="text-center"></td>
+                                                    <td className="text-right">Rp. {this.state.harga},00</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Booking Test Rider</td>
@@ -186,7 +198,7 @@ class Invoicedetail extends Component
                                                     <td className="thick-line" />
                                                     <td className="thick-line" />
                                                     <td className="thick-line text-center"><strong>Subtotal</strong></td>
-                                                    <td className="thick-line text-right">Rp. 12.000.000,00</td>
+                                                    <td className="thick-line text-right">Rp. {this.state.harga},00</td>
                                                 </tr>
                                                 <tr>
                                                     <td className="no-line" />
@@ -206,6 +218,7 @@ class Invoicedetail extends Component
                                         </div>
                                         </div>
                                     </div>
+                                    <Link to ='#'  className="btn btn-success btn-xs pull-center"><i className="fa fa-edit"></i>Konfirmasi Dan Cetak ke Client</Link>&nbsp;
                                     </div>
                         
                             </div>

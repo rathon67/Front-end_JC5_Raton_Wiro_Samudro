@@ -193,6 +193,7 @@ app.post('/jumlahsubHarga', (req, res)=>{
     }else {
       // console.log(hasil)
       res.send(hasil);
+      
     }
   })
 })

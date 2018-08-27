@@ -97,7 +97,7 @@ class Listproduct extends Component
                                                 <span className="icon-bar bar2" />
                                                 <span className="icon-bar bar3" />
                                             </button>
-                                            <Link to="#" className="navbar-brand" >Dashboard</Link>
+                                            <Link to="#" className="navbar-brand" >Data Motors</Link>
                                         </div>
                                         <div className="collapse navbar-collapse">
                                             <ul className="nav navbar-nav navbar-right">
