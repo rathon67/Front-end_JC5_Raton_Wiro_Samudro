@@ -7,7 +7,8 @@ import axios from 'axios';
 class Invoice extends Component 
 {
     state={
-        dataInvoice:[]
+        dataInvoice:[],
+        idINV:''
     }
 
     componentDidMount(){
@@ -15,7 +16,8 @@ class Invoice extends Component
         .then((ambilData)=>{
             console.log(ambilData)
             this.setState({
-                dataInvoice:ambilData.data
+                dataInvoice:ambilData.data,
+                idINV:ambilData.data.idINV
             })
             
         })
@@ -51,7 +53,7 @@ class Invoice extends Component
                     <td>
                     {/* <Link onClick={()=>{this.Tombolpicture(dataID);}} className="btn btn-warning fa fa-pencil" to="/editdata/"></Link> &nbsp; */}
                         {/* <Link to ={{pathname:'/editdata', state:{dataID: dataID}}} className="btn btn-warning btn-xs"><i className="fa fa-edit"></i></Link> */}
-                        <Link to="/detailinvoice" className="btn btn-danger btn-sm" >Lihat</Link>
+                        <Link to={{pathname:"/Invoicedetail", state:{idINV:idINV}}} className="btn btn-info btn-sm" >Lihat</Link>
                         
                     </td>
                 </tr>

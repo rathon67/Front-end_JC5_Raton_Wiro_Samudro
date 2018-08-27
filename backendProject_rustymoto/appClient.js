@@ -45,6 +45,7 @@ app.get('/', (req, res)=> {
 app.post('/userlogin', (req, res) => {
   var Email =req.body.email;
   var Password =req.body.password;
+  var encpass = crypto.createHash('sha256', secret).update(Password).digest('hex');
 
   // console.log(Email)
   // console.log(Password)
@@ -87,7 +88,7 @@ app.get('/productall', function (req, res) {
 
     // // console.log(req.query.page)
   
-      var sql = 'SELECT * FROM product ORDER BY posted DESC LIMIT 3';
+      var sql = 'SELECT * FROM product ORDER BY posted DESC LIMIT 6';
       db.query(sql, (err, result) => {
         if (err) throw err;
         res.send(result)
@@ -126,6 +127,7 @@ app.post('/addtoCart', (req, res)=>{
             throw err;
           } else {
             if(result.length == 0 ){
+              
               var sql = ` INSERT INTO tbl_cart VALUES ("${''}","${idUser}","${idMotor}","${namaMotor}","${hargaMotor}","${posted}")`;
                 db.query(sql, (kaloError, hasilnya) =>{
                 if(kaloError){
@@ -181,8 +183,10 @@ app.post('/hapusdataitemCart', (req,res)=>{
 
 /** mengolah data Cart */
 /** jumlah subtotal */
-app.get('/jumlahsubHarga', (req, res)=>{
-  var sumSubharga = `SELECT SUM(harga_item) AS sum FROM tbl_cart WHERE id_user=2`;
+app.post('/jumlahsubHarga', (req, res)=>{
+  var iduser= req.body.idUser
+  console.log(iduser)
+  var sumSubharga = `SELECT SUM(harga_item) AS sum FROM tbl_cart WHERE id_user=${iduser}`;
   db.query(sumSubharga, (err,hasil)=>{
     if (err){
     throw err;
@@ -193,8 +197,9 @@ app.get('/jumlahsubHarga', (req, res)=>{
   })
 })
 /**akhir dari subtotal */
-app.get('/taxTotal', (req,res)=>{
-  var tax= `SELECT harga_item FROM tbl_cart WHERE id_user=2`;
+app.post('/taxTotal', (req,res)=>{
+  var iduser= req.body.idUser
+  var tax= `SELECT harga_item FROM tbl_cart WHERE id_user=${iduser}`;
   db.query(tax, (err,hasil)=>{
     if(err){
       throw err;

@@ -10,6 +10,9 @@ app.use(bodyParser.urlencoded({extended:false}))
 const upload=require('express-fileupload');
 app.use(upload());
 
+const crypto = require('crypto');
+const secret = 'abcdefg';
+
 const mysql= require('mysql');
 const db = mysql.createConnection({
     host: 'localhost',
@@ -501,15 +504,16 @@ db.query(sql,(err,result)=>{
         var address=req.body.input4;
         var state=req.body.input5;
         var pos=req.body.input6;
-        var password=req.body.input7;
+        var Password=req.body.input7;
         var phone=req.body.input8;
         var ttl=req.body.input9;
-        var insertData= `INSERT INTO tbl_user VALUES ("${''}","${nmDepan}","${nmBlkg}","${email}","${address}","${state}","${pos}","${password}","${phone}","${ttl}")`;
+        var encpass = crypto.createHash('sha256', secret).update(Password).digest('hex');
+        var insertData= `INSERT INTO tbl_user VALUES ("${''}","${nmDepan}","${nmBlkg}","${email}","${address}","${state}","${pos}","${Password}","${phone}","${ttl}")`;
         db.query(insertData, (err,result)=>{
             if(err){
                 throw err;
             }else{
-                res.send('Data berhasil di tambahkan')
+                res.send('1')
             }
         })
     })
@@ -523,9 +527,28 @@ app.get('/getDataCheckout', (req,res)=>{
         }else{
             res.send(result)
             // console.log(result)
+           
+            
         }
     })
 })
+
+// app.get('/getDataiduseronCheckout', (req,res)=>{
+//     var sql=sql2= `SELECT tbl_checkout.id_checkout, tbl_cart.id_user
+//     FROM tbl_checkout
+//     JOIN tbl_cart ON tbl_checkout.id_cart = tbl_cart.id_cart
+//     WHERE kode_checkout=`;
+//     db.query(sql, (err,result)=>{
+//         if (err){
+//             throw err;
+//         }else{
+//             res.send(result)
+//             // console.log(result)
+           
+            
+//         }
+//     })
+// })
 
 /** update status pada Checkout triple fungsi*/
 app.post(`/updateStatusLunas`, (req,res)=>{
@@ -624,7 +647,7 @@ app.post('/kirimbuktiPembayaran', (req,res)=>{
             }
         })
     }
-    var sql=`INSERT INTO tbl_buktipembayaran VALUES ("${``}","${idUser}","${fileName}","${deskPembayaran}","${posted})`;
+    var sql=`INSERT INTO tbl_buktipembayaran VALUES ("${``}","${idUser}","${fileName}","${deskPembayaran}","${posted}")`;
     db.query(sql,(err,result)=>{
         if(err){
             throw err;
@@ -668,6 +691,21 @@ app.get (`/getdataInvoice`, (req,res)=>{
             throw err;
         }else{
             res.send(result)
+        }
+    })
+})
+
+app.get('/getdataInvoiceDetail', (req,res)=>{
+    var invID=req.body.invID
+    var sql=`SELECT tbl_invoice.nama_product, tbl_invoice.jumlah_product, tbl_invoice.nama, tbl_invoice.email, tbl_invoice.harga, tbl_invoice.tgl_buat, tbl_checkout.kota, tbl_checkout.pos, tbl_checkout.phone
+    FROM tbl_invoice 
+    JOIN tbl_checkout ON tbl_checkout.id_checkout = tbl_invoice.id_checkout WHERE id_invoice=${invID}`;
+    db.query(sql,(err,result)=>{
+        if(err){
+            throw err;
+        }else{
+            res.send(result)
+            
         }
     })
 })

@@ -32,11 +32,16 @@ class Cart extends Component
                 })
             }
         )
-
-        axios.get('http://localhost:8002/jumlahsubHarga')
+        var idUser= cookies.get('userID')
+        axios.post('http://localhost:8002/jumlahsubHarga',{
+            idUser:idUser
+        })
         .then((hasilSum)=>{
             console.log(typeof(hasilSum.data[0].sum))
-            axios.get('http://localhost:8002/taxTotal')
+            var idUser= cookies.get('userID')
+            axios.post('http://localhost:8002/taxTotal',{
+            idUser:idUser
+            })
         .then((taxItem)=>{
             console.log(typeof(taxItem.data))
             this.setState({

@@ -11,6 +11,8 @@ class Datapembayaran extends Component
     }
 
     componentDidMount(){
+        
+        // console.log(idUser)
         axios.get(`http://localhost:8000/getdataPembayaran`)
         .then((terimaData)=>{
             console.log(terimaData)

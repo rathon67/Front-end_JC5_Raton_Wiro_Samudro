@@ -128,7 +128,7 @@ class Checkout extends Component
             Lihat Orderan Kamu &amp; Lengkapi Checkout
           </h2>
           <hr />
-          <a href="" className="btn btn-info" style={{width: '100%'}}>Tambah Motor &amp; Services</a>
+          <Link to="konten" className="btn btn-info" style={{width: '100%'}}>Tambah Motor &amp; Services</Link>
           <hr />
           <div className="shopping_cart">
             <form className="form-horizontal" role="form" action method="post" id="payment-form">

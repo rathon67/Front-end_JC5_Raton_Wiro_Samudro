@@ -17,7 +17,7 @@ class CheckoutConfirmation extends Component
     componentDidMount(){
         axios.get(`http://localhost:8000/getDataCheckout`)
         .then((terimaData)=>{
-            console.log(terimaData)
+            // console.log(terimaData)
             this.setState({
                 dataCheckout:terimaData.data,
                 idUser:terimaData.data.idUser
@@ -81,7 +81,7 @@ class CheckoutConfirmation extends Component
             var idCheckout =data.id_checkout;
             var idCart=data.id_cart;
             var idUser =data.id_user;
-            // console.log(idUser)
+            console.log(idUser)
             var email=data.email;
             var nama=data.nama;
             var alamat=data.alamat;

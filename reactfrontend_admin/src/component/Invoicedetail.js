@@ -1,31 +1,65 @@
 import React, { Component } from 'react';
-import {Link, Route} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Header from './Header';
-import Footer from './Footer'; 
+import Footer from './Footer';
+import axios from 'axios';
 
 class Invoicedetail extends Component 
 {
     state ={
-        detailInv:[]
+        detailInv:[],
+
+        namaProduct:'',
+        jmlpro:'',
+        namaCos:'',
+        email:'',
+        harga:'',
+        tanggal:'',
+        kota:'',
+        pos:'',
+        phone:'',
+        kodeINV:''
     }
     componentDidMount(){
-        app.get(`http://localhost:8000/`)
-        .then((ambilData)=>(
+        var invID = this.props.location.state.idINV;
+        console.log(invID)
+        axios.get(`http://localhost:8000/getdataInvoiceDetail`+invID)
+        .then((ambilData)=>{
+            console.log(ambilData)
             this.setState({
-                detailInv:ambilData.data
+            //     detailInv:ambilData.data,
+
+                    namaProduct:ambilData.data[0].nama_product,
+                    jmlpro:ambilData.data[0].jumlah_product,
+                    namaCos:ambilData.data[0],
+                    email:ambilData.data[0],
+                    harga:ambilData.data.harga,
+                    tanggal:ambilData.data.tgl_buat,
+                    kota :ambilData.data.kota,
+                    pos :ambilData.data.pos,
+                    phone:ambilData.data.phone,
+                    kodeINV:ambilData.data.belum
+                
             })
-        ))
+        })
     }
     render() 
     {
-        const detailINV=this.state.detailInv.map((datanya, index)=>{
-            var urut= index+1
-            var nama=l
-            var email=l
-            var tanggal=l
-            var kodeINV=l
-
-        })
+        // const detailINV=this.state.detailInv.map((datanya, index)=>{
+        //     var urut= index+1
+        //     var namaProduct=datanya.nama_product
+        //     var jmlpro=datanya.jumlah_product
+        //     var namaCos=datanya.nama
+        //     var email=datanya.email
+        //     var harga=datanya.harga
+        //     var tanggal=datanya.tgl_buat
+        //     var kota =datanya.kota
+        //     var pos =datanya.pos
+        //     var phone=datanya.phone
+        //     var kodeINV=datanya.belum
+        //     var
+        //     return
+        // })
         return (
         <div>
                         <div className="wrapper">
@@ -87,8 +121,8 @@ class Invoicedetail extends Component
                                         <div className="col-md-6">
                                             <address>
                                             <strong>Billed To:</strong><br />
-                                            Udin Mantap<br />
-                                            udinmantap@gmail.com
+                                            {this.state.nama}<br />
+                                            {this.state.email}
                                             </address>
                                         </div>
                                         <div className="col-md-6 text-right">
@@ -139,7 +173,7 @@ class Invoicedetail extends Component
                                                 <tr>
                                                     <td>Vespa VBB 1962</td>
                                                     <td className="text-center">1 Unit</td>
-                                                    <td className="text-center">1 Pasang New wheels</td>
+                                                    <td className="text-center">{this.state.namaProduct}</td>
                                                     <td className="text-right">Rp. 12.000.000,00</td>
                                                 </tr>
                                                 <tr>

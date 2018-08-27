@@ -5,18 +5,36 @@ import axios from'axios';
 class Register extends Component
 {
   tambahData = (e) => {
+    var input1=e.namadepan.value;
+    var input2=e.namabel.value;
+    var input3=e.email.value;
+    var input4=e.address.value;
+    var input5=e.state.value;
+    var input6=e.pos.value;
+    var input7=e.password.value;
+    var input8=e.phone.value;
+    var input9=e.ttl.value;
+
     axios.post(`http://localhost:8000/register`,{
-      input1:e.namadepan.value,
-      input2:e.namabel.value,
-      input3:e.email.value,
-      input4:e.address.value,
-      input5:e.state.value,
-      input6:e.pos.value,
-      input7:e.password.value,
-      input8:e.phone.value,
-      input9:e.ttl.value,
+      input1:input1,
+      input2:input2,
+      input3:input3,
+      input4:input4,
+      input5:input5,
+      input6:input6,
+      input7:input7,
+      input8:input8,
+      input9:input9,
       
-    })
+    }).then((response) => {
+      var status = response.data
+      if (status === 1)
+      {
+          this.setState({
+              redirect: true
+          })
+      }
+  })
   }
     render()
 {

@@ -59,7 +59,7 @@ class Konten extends Component {
         var id=item.id_motor;
         var jenis=item.id_jenis;
         var gambar=item.gambar;
-        var namamotor=item.namamotor;
+        var namamotor=item.nama_motor;
         var descmotor=item.desc_product;
         var harga= item.harga;
         var pembuat= item.pembuat;
@@ -84,8 +84,9 @@ class Konten extends Component {
                   {/* <Link to={{pathname:'/cart', state:{dataID:id}}} className="card-link"> <i className="fa fa-shopping-cart">Tambah ke Daftar Belanja</i></Link> */}
                   <button onClick ={()=>this.addtoCart(id)} className="card-link" className="btn btn-warning"> <Link to ='/cart'><i className="fa fa-shopping-cart">&nbsp;Tambah ke Daftar Belanja</i></Link></button>
                 </div>
-              </div>
+              </div><br/>
         </div>
+        
         )
       }
     );
