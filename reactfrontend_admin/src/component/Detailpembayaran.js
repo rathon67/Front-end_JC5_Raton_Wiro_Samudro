@@ -11,11 +11,13 @@ class detailpembayaran extends Component
     }
 
     componentDidMount(){
-        var id =this.props.location.state.idUser;
-        console.log(id)
-        axios.get(`http://localhost:8000/getDetailPembayaran/`+id)
+        var kodeINV =this.props.location.state.kodeINV;
+        // console.log(id)
+        axios.post(`http://localhost:8000/detailpembayaran`,{
+            kodeINV:kodeINV
+        })
         .then((terimaData)=>{
-            console.log(terimaData)
+            console.log(terimaData.data)
             this.setState({
                 detaildataPembayaran:terimaData.data
             });

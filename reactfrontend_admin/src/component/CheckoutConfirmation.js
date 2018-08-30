@@ -17,21 +17,21 @@ class CheckoutConfirmation extends Component
     componentDidMount(){
         axios.get(`http://localhost:8000/getDataCheckout`)
         .then((terimaData)=>{
-            // console.log(terimaData)
+            console.log(terimaData)
             this.setState({
                 dataCheckout:terimaData.data,
-                idUser:terimaData.data.idUser
+               
             });
         })
     }
 
     updateStatusLunas =(e) =>{
-        // var idUser =this.state.idUser
+        var idUser =this.state.idUser
         // console.log(idUser)    
-        console.log(e)
+        // console.log(e)
         axios.post('http://localhost:8000/updateStatusLunas',{
         kodeCheckout : e,
-        // idUser:idUser
+        idUser:idUser
         })
         // axios.get('http://localhost:8000/listproduct')        
         .then((ambilData) =>{
@@ -81,45 +81,60 @@ class CheckoutConfirmation extends Component
             var idCheckout =data.id_checkout;
             var idCart=data.id_cart;
             var idUser =data.id_user;
-            console.log(idUser)
+            // console.log(idUser)
             var email=data.email;
+            var kodeINV=data.kode_checkout;
             var nama=data.nama;
             var alamat=data.alamat;
             var kota=data.kota;
             var pos=data.pos;
             var phone=data.phone;
             var order=data.order_time;
-            var kodeCheckout=data.kode_checkout;
-            var harga=data.harga_item
+            var kodeCheckout=data.kode_checkout;        
+            /**merubah harga ke Rp */
+            var harga=data.harga_item;            
+            harga =harga+harga*0.1+1200000;
+            var	number_string = harga.toString(),
+                sisa 	= number_string.length % 3,
+                rupiah 	= number_string.substr(0, sisa),
+                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                    
+            if (ribuan) {
+                var separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            var hargaRP= rupiah
+            /**akhir */
             var status=data.status;
 
-            var gantiStatus='';
-                if(status === 0){
-                     gantiStatus ='Belum Check'
-                }else if(status ===1){
-                    gantiStatus ='Lunas'
-                }else if(status ===2){
-                    gantiStatus='Angsur'
-                }else if(status ===3){
-                    gantiStatus='Gagal'
-                }
+            // var gantiStatus='';
+            //     if(status === 1){
+            //          gantiStatus ='Belum Check'
+            //     }else if(status ===1){
+            //         gantiStatus ='Lunas'
+            //     }else if(status ===2){
+            //         gantiStatus='Angsur'
+            //     }else if(status ===3){
+            //         gantiStatus='Gagal'
+            //     }
             
             return <tr key={urutan} style={{textAlign: 'center'}} className="success">
                 <td>{urut}</td>
+                <td>{kodeINV}</td>
                 <td>{email}</td>
                 <td>{nama}</td>
                 <td>{alamat}</td>
-                <td>{harga}</td>
+                <td>Rp.{hargaRP}</td>
                 {/* <td>{hargaProduk}</td> */}
                 {/* <td>{harga}</td> */}
-                <td><Link to={{pathname:'/detailpembayaran', state:{idUser: idUser}}}>Lihat </Link></td>
-                <td>{gantiStatus}</td>
+                <td><Link to={{pathname:'/detailpembayaran', state:{kodeINV: kodeINV}}}>Lihat </Link></td>
+                <td>{status}</td>
                 
                 <td>
                     {/* <Link onClick={()=>{this.Tombolpicture(dataID);}} className="btn btn-warning fa fa-pencil" to="/editdata/"></Link> &nbsp; */}
                         <button type="button" onClick={()=>this.updateStatusLunas(kodeCheckout)} className="btn btn-success btn-xs"><i className="fa ti-check"></i></button>&nbsp;
-                        <button type="submit" onClick={()=>this.updateStatusAngsur(kodeCheckout)} className="btn btn-warning btn-xs" ><i className="fa fa-minus"></i></button>&nbsp;
-                        <button type="submit" onClick={()=>this.updateStatusGagal(kodeCheckout)} className="btn btn-danger btn-xs" ><i className="fa fa-close"></i></button>&nbsp;
+                        <button type="button" onClick={()=>this.updateStatusAngsur(kodeCheckout)} className="btn btn-warning btn-xs" ><i className="fa fa-minus"></i></button>&nbsp;
+                        <button type="button" onClick={()=>this.updateStatusGagal(kodeCheckout)} className="btn btn-danger btn-xs" ><i className="fa fa-close"></i></button>&nbsp;
                         
                     </td>
                 </tr>
@@ -193,10 +208,11 @@ class CheckoutConfirmation extends Component
                                                                 <tr style={{background: '#6D8C70', fontFamily:'monospace'}}>
                                                                     
                                                                     <th style={{textAlign: 'center'}}>No.Checkout</th>
+                                                                    <th style={{textAlign: 'center'}}>Kode Checkout</th>
                                                                     <th style={{textAlign: 'center'}}>Email</th>
                                                                     <th style={{textAlign: 'center'}}>Nama</th>
                                                                     <th style={{textAlign: 'center'}}>Alamat</th>
-                                                                    <th style={{textAlign: 'center'}}>Harga</th>
+                                                                    <th style={{textAlign: 'center'}}>Total Harga</th>
                                                                     <th style={{textAlign: 'center'}}>Bukti Transfer</th>                                                                    
                                                                     <th style={{textAlign: 'center'}}>Status</th>
                                                                     <th style={{textAlign: 'center'}}>Action</th>                                                                    

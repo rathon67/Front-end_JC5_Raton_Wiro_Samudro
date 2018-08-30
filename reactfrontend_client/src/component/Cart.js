@@ -37,13 +37,13 @@ class Cart extends Component
             idUser:idUser
         })
         .then((hasilSum)=>{
-            console.log(typeof(hasilSum.data[0].sum))
+            // console.log(typeof(hasilSum.data[0].sum))
             var idUser= cookies.get('userID')
             axios.post('http://localhost:8002/taxTotal',{
             idUser:idUser
             })
         .then((taxItem)=>{
-            console.log(typeof(taxItem.data))
+            // console.log(typeof(taxItem.data))
             this.setState({
                 hargaTax:taxItem.data,
                 hargaSum:hasilSum.data[0].sum,
@@ -54,8 +54,8 @@ class Cart extends Component
             this.setState({
                 hargaTotal:tax+sum
             })
-            console.log(this.state.hargaTax)
-            console.log(this.state.hargaSum)
+            // console.log(this.state.hargaTax)
+            // console.log(this.state.hargaSum)
         })
 
             this.setState({
@@ -97,7 +97,17 @@ class Cart extends Component
     //     })
     // }
    
+    updateKodeCart=(e)=>{
+        var id=cookies.get('userID');
+        // console.log(id)
+        axios.post('http://localhost:8002/updatekodeCart/',{
+            id:id
+        })
+        .then((ambildata)=>{
+            
+        })
 
+    }
       
 
     render()
@@ -123,7 +133,7 @@ class Cart extends Component
             <td style ={{width:"50px", textAlign:'center'}}>
             <button onClick={() =>this.hapusData(id)} className="btn btn-danger "><i className="fa fa-trash"></i></button>
             </td>
-            <td style ={{textAlign:'center'}}>{namaMotor}<a href="">X</a></td>
+            <td style ={{textAlign:'center'}}>{namaMotor}</td>
             <td style ={{textAlign:'center'}}>Rp. {harga}</td>
             <td style ={{textAlign:'center'}}>Rp. {harga}</td>
         </tr>  
@@ -168,7 +178,7 @@ class Cart extends Component
                            
                             <a href="" className="btn btn-info">Jadwalkan Test ride</a>
                         </td>
-                        <td colSpan={4}><Link to="/checkout"className="pull-right btn btn-primary">Checkout</Link>
+                        <td colSpan={4}><button onClick={()=>this.updateKodeCart()} className="pull-right btn btn-primary"><Link to="/checkout"><i className="fas fa-motorcycle" style={{color:"white"}}>Checkout</i></Link></button>
                         {/* <button onClick={() =>this.simpanData()} className="pull-center btn btn-success">Tambah Motor</button>&nbsp; */}
                         </td>
                     </tr>

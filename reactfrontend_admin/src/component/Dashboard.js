@@ -3,11 +3,32 @@ import {Link, Redirect} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
 
 const cookies = new Cookies();
 
 class Dashboard extends Component 
 {
+    state={
+        CountProduk:'',
+        CounInv:'',
+        CountFailedPaid:'',
+        CountUser:''
+    }
+
+    componentDidMount(){
+        axios.get(`http://localhost:8000/getdataPembayaran`)
+        .then((terimaData)=>{
+            console.log(terimaData)
+            this.setState({
+                dataPeCount:terimaData.data,
+                CounInv:terimaData.data,
+                CountFailedPaid:terimaData.data,
+                CountUser:terimaData.data,
+            });
+        })
+    }
+    
     render() 
     {
         //Cookies login

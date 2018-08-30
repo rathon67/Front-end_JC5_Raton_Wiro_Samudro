@@ -27,6 +27,7 @@ class Invoice extends Component
         const dataInv = this.state.dataInvoice.map((item, index)=>{
             var urut =index+1;
             var idINV=item.id_invoice
+            var kdINV=item.kode_invoice
             var namaCos=item.nama
             var Email=item.email
             var Tanggal=item.tgl_buat
@@ -49,11 +50,11 @@ class Invoice extends Component
                 <td>{Email}</td>
                 <td>{Tanggal}</td>
                 <td>{Harga}</td>
-                <td>{status}</td>
+                <td><b>{status}</b></td>
                     <td>
                     {/* <Link onClick={()=>{this.Tombolpicture(dataID);}} className="btn btn-warning fa fa-pencil" to="/editdata/"></Link> &nbsp; */}
                         {/* <Link to ={{pathname:'/editdata', state:{dataID: dataID}}} className="btn btn-warning btn-xs"><i className="fa fa-edit"></i></Link> */}
-                        <Link to={{pathname:"/Invoicedetail", state:{idINV:idINV}}} className="btn btn-info btn-sm" >Lihat</Link>
+                        <Link to={{pathname:"/Invoicedetail", state:{kdINV:kdINV}}} className="btn btn-info btn-sm" >Lihat</Link>
                         
                     </td>
                 </tr>
@@ -132,7 +133,7 @@ class Invoice extends Component
                                                                     <th style={{textAlign: 'center'}}>Costumer</th>
                                                                     <th style={{textAlign: 'center'}}>Email</th>
                                                                     <th style={{textAlign: 'center'}}>Tanggal</th>
-                                                                    <th style={{textAlign: 'center'}}>Harga</th>
+                                                                    <th style={{textAlign: 'center'}}>Harga Unit</th>
                                                                     <th style={{textAlign: 'center'}}>Status</th>
                                                                     <th style={{textAlign: 'center'}}>Detail</th>                                                                    
                                                                 </tr>

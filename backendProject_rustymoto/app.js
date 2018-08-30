@@ -520,90 +520,116 @@ db.query(sql,(err,result)=>{
 
 // menampilkan data Checkout
 app.get('/getDataCheckout', (req,res)=>{
-    var sql= `SELECT * FROM tbl_checkout JOIN tbl_cart on tbl_cart.id_cart = tbl_checkout.id_cart GROUP BY tbl_checkout.kode_checkout`;
+
+    var sql= ` SELECT tbl_checkout.id_user, tbl_checkout.kode_checkout, tbl_checkout.nama,
+    tbl_checkout.email, tbl_checkout.alamat, master_status.status, SUM(harga) AS harga_item
+    FROM tbl_checkout 
+    JOIN master_status ON tbl_checkout.status = master_status.id_status GROUP BY kode_checkout`;
     db.query(sql, (err,result)=>{
         if (err){
             throw err;
         }else{
             res.send(result)
-            // console.log(result)
-           
             
         }
     })
 })
 
-// app.get('/getDataiduseronCheckout', (req,res)=>{
-//     var sql=sql2= `SELECT tbl_checkout.id_checkout, tbl_cart.id_user
-//     FROM tbl_checkout
-//     JOIN tbl_cart ON tbl_checkout.id_cart = tbl_cart.id_cart
-//     WHERE kode_checkout=`;
-//     db.query(sql, (err,result)=>{
-//         if (err){
-//             throw err;
-//         }else{
-//             res.send(result)
-//             // console.log(result)
-           
-            
-//         }
-//     })
-// })
 
-/** update status pada Checkout triple fungsi*/
+
+/** UPDATE STATUS PADA FUNCTION DENGAN MULTI FUNCTION! INSERT DATA INVOICE, UPDATE STATUS CHECKOUT DAN HAPUS CART(CLEAR TRANSAKSI)*/
 app.post(`/updateStatusLunas`, (req,res)=>{
-    var idklick1 =req.body.kodeCheckout;
-    var sql= `UPDATE tbl_checkout SET status='${1}' WHERE kode_checkout =${idklick1};`
-    sql+= `SELECT * FROM tbl_checkout WHERE kode_checkout =${idklick1};`
-    sql+= `SELECT tbl_checkout.id_cart, tbl_cart.nama_item, tbl_cart.harga_item,tbl_cart.id_user  
-    FROM tbl_checkout
-    JOIN tbl_cart ON tbl_cart.id_cart=tbl_checkout.id_cart
-    WHERE tbl_checkout.kode_checkout =${idklick1};`
-    sql+=`SELECT COUNT(*) AS jml_motor FROM tbl_checkout WHere kode_checkout=${idklick1};`
-    db.query(sql, (err,result)=>{
-        if(err){
-            throw err;
-        }else{  console.log(result)  
-                    var tgl_buat = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
-                    var idCheckout =result[1][0].id_checkout
-                    // console.log(typeof(idCheckout)) 
-                    console.log(idCheckout)
-                    var idCart =result[1][0].id_cart
-                    var kode_checkout=result[1][0].kode_checkout
-                    var email=result[1][0].email
-                    var nama=result[1][0].nama
-                    var alamat=result[1][0].alamat
-                    var kota=result[1][0].kota
-                    var pos=result[1][0].pos
-                    var phone=result[1][0].phone
-                    var status=result[1][0].status
-                    var namaMotor=result[2][0].nama_item
-                    var hargaitem=result[2][0].harga_item
-                    var iduser=result[2][0].id_user
-                    var jmlmotordibeli=result[3][0].jml_motor
-                    var sql =`INSERT INTO tbl_invoice VALUES ("${''}","${idCheckout}","${iduser}","${namaMotor}","${jmlmotordibeli}","${nama}","${email}","${hargaitem}","${status}","${tgl_buat}")`;
-                    db.query(sql, (err,result)=>{
-                        if(err){
-                            throw err;
-                        }else{
-                            // console.log(result)
-                        }
-                    })
-        }
-    })
-})
-/** tambah data invoice */
-app.post(`/tambahDataInvoice`, (req,res)=>{
-    var idCheckout =req.body.id
-    var sql =`INSERT INTO tbl_invoice VALUES ("${''}","${'id_checkout'}","${'id_user'}","${'namaproduk'}","${'jumlahproduk'}","${'nama'}","${'email'}","${'harga'}","${'status'}","${'tgl_invoice'}")`
+    // var idUser=req.body.idUser;
+    // console.log(idUser)
+    var idklick1 =req.body.kodeCheckout;    
+    var GetDataCheckOutForInvoice= `SELECT * FROM tbl_checkout WHERE kode_checkout =${idklick1}`;
+            // GetDataCheckOutForInvoice+=`SELECT COUNT(*) FROM tbl_checkout WHERE kode_checkout=${idklick1}`
+            db.query(GetDataCheckOutForInvoice, (err,result)=>{
+                if(err){
+                    throw err;
+                }else{  
+                            var listInvoice =result;
+                            // console.log(listInvoice) 
+                            var tgl_buat = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
+                            
+                            var motor=[];
+                            var hargaunit=[];
+                            var idCheckout=[];
+                            for(var i=0; i<result.length; i++)
+                            {
+                                motor.push(result[i].nama_motor);
+                                hargaunit.push(result[i].harga);
+                                idCheckout.push(result[i].id_checkout);
+                            }
+                            // console.log(motor.length) 
+                            // console.log(hargaunit)
+                            // console.log(idCheckout)
+                            var kode_checkout=result.kode_checkout;
+                            var email=result[0].email;                    
+                            var nama=result[0].nama;
+                            var alamat=result[0].alamat;
+                            var kota=result[0].kota;
+                            var pos=result[0].pos;
+                            var phone=result[0].phone;
+                            var status=result[0].status;
+                            var iduser=result[0].id_user;
+                            // var jmlmotordibeli=result[1][0].jml_motor;                           
+                            
+                            var kodeInvoice = 'SELECT `kode_invoice` FROM tbl_invoice';
+                            db.query(kodeInvoice, (err, results) =>{
+                                if (err) throw err
+                                else
+                                {
+                                var length = results.length;
+                                // console.log(length)
+                                // console.log(results)
+                                
+                                var kodeINV = 0;
+                                (length === 0) ? kodeINV = 0 : kodeINV = parseInt(results[length-1].kode_invoice);
+                                var INV = kodeINV + 1;
+                                var kodeCK = '';
+                                // console.log(kodeCK)
+                                
+                                if (INV < 10)  kodeCK = kodeCK + 'INV0000' + INV
+                                else if (INV >= 10 && INV < 100) kodeCK = kodeCK + 'INV000' + INV
+                                else if (INV >= 100 && INV < 1000) kodeCK = kodeCK + 'INV00' + INV
+                                else if (INV >= 1000 && INV < 10000) kodeCK = kodeCK + 'INV0' + INV
+                                else kodeCK = kodeCK + INV
+                                // generate Invoice Code
+                                // console.log(kodeCK)
+ /**INSERT DATA INVOICE */
+                                for (var i =0; i<motor.length; i++){
+                                    var insertInvoiceData =`INSERT INTO tbl_invoice VALUES ("${''}","${idCheckout[i]}","${iduser}","${kodeCK}","${motor[i]}","${hargaunit[i]}","${nama}","${email}","${alamat}","${kota}","${pos}","${phone}","7","${tgl_buat}")`;
 
-})
+                                    db.query(insertInvoiceData, (err,result)=>{
+                                        if(err){
+                                            throw err;
+                                        }else{
+                                            var updateStatCheckout= `UPDATE tbl_checkout SET status=4 WHERE kode_checkout="${idklick1}"`;
+                                            db.query(updateStatCheckout,(err,result)=>{
+                                                if(err){
+                                                    throw err;
+                                                }else{
+
+                                                }
+                                            })
+                                            }
+                                        })
+                                    }                    
+                                }
+                            })
+                        }
+                    }) 
+        })
+
+
+
 
 /**akhir dari tambah data invoice */
 
 app.post(`/updateStatusAngsur`, (req,res)=>{
-    var id =req.body.id;
-    var sql= `UPDATE tbl_checkout SET status='${2}' WHERE id_checkout =${id}`;
+    var Kdcekout =req.body.kodeCheckout;
+    var sql= `UPDATE tbl_checkout SET status='${5}' WHERE kode_checkout =${Kdcekout}`;
     db.query(sql, (err,result)=>{
         if(err){
             throw err;
@@ -614,8 +640,8 @@ app.post(`/updateStatusAngsur`, (req,res)=>{
 })
 
 app.post(`/updateStatusGagal`, (req,res)=>{
-    var id =req.body.id;
-    var sql= `UPDATE tbl_checkout SET status='${3}' WHERE id_checkout =${id}`;
+    var Kdcekout2 =req.body.kodeCheckout;
+    var sql= `UPDATE tbl_checkout SET status='${6}' WHERE kode_checkout =${Kdcekout2}`;
     db.query(sql, (err,result)=>{
         if(err){
             throw err;
@@ -628,33 +654,51 @@ app.post(`/updateStatusGagal`, (req,res)=>{
 /**menyimpan bukti pembayaran */
 app.post('/kirimbuktiPembayaran', (req,res)=>{
     var idUser =req.body.idUser;
-    var fileName= req.files.file.name;
-    var deskPembayaran= req.body.deskPembayaran;
-    var posted =(new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
-    if (req.files){
-        var fungsiFile= req.files.file;
-        // console.log(idUser)
-        // console.log(fileName)
-        // console.log(deskPembayaran)
-        // console.log(fungsiFile) 
-
-        fungsiFile.mv("./filebuktiTransfer/" +fileName ,(kaloError) =>{
-            if(kaloError){
-                console.log(kaloError);
-                res.send('uploadfailed');
-            }else {
-                res.send('upload sukses');
-            }
-        })
-    }
-    var sql=`INSERT INTO tbl_buktipembayaran VALUES ("${``}","${idUser}","${fileName}","${deskPembayaran}","${posted}")`;
-    db.query(sql,(err,result)=>{
+    var tarikkodeCheckout=`SELECT DISTINCT kode_checkout FROM tbl_checkout WHERE status=2 AND id_user="${idUser}"`;
+    db.query(tarikkodeCheckout, (err,result)=>{
         if(err){
             throw err;
         }else{
-            // res.send('data pembayaran berhasil di upload')
+            var kodeCheckout=result[0].kode_checkout;
+            var fileName= req.files.file.name;
+            var deskPembayaran= req.body.deskPembayaran;
+            var posted =(new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
+            if (req.files){
+                var fungsiFile= req.files.file;
+                // console.log(idUser)
+                // console.log(fileName)
+                // console.log(deskPembayaran)
+                // console.log(fungsiFile) 
+
+                fungsiFile.mv("./filebuktiTransfer/" +fileName ,(kaloError) =>{
+                    if(kaloError){
+                        console.log(kaloError);
+                        
+                    }else {
+                        var sql=`INSERT INTO tbl_buktipembayaran VALUES ("${``}","${idUser}","${kodeCheckout}","${fileName}","${deskPembayaran}","${posted}")`;
+                        db.query(sql,(err,result)=>{
+                                if(err) throw err 
+                                    else{
+                                    console.log(kodeCheckout)
+                                    console.log()
+                                    var updateCheckout=`UPDATE tbl_checkout SET status="3" WHERE kode_checkout="${kodeCheckout}" AND status="2";`
+                                    updateCheckout +=`UPDATE tbl_cart SET id_status="3" WHERE id_user="${idUser}" AND id_status="2"`;
+                                    db.query(updateCheckout,(err,result)=>{
+                                        if (err){
+                                            throw err;
+                                        }else{
+
+                                        }
+                                    })
+
+                                   
+                                }
+                            });
+                    }
+                })
+            }            
         }
-    });
+    })
 })
 
 /** menampilkan semua bukti transfer/ pembayaran */
@@ -670,8 +714,8 @@ app.get('/getdataPembayaran', (req,res)=>{
 })
 /** akhir dari proses bukti pembayaran */
 /** menampilkan get data detail pembayaran */
-app.get ('/getDetailPembayaran/:id', (req,res)=>{
-    var sql =`SELECT * FROM tbl_buktipembayaran WHERE id_user=${req.params.id}`;
+app.post('/detailpembayaran', (req,res)=>{
+    var sql =`SELECT * FROM tbl_buktipembayaran WHERE kode_checkout=${req.body.kodeINV}`;
     // console.log(sql)
     db.query(sql,(err,result)=>{
         if(err){
@@ -685,7 +729,7 @@ app.get ('/getDetailPembayaran/:id', (req,res)=>{
 
 /**untuk menampilkan data invoice */
 app.get (`/getdataInvoice`, (req,res)=>{
-    var sql=`SELECT * FROM tbl_invoice`;
+    var sql=`SELECT tbl_invoice.id_invoice,tbl_invoice.kode_invoice, tbl_invoice.nama, tbl_invoice.email, tbl_invoice.harga, tbl_invoice.tgl_buat, master_status.status FROM tbl_invoice JOIN master_status ON tbl_invoice.status=master_status.id_status`;
     db.query(sql,(err,result)=>{
         if(err){
             throw err;
@@ -695,17 +739,17 @@ app.get (`/getdataInvoice`, (req,res)=>{
     })
 })
 
-app.get('/getdataInvoiceDetail/:id', (req,res)=>{
-    var invID=req.params.id
-    var sql=`SELECT tbl_invoice.nama_product, tbl_invoice.jumlah_product, tbl_invoice.nama, tbl_invoice.email, tbl_invoice.harga, tbl_invoice.tgl_buat, tbl_checkout.kota, tbl_checkout.pos, tbl_checkout.phone,tbl_checkout.alamat
-    FROM tbl_invoice 
-    JOIN tbl_checkout ON tbl_checkout.id_checkout = tbl_invoice.id_checkout WHERE tbl_invoice.id_invoice=${invID}`;
+app.post('/getdataInvoiceDetail', (req,res)=>{
+    var kdINV=req.body.kdINV
+    kdINV ="'"+kdINV+"'"
+    console.log(kdINV)
+    var sql=`SELECT * FROM tbl_invoice WHERE kode_invoice=${kdINV}`;
     db.query(sql,(err,result)=>{
         if(err){
             throw err;
         }else{
             res.send(result)
-            console.log(result)
+            // console.log(result)
             
         }
     })

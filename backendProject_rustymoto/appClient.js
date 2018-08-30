@@ -74,7 +74,7 @@ app.post('/userlogin', (req, res) => {
 /**untuk proses perubahan pada header */
 app.post('/profileuser', (req,res)=>{
  var userCookies= req.body.idUser;
-  console.log(userCookies)
+  // console.log(userCookies)
  var sql= `SELECT * FROM tbl_user WHERE id_user=${userCookies}`;
  db.query(sql,(err,result) =>{
    if(err) throw err;
@@ -128,7 +128,7 @@ app.post('/addtoCart', (req, res)=>{
           } else {
             if(result.length == 0 ){
               
-              var sql = ` INSERT INTO tbl_cart VALUES ("${''}","${idUser}","${idMotor}","${namaMotor}","${hargaMotor}","${posted}")`;
+              var sql = ` INSERT INTO tbl_cart VALUES ("${''}","${idUser}","${idMotor}","${1}","${namaMotor}","${hargaMotor}","${posted}")`;
                 db.query(sql, (kaloError, hasilnya) =>{
                 if(kaloError){
                   throw kaloError;
@@ -142,23 +142,15 @@ app.post('/addtoCart', (req, res)=>{
           }
         })
       }
-      // var sql = ` INSERT INTO tbl_cart VALUES ("${''}","${idUser}","${idMotor}","${namaMotor}","${hargaMotor}","${posted}")`;
-      // db.query(sql, (kaloError, hasilnya) =>{
-      //   if(kaloError){
-      //     throw kaloError;
-      //   }else{   
-      //     console.log('data Cart berhasil di input')
-      //   }
-      // })      
+  
     }
   })
 })
 
-
 /** memanggil sebuah parameter id di cart */
 app.post('/getCartItem', (req, res) =>{
   var idUser=req.body.idUser;
-  var grabData = `SELECT * FROM tbl_cart WHERE id_user=${idUser}`;
+  var grabData = `SELECT * FROM tbl_cart WHERE id_user=${idUser} AND id_status="1" OR id_status="2"`;
   db.query(grabData, (kaloError, hasilnya)=>{
     if(kaloError){
       throw kaloError;
@@ -185,8 +177,8 @@ app.post('/hapusdataitemCart', (req,res)=>{
 /** jumlah subtotal */
 app.post('/jumlahsubHarga', (req, res)=>{
   var iduser= req.body.idUser
-  console.log(iduser)
-  var sumSubharga = `SELECT SUM(harga_item) AS sum FROM tbl_cart WHERE id_user=${iduser}`;
+  // console.log(iduser)
+  var sumSubharga = `SELECT SUM(harga_item) AS sum FROM tbl_cart WHERE id_user=${iduser} AND id_status="1" OR id_status="2"`;
   db.query(sumSubharga, (err,hasil)=>{
     if (err){
     throw err;
@@ -200,7 +192,7 @@ app.post('/jumlahsubHarga', (req, res)=>{
 /**akhir dari subtotal */
 app.post('/taxTotal', (req,res)=>{
   var iduser= req.body.idUser
-  var tax= `SELECT harga_item FROM tbl_cart WHERE id_user=${iduser}`;
+  var tax= `SELECT harga_item FROM tbl_cart WHERE id_user=${iduser} AND id_status="1" OR id_status="2"`;
   db.query(tax, (err,hasil)=>{
     if(err){
       throw err;
@@ -221,61 +213,78 @@ app.post('/taxTotal', (req,res)=>{
 /**checkout section */
 /** tambah data checkout */
 app.post('/tambahdataCheckout', (req,res)=>{
-  var email =req.body.email;
-  var nama =req.body.nama;
-  var alamat =req.body.alamat;
-  var kota = req.body.kota;
-  var pos =req.body.pos;
-  var phone =req.body.phone;
-  var waktuOrder = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
-  
-  var idCart=req.body.idCart;
-  // console.log(idCart[0].id_cart)
-  var takeorderID = 'SELECT kode_checkout FROM tbl_checkout'
-      db.query(takeorderID, (err, results) =>
-      {
-        if (err) throw err
-        else
-        {
-          var length = results.length;
-          // console.log(length)
-          // console.log(results)
+  var idUser=req.body.idUser;
+  // console.log(idCart)
+  var nameAndPrice= `SELECT id_cart,nama_item, harga_item FROM tbl_cart WHERE id_user='${idUser}' AND id_status=1`;
+  db.query(nameAndPrice, (err,result)=>{
+    if(err){
+      throw err; 
+    }else{
+        // console.log(result[0].nama_item)
+          var listCart =result
+          console.log(result)
+          var email =req.body.email;
+          var nama =req.body.nama;
+          var alamat =req.body.alamat;
+          var kota = req.body.kota;
+          var pos =req.body.pos;
+          var phone =req.body.phone;
+          var waktuOrder = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
           
-          var kodeCheckout = 0;
-          (length === 0) ? kodeCheckout = 0 : kodeCheckout = parseInt(results[length-1].kode_checkout);
-          var INV = kodeCheckout + 1;
-          var kodeCK = '';
-          
-          if (INV < 10)  kodeCK = kodeCK + '0000' + INV
-          else if (INV >= 10 && INV < 100) kodeCK = kodeCK + '000' + INV
-          else if (INV >= 100 && INV < 1000) kodeCK = kodeCK + '00' + INV
-          else if (INV >= 1000 && INV < 10000) kodeCK = kodeCK + '0' + INV
-          else kodeCK = kodeCK + INV
-          // generate Invoice Code
-          // console.log(kodeCK)
-          for (var i =0; i<idCart.length; i++){
-                
-          // console.log(idCart[i].id_cart)
-          var sql =` INSERT INTO tbl_checkout VALUES ("${''}","${idCart[i].id_cart}","${kodeCK}","${email}","${nama}","${alamat}","${kota}","${pos}","${phone}","${''}","${waktuOrder}")`;
-          db.query(sql, (err, result)=>{
-            if (err){
-              throw err;
-            }
-          })
-          }
-        }
-      });
+          var takeorderID = 'SELECT kode_checkout FROM tbl_checkout';
+          db.query(takeorderID, (err, results) =>{
+            if (err) throw err
+            else
+            {
+              var length = results.length;
+              // console.log(length)
+              // console.log(results)
+              
+              var kodeCheckout = 0;
+              (length === 0) ? kodeCheckout = 0 : kodeCheckout = parseInt(results[length-1].kode_checkout);
+              var INV = kodeCheckout + 1;
+              var kodeCK = '';
+              
+              if (INV < 10)  kodeCK = kodeCK + '0000' + INV
+              else if (INV >= 10 && INV < 100) kodeCK = kodeCK + '000' + INV
+              else if (INV >= 100 && INV < 1000) kodeCK = kodeCK + '00' + INV
+              else if (INV >= 1000 && INV < 10000) kodeCK = kodeCK + '0' + INV
+              else kodeCK = kodeCK + INV
+              // generate Invoice Code
+              // console.log(kodeCK)
+              var counter=0
+              for (var i =0; i<listCart.length; i++){
+                    
+              // console.log(idCart[i].id_cart)
+              var sql =` INSERT INTO tbl_checkout VALUES ("${''}","${listCart[i].id_cart}","${idUser}","${kodeCK}","${listCart[i].nama_item}","${listCart[i].harga_item}","${email}","${nama}","${alamat}","${kota}","${pos}","${phone}","${'2'}","${waktuOrder}")`;
+              db.query(sql, (err, result)=>{
+                if (err){
+                  throw err;
+                }else{
+                  counter++
+                  console.log(counter)
+                  // console.log(listCart)
+                  if(counter == listCart.length){
+                    var updateCart = `UPDATE tbl_cart SET id_status="2" WHERE id_user="${idUser}" AND id_status="1"`;
+                    db.query(updateCart, (err,result)=>{
+                      if(err){
+                        throw err;
+                      }else{
+                       
 
-  // for (var i =0; i<idCart.length; i++){
-  //   var number= 1000;      
-  //       console.log(idCart[i].id_cart)
-  //   var sql =` INSERT INTO tbl_checkout VALUES ("${''}","${idCart[i].id_cart}","${kodeCheckout}",${email}","${nama}","${alamat}","${kota}","${pos}","${phone}","${waktuOrder}")`;
-  // db.query(sql, (err, result)=>{
-  //   if (err){
-  //     throw err;
-  //   }
-  // })
-  // }
+                      }
+                    })
+                    // console.log('masuk')
+                  }
+                }
+              })
+              }
+            }
+          });
+
+        }        
+      })  
+  
 })
 
 

@@ -39,7 +39,8 @@ class Checkout extends Component
             var tax=this.state.hargaTax
             var sum=this.state.hargaSum
             this.setState({
-                hargaTotal:tax+sum
+                hargaTotal:tax+sum+1200000
+                
             })
             // console.log(this.state.hargaTax)
             // console.log(this.state.hargaSum)
@@ -50,7 +51,12 @@ class Checkout extends Component
                 })
             }
         )
-    }
+    //   /** KIRIM HARGA TOTAL KE BACK-END ADMIN UNTUK DI KIRIM KEMBALI KE LIST CHECKOUT ADMIN DAN INVOICE*/  
+    //   var kirimHargaTotal =this.state.hargaTotal
+    //   axios.post('/http://localhost:8000/getDataCheckout',{
+    //     kirimHargaTotal:kirimHargaTotal
+    // })
+  }
   
   componentDidMount(){
     this.setState({
@@ -66,9 +72,10 @@ class Checkout extends Component
   }
 
   simpanData = (e)=>{
-    var idCart =this.state.idCart
+    var idUser =cookies.get('userID')
+    // console.log(idCart[0].id_cart)
     axios.post(`http://localhost:8002/tambahdataCheckout`, {
-      idCart:idCart,
+      idUser:idUser,
       email: e.email.value,
       nama:e.name.value,
       alamat:e.address.value,
@@ -76,7 +83,7 @@ class Checkout extends Component
       pos:e.poscode.value,
       phone:e.phone.value
     })
-    window.location.reload()
+    // window.location.reload()
   }
 
   /** upload bukti tf ke backend admin */
@@ -105,7 +112,7 @@ class Checkout extends Component
     // console.log(this.state.gambarStruk)
     // console.log(this.state.deskPembayaran)
     // console.log(idUser)
-    axios.post(`http://localhost:8000/kirimbuktiPembayaran/`, formData);
+    axios.post(`http://localhost:8000/kirimbuktiPembayaran`, formData);
   }
   /** akhir dari upload bukti tf ke admin */
     render()
@@ -116,6 +123,41 @@ class Checkout extends Component
        return <Redirect to='/'/>
    }
    //akhir cookies login
+
+   var tax1=this.state.hargaTax;
+      var	number_string = tax1.toString(),
+      sisa 	= number_string.length % 3,
+      rupiah 	= number_string.substr(0, sisa),
+      ribuan 	= number_string.substr(sisa).match(/\d{3}/g);          
+    if (ribuan) {
+      var separator = sisa ? '.' : '';
+      rupiah += separator + ribuan.join('.');
+    }
+    
+    
+    var sum1= this.state.hargaSum
+      var	number_string2 = sum1.toString(),
+      sisa2 	= number_string2.length % 3,
+      rupiah2 	= number_string2.substr(0, sisa2),
+      ribuan2 	= number_string2.substr(sisa2).match(/\d{3}/g);
+            
+    if (ribuan2) {
+      var separator2 = sisa2 ? '.' : '';
+      rupiah2 += separator2 + ribuan2.join('.');
+    }
+
+
+      var totalRP=this.state.hargaTotal
+      var	number_string3 = totalRP.toString(),
+      sisa3 	= number_string3.length % 3,
+      rupiah3 	= number_string3.substr(0, sisa3),
+      ribuan3 	= number_string3.substr(sisa3).match(/\d{3}/g);
+            
+    if (ribuan3) {
+      var separator3 = sisa3 ? '.' : '';
+      rupiah3 += separator3 + ribuan3.join('.');
+    }
+
     return(
         (
         <div>
@@ -158,14 +200,14 @@ class Checkout extends Component
                                 <td>
                                   <ul>
                                     <li>Harga Sub Total</li>
-                                    <li>Distribusi</li>
+                                    <li>Deliver around Indonesia *</li>
                                     <li>Tax</li>
                                   </ul>
                                 </td>
                                 <td>
-                                  <b>Rp. {this.state.hargaSum}</b><br/>
-                                  <b>Rp. </b><br/>
-                                    <b>Rp. {this.state.hargaTax}</b>
+                                  <b>Rp. {rupiah2}</b><br/>
+                                  <b>Rp. &nbsp; 1.200.000</b><br/>
+                                    <b>Rp.&nbsp;&nbsp; {rupiah}</b>
                                                                     
                                 </td>
                                 
@@ -175,7 +217,8 @@ class Checkout extends Component
                         <div className="col-md-3">
                           <div style={{textAlign: 'center'}}>
                             <h3>Order Total</h3>
-                            <h3><span style={{color: 'green'}}>Rp. {this.state.hargaTotal}</span></h3>
+                            <h3><span style={{color: 'green'}}>Rp. 
+                            {rupiah3}</span></h3>
                           </div>
                         </div>
                       </div>
@@ -342,7 +385,7 @@ class Checkout extends Component
                               </div>
                               <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Check Kembali</button>
-                                <button type="submit" onClick={()=>this.simpanData(this.refs)} className="btn btn-primary " data-dismiss="modal"><b>Simpan Informasi</b></button><br/><br/>
+                                <button type="button" onClick={()=>this.simpanData(this.refs)} className="btn btn-primary " data-dismiss="modal"><b>Simpan Informasi</b></button><br/><br/>
                               </div>
                             </div>
                           </div>
@@ -444,7 +487,11 @@ class Checkout extends Component
                       By submiting this order you are agreeing to our <a href="/legal/billing/">universal
                         billing agreement</a>, and <a href="/legal/terms/">terms of service</a>.
                       If you have any questions about our products or services please contact us
-                      before placing this order.
+                      before placing this order. <br/><br/><br/>
+
+
+
+                      <b>* Harga Include pengiriman Se-Indonesia</b>
                     </div>
                   </div>
                 </div>
