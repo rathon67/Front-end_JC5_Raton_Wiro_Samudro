@@ -5,20 +5,20 @@ import Footer from './Footer';
 import axios from 'axios';
 
 class TambahdetailLight extends Component {
-    state= {
-        
+    state= {        
         gambar:'',
         detaillampu:'',
         
-        idMotor:[]
+        id_motor:''
         
     }
     
     componentDidMount(){
-        var idMotor= this.props.location.state.idMotor.id_motor;
-        console.log(idMotor)
-        this.setState({
-            idMotor
+        axios.get(`http://localhost:8000/getIdMotor`)
+        .then((ambilData)=>{
+            this.setState({
+                id_motor:ambilData.data[0].id_motor
+            })
         })
     }
 
@@ -43,6 +43,7 @@ class TambahdetailLight extends Component {
     tambahData = (e) =>{
         e.preventDefault();
         let formData = new FormData();
+        formData.append('id_motor',this.state.id_motor);
         formData.append('file',this.state.gambar);
         formData.append('detaillampu',this.state.detaillampu);
         
@@ -89,9 +90,9 @@ class TambahdetailLight extends Component {
                                                             </ul>
                                                         </li>
                                                         <li>
-                                                            <Link to="#">
-                                                                <i className="ti-settings" />
-                                                                <p>Settings</p>
+                                                        <Link to="/logout">
+                                                                <i className="ti-hand-point-right" />
+                                                                <p>Logout</p>
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -117,7 +118,12 @@ class TambahdetailLight extends Component {
                                                 <div className="container">
                                                     <form className="form-horizontal" onSubmit={this.tambahData} encType="multipart/form-data">
                                                         <fieldset> 
-                                                            <input type="hidden" className="form-control" ref="idproduk" />
+                                                        <div className="form-group">
+                                                                <label className="col-lg-2 control-label">ID Motor</label>
+                                                                <div className="col-md-1">
+                                                                    <input ref="idmotor" type="text" className="form-control" value={this.state.id_motor} disabled/>
+                                                                </div>
+                                                            </div>
                                                             
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">Gambar Lampu</label>

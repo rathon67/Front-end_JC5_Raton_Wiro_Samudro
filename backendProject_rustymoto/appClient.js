@@ -301,4 +301,6 @@ app.get(`/idcarttoChecout`, (req,res)=>{
   })
 })
 //port localhost paling bawah
-app.listen(8002);
+app.listen(8002, () => {
+  console.log('Server started at port 8002 for Client UI...')
+});

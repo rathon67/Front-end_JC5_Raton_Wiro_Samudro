@@ -29,7 +29,7 @@ import TambahdetailMesin from './component/TambahdetailMesin';
 import TambahdetailDimensi from './component/TambahdetailDimensi';
 import TambahdetailRangka from './component/TambahdetailRangka';
 import TambahdetailKelistrikan from './component/TambahdetailKelistrikan';
-import Tambahproduct1 from './component/Tambahproduct.1';
+
 import Editproduct from './component/Editproduct';
 import Logout from './component/Logout';
 import CheckoutConfirmation from './component/CheckoutConfirmation';
@@ -45,23 +45,14 @@ class App extends Component
                     <div>                        
                         <Route exact path="/" component={Login}/>
                         <Route path="/logout" component={Logout}/>
-                        <Route path="/User" component={User}/>
-                        {/* <Route path="/Producttambah" component={Producttambah}/> */}
-                        {/* <Route path="/Productlist" component={Productlist}/>                         */}
-                        {/* <Route path="/Productedit" component={Productedit}/>                         */}
-                        {/* <Route path="/Invoice" component={Invoice}/> */}
-                        {/* <Header /> */}
+                        <Route path="/User" component={User}/>                      
                         <Route path="/Dashboard" component={Dashboard}/>
-    
-                        {/* <Route path="/Categorylist" component={Categorylist}/> */}
-                        {/* <Route path="/Categoryedit" component={Categoryedit}/> */}
                         <Route path="/listcategory" component={Listcategory}/>
                         <Route path="/listproduct" component={Listproduct}/>
                         <Route path="/editdata" component={Editproduct}/>
                         <Route path="/listmember" component={Listmember}/>
                         <Route path="/tambahcategory" component={Tambahcategory}/>
-                        <Route path="/tambahproduct" component={Tambahproduct}/>
-                        
+                        <Route path="/tambahproduct" component={Tambahproduct}/>                        
                         <Route path="/tambahproductcarousel" component={Tambahproductcarousel}/>
                         <Route path="/tambahdetaillight" component={TambahdetailLight}/>
                         <Route path="/tambahdetailsadle" component={TambahdetailSadle}/>
@@ -72,14 +63,12 @@ class App extends Component
                         <Route path="/tambahdetailmesin" component={TambahdetailMesin}/>
                         <Route path="/tambahdetaildimensi" component={TambahdetailDimensi}/>
                         <Route path="/tambahdetailrangka" component={TambahdetailRangka}/>
-                        <Route path="/tambahdetailkelistrikan" component={TambahdetailKelistrikan}/>
-                        <Route path="/tambahproduct1" component={Tambahproduct1}/>
+                        <Route path="/tambahdetailkelistrikan" component={TambahdetailKelistrikan}/>                        
                         <Route path="/checkoutkonfirmasi" component={CheckoutConfirmation}/>
                         <Route path="/datapembayaran" component={Datapembayaran}/>
                         <Route path="/detailpembayaran" component={detailpembayaran}/>
                         <Route path="/Invoice" component={Invoice}/>
-                        <Route path="/Invoicedetail" component={Invoicedetail}/>
-                        {/* <Footer /> */}
+                        <Route path="/Invoicedetail" component={Invoicedetail}/>                        
                     </div>
                 );
     }

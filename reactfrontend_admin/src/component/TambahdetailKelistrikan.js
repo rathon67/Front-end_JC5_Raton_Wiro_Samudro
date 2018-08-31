@@ -5,11 +5,23 @@ import Footer from './Footer';
 import axios from 'axios';
 
 class TambahdetailKelistrikan extends Component {
+    state ={
+        id_motor:''
+    }
+    componentDidMount(){
+        axios.get(`http://localhost:8000/getIdMotor`)
+        .then((ambilData)=>{
+            this.setState({
+                id_motor:ambilData.data[0].id_motor
+            })
+        })
+    }
     tambahData = (e) => {
         axios.post(`http://localhost:8000/tambahdatakelistrikan`,{
-            inputSatu: e.sistempengapian.value,
-            inputSatu: e.battery.value,
-            inputSatu: e.typebusy.value
+            id_motor:e.idmotor.value,
+            sistemPengapian: e.sistempengapian.value,
+            battery: e.battery.value,
+            typeBusy: e.typebusy.value
             
         })
     }
@@ -54,9 +66,9 @@ class TambahdetailKelistrikan extends Component {
                                                             </ul>
                                                         </li>
                                                         <li>
-                                                            <Link to="#">
-                                                                <i className="ti-settings" />
-                                                                <p>Settings</p>
+                                                        <Link to="/logout">
+                                                                <i className="ti-hand-point-right" />
+                                                                <p>Logout</p>
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -82,24 +94,29 @@ class TambahdetailKelistrikan extends Component {
                                                 <div className="container">
                                                     <form className="form-horizontal">
                                                         <fieldset> 
-                                                            <input type="hidden" className="form-control" ref="idproduk" />
+                                                        <div className="form-group">
+                                                                <label className="col-lg-2 control-label">ID Motor</label>
+                                                                <div className="col-md-1">
+                                                                    <input ref="idmotor" type="text" className="form-control" value={this.state.id_motor} disabled/>
+                                                                </div>
+                                                            </div>
                                                             
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">Sistem Pengapian</label>
                                                             <div className="col-lg-8">
-                                                                <input ref="sistempengapian"  type="text" className="form-control" id="inputGambar" placeholder="input data Sistem pengapian"/>
+                                                                <input ref="sistempengapian"  type="text" className="form-control"  placeholder="input data Sistem pengapian"/>
                                                             </div>
                                                             </div>
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">battery</label>
                                                             <div className="col-lg-8">
-                                                                <input ref="battery"  type="text" className="form-control" id="inputGambar" placeholder="input  data Battery"/>
+                                                                <input ref="battery"  type="text" className="form-control"  placeholder="input  data Battery"/>
                                                             </div>
                                                             </div>
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">Type Busy</label>
                                                             <div className="col-lg-8">
-                                                                <input ref="typebusy"  type="text" className="form-control" id="inputGambar" placeholder="input data type Busy"/>
+                                                                <input ref="typebusy"  type="text" className="form-control"  placeholder="input data type Busy"/>
                                                             </div>
                                                             </div>                                                                                        
                                                             

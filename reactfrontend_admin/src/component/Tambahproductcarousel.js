@@ -6,45 +6,39 @@ import axios from 'axios';
 
 class Tambahproductcarousel extends Component {
     state= {
-        
         gambar1:'',
         gambar2:'',
         gambar3:'',
         judulcarou:'',
         desccarou:'',
 
-        idMotor:''
-        
-
-    }
-    // tambahData = (e) => {
-    //     axios.post(`http://localhost:8000/tambahData`,{
-    //         inputSatu: e.gambarproduk.value,
-    //         inputDua: e.namaproduk.value,
-    //         inputTiga: e.descproduk.value,
-    //         inputEmpat: e.hargaproduk.value,
-    //         inputLima: e.namapembuat.value,
-    //         inputEnam: e.statusproduk.value,
-    //         inputTujuh: e.booking.value,
-    //         inputDelapan: e.terjual.value
-    //     })
-    // }
+        id_motor:''
+        } 
 
     componentDidMount(){
-        var idMotor=this.props.location.state.idMotor.id_motor;
-        this.setState({
-            idMotor:idMotor
-        })
+        axios.get('http://localhost:8000/getIdMotor')
+        .then((ambilData)=>{
+            // console.log(ambilData)
+            this.setState({
+                id_motor:ambilData.data[0].id_motor
+            })
+        })        
     }
 
     onchange =(e) => {
         switch(e.target.name){
-            case'carousel':
+            case'carou1':
             this.setState({
-                gambar1:e.target.files[0],
-                gambar2:e.target.files[0],
-                gambar3:e.target.files[0]          
+                gambar1:e.target.files[0]                          
             });
+            case'carou2':
+            this.setState({
+                gambar2:e.target.files[0]
+            })
+            case'carou3':
+            this.setState({
+                gambar3:e.target.files[0]
+            })
             break;
             default:
         }
@@ -52,7 +46,6 @@ class Tambahproductcarousel extends Component {
 
     value =(e) => {
         this.setState({
-            idmotor:e.idmotor.value,
             judulcarou:e.judulcarou.value,
             desccarou:e.desccarou.value,
             
@@ -65,11 +58,11 @@ class Tambahproductcarousel extends Component {
         formData.append('file1',this.state.gambar1);
         formData.append('file2',this.state.gambar2);
         formData.append('file3',this.state.gambar3);
-        formData.append('idmotor',this.state.idmotor);
+        formData.append('id_motor',this.state.id_motor);
         formData.append('judulcarou',this.state.judulcarou);
         formData.append('desccarou',this.state.desccarou);
       
-        axios.post('http://localhost:8000/tambahdataproductcarou/', formData)
+        axios.post('http://localhost:8000/tambahdataproductcarou', formData)
         .then((hasil)=> {
             var respon=hasil.data;
             if(respon === 1){
@@ -124,9 +117,9 @@ class Tambahproductcarousel extends Component {
                                                             </ul>
                                                         </li>
                                                         <li>
-                                                            <Link to="#">
-                                                                <i className="ti-settings" />
-                                                                <p>Settings</p>
+                                                            <Link to="/logout">
+                                                                <i className="ti-hand-point-right" />
+                                                                <p>Logout</p>
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -152,8 +145,14 @@ class Tambahproductcarousel extends Component {
                                                 <div className="container">
                                                     <form className="form-horizontal" onSubmit={this.tambahData} encType="multipart/form-data">
                                                         <fieldset> 
-                                                            <input type="text" className="form-control" ref="idmotor" value={this.state.idMotor} disabled/>
+                                                         
                                                             
+                                                            <div className="form-group">
+                                                                <label className="col-lg-2 control-label">ID Motor</label>
+                                                                <div className="col-md-1">
+                                                                    <input ref="idmotor" type="text" className="form-control" value={this.state.id_motor} disabled/>
+                                                                </div>
+                                                            </div>
                                                             <div className="form-group">
                                                                 <label className="col-lg-2 control-label">JUDUL MOTOR</label>
                                                                 <div className="col-lg-8">
@@ -189,7 +188,7 @@ class Tambahproductcarousel extends Component {
                                                                 <div className="col-lg-10 col-lg-offset-2">
                                                                     <button type="reset" className="btn btn-warning"><i className="fa fa-remove"></i> Cancel</button>&nbsp;
                                                                     <button type="submit" onClick={() => this.value(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
-                                                                    <Link to={{pathname:'/tambahdetaillight', state:{idMotor: this.state.idMotor}}} className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Detail Light</Link>
+                                                                    <Link to='/tambahdetaillight' className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Detail Light</Link>
                                                                     {/* <button type="button" onClick={() => this.updateData(this.refs)} className="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
                                                                 </div>
                                                             </div>

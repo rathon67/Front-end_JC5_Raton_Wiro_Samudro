@@ -56,7 +56,8 @@ class Listproduct extends Component
          
                 const daftarProduk= this.state.dataProduk.map((isi, urutan )=>{
                 var urut = urutan+1;
-                var dataID = isi.id_motor;
+                var id_motornya = isi.id_motor;
+                console.log(id_motornya)
                 var dataGambar = isi.gambar;
                 var namaProduk= isi.nama_motor;
                 var descProduk= isi.desc_product;
@@ -75,8 +76,8 @@ class Listproduct extends Component
                 <td>{post}</td>
                     <td>
                     {/* <Link onClick={()=>{this.Tombolpicture(dataID);}} className="btn btn-warning fa fa-pencil" to="/editdata/"></Link> &nbsp; */}
-                        <Link to ={{pathname:'/editdata', state:{dataID: dataID}}} className="btn btn-warning btn-xs"><i className="fa fa-edit"></i></Link>
-                        <button className="btn btn-danger btn-xs" onClick={() => this.hapus(dataID)}><i className="fa fa-remove"></i></button>
+                        <Link to ={{pathname:'/editdata', state:{id_motornya: id_motornya}}} className="btn btn-warning btn-xs"><i className="fa fa-edit"></i></Link>
+                        <button className="btn btn-danger btn-xs" onClick={() => this.hapus(id_motornya)}><i className="fa fa-remove"></i></button>
                         
                     </td>
                 </tr>
@@ -123,10 +124,10 @@ class Listproduct extends Component
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <Link to="#">
-                                                        <i className="ti-settings" />
-                                                        <p>Settings</p>
-                                                    </Link>
+                                                <Link to="/logout">
+                                                                <i className="ti-hand-point-right" />
+                                                                <p>Logout</p>
+                                                            </Link>
                                                 </li>
                                             </ul>
                                         </div>

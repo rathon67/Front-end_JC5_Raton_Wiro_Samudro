@@ -87,10 +87,10 @@ class Datapembayaran extends Component
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <Link to="#">
-                                                        <i className="ti-settings" />
-                                                        <p>Settings</p>
-                                                    </Link>
+                                                <Link to="/logout">
+                                                                <i className="ti-hand-point-right" />
+                                                                <p>Logout</p>
+                                                </Link>
                                                 </li>
                                             </ul>
                                         </div>

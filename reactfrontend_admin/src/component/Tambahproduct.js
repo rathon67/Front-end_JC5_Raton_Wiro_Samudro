@@ -15,16 +15,14 @@ class Tambahproduct extends Component {
         desc:'',
         harga:'',
         pembuat:'',
-        idMotor:[],
         datajenis: [],
         jenismotor:'',
-
 
         hasil:true
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8000/getdata')
+        axios.get('http://localhost:8000/getdataJenisMotor')
         .then((ambilData) => {
             console.log(ambilData)
             this.setState({
@@ -32,27 +30,7 @@ class Tambahproduct extends Component {
             })
         })
         
-        axios.get(`http://localhost:8000/getdataidmotor`)
-        .then((dataMotor)=>{
-            console.log(dataMotor)
-            this.setState({
-                idMotor:dataMotor.data[0]
-            })
-        })
     }
-    // tambahData = (e) => {
-    //     axios.post(`http://localhost:8000/tambahData`,{
-    //         inputSatu: e.gambarproduk.value,
-    //         inputDua: e.namaproduk.value,
-    //         inputTiga: e.descproduk.value,
-    //         inputEmpat: e.hargaproduk.value,
-    //         inputLima: e.namapembuat.value,
-    //         inputEnam: e.statusproduk.value,
-    //         inputTujuh: e.booking.value,
-    //         inputDelapan: e.terjual.value
-    //     })
-    // }
-
     onchange =(e) => {
         switch(e.target.name){
             case'gambarproduk':
@@ -70,7 +48,6 @@ class Tambahproduct extends Component {
             desc:e.descproduk.value,
             harga:e.hargaproduk.value,
             pembuat:e.namapembuat.value,
-            status:e.statusproduk.value,
             jenismotor:this.jenismotor.value
         })
         
@@ -82,8 +59,7 @@ class Tambahproduct extends Component {
         formData.append('namamotor',this.state.namamotor);
         formData.append('desc',this.state.desc);
         formData.append('harga',this.state.harga);
-        formData.append('pembuat',this.state.pembuat);
-        formData.append('status',this.state.status);
+        formData.append('pembuat',this.state.pembuat);        
         formData.append('jenismotor',this.state.jenismotor);
         axios.post('http://localhost:8000/tambahData/', formData);
     }
@@ -141,9 +117,9 @@ class Tambahproduct extends Component {
                                                             </ul>
                                                         </li>
                                                         <li>
-                                                            <Link to="#">
-                                                                <i className="ti-settings" />
-                                                                <p>Settings</p>
+                                                        <Link to="/logout">
+                                                                <i className="ti-hand-point-right" />
+                                                                <p>Logout</p>
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -209,23 +185,13 @@ class Tambahproduct extends Component {
                                                                     <input ref="namapembuat" type="text" className="form-control" id="inputNama" placeholder="Builder" />
                                                                 </div>
                                                             </div>
-                                                            <div className="form-group">
-                                                                <label className="col-lg-2 control-label">Status</label>
-                                                                <div className="col-lg-8">
-                                                                    <select ref="statusproduk" className="form-control" >
-                                                                    <option defaultValue="Tersedia" ref="tersedia">Tersedia</option>
-                                                                    <option defaultValue="Booking" ref="booking">Booking</option>
-                                                                    <option defaultValue="Terjual" ref="terjual">Terjual</option>
-                                                                    </select>
-                                                                    
-                                                                </div>
-                                                            </div>                                                      
+                                                                                                                 
                                                             
                                                             <div className="form-group">
                                                                 <div className="col-lg-10 col-lg-offset-2">
                                                                     <button type="reset" className="btn btn-warning"><i className="fa fa-remove"></i> Cancel</button>&nbsp;
                                                                     <button type="submit" onClick={() => this.value(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
-                                                                    <Link to={{pathname:'/tambahproductcarousel', state:{idMotor: this.state.idMotor}}} className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Carousel</Link>
+                                                                    <Link to='/tambahproductcarousel' className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Carousel</Link>
                                                                     {/* <button type="button" onClick={() => this.updateData(this.refs)} className="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
                                                                 </div>
                                                             </div>

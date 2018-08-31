@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
-import {Link, Route} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
 
 class TambahdetailDimensi extends Component {
-    tambahData = (e) => {
-        axios.post(`http://localhost:8000/tambahdatadimensi`,{
-            inputSatu: e.pjglbrttg.value,
-            inputSatu: e.jaraksumbu.value,
-            inputSatu: e.jarakterendah.value,
-            inputSatu: e.tinggitempatduduk.value,
-            inputSatu: e.beratisi.value,
-            inputSatu: e.kapasitastangki.value,
-            
+    state ={
+        id_motor:''
+    }
+    componentDidMount(){
+        axios.get(`http://localhost:8000/getIdMotor`)
+        .then((ambilData)=>{
+            this.setState({
+                id_motor:ambilData.data[0].id_motor
+            })
         })
+    }
+    catchDataRefs = (e) => {
+     
+        axios.post(`http://localhost:8000/tambahdatadimensi`,{
+            id_motor:e.idmotor.value,
+            pjglbrttg: e.pjglbrttg.value,
+            jaraksumbu: e.jaraksumbu.value,
+            jarakterendah: e.jarakterendah.value,
+            tinggitempatduduk: e.tinggitempatduduk.value,
+            beratisi: e.beratisi.value,
+            kapasitastangki: e.kapasistastangki.value            
+        })
+        
     }
     render(){
         return (
@@ -57,9 +70,9 @@ class TambahdetailDimensi extends Component {
                                                             </ul>
                                                         </li>
                                                         <li>
-                                                            <Link to="#">
-                                                                <i className="ti-settings" />
-                                                                <p>Settings</p>
+                                                        <Link to="/logout">
+                                                                <i className="ti-hand-point-right" />
+                                                                <p>Logout</p>
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -85,49 +98,54 @@ class TambahdetailDimensi extends Component {
                                                 <div className="container">
                                                     <form className="form-horizontal">
                                                         <fieldset> 
-                                                            <input type="hidden" className="form-control" ref="idproduk" />
+                                                            <div className="form-group">
+                                                                <label className="col-lg-2 control-label">ID Motor</label>
+                                                                <div className="col-md-1">
+                                                                    <input ref="idmotor" type="text" className="form-control" value={this.state.id_motor} disabled/>
+                                                                </div>
+                                                            </div>
                                                             
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">Panjang * Lebar * Tinggi</label>
                                                             <div className="col-lg-8">
-                                                                <input ref="pjglbrttg"  type="text" className="form-control" id="inputGambar" placeholder="input data P*L*T"/>
+                                                                <input ref="pjglbrttg"  type="text" className="form-control"  placeholder="input data P*L*T"/>
                                                             </div>
                                                             </div>
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">Jarak Sumbu Roda</label>
                                                             <div className="col-lg-8">
-                                                                <input ref="jaraksumbu"  type="text" className="form-control" id="inputGambar" placeholder="input  data Jarak sumbu roda"/>
+                                                                <input ref="jaraksumbu"  type="text" className="form-control"  placeholder="input  data Jarak sumbu roda"/>
                                                             </div>
                                                             </div>
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">Jarak Terendah Ketanah</label>
                                                             <div className="col-lg-8">
-                                                                <input ref="jarakterendah"  type="text" className="form-control" id="inputGambar" placeholder="input data Jarak terendah ketanah"/>
+                                                                <input ref="jarakterendah"  type="text" className="form-control"  placeholder="input data Jarak terendah ketanah"/>
                                                             </div>
                                                             </div>
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">Tinggi Tempat Duduk</label>
                                                             <div className="col-lg-8">
-                                                                <input ref="tinggitempatduduk"  type="text" className="form-control" id="inputGambar" placeholder="input data tinggi tempat duduk"/>
+                                                                <input ref="tinggitempatduduk"  type="text" className="form-control"  placeholder="input data tinggi tempat duduk"/>
                                                             </div>
                                                             </div>
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">Berat Isi</label>
                                                             <div className="col-lg-8">
-                                                                <input ref="beratisi"  type="text" className="form-control" id="inputGambar" placeholder="input data berat kendaraan"/>
+                                                                <input ref="beratisi"  type="text" className="form-control"  placeholder="input data berat kendaraan"/>
                                                             </div>
                                                             </div>
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">Kapasitas Tangki</label>
                                                             <div className="col-lg-8">
-                                                                <input ref="kapasistastangki"  type="text" className="form-control" id="inputGambar" placeholder="input data Kapasitas tanki"/>
+                                                                <input ref="kapasistastangki"  type="text" className="form-control" placeholder="input data Kapasitas tanki"/>
                                                             </div>
                                                             </div>                                                                                          
                                                             
                                                             <div className="form-group">
                                                                 <div className="col-lg-10 col-lg-offset-2">
                                                                     <button type="reset" className="btn btn-warning"><i className="fa fa-remove"></i> Cancel</button>&nbsp;
-                                                                    <button type="submit" onClick={() => this.tambahData(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
+                                                                    <button type="button" onClick={() => this.catchDataRefs(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
                                                                     <Link to="/tambahdetailrangka" className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Detail Rangka</Link>
                                                                     {/* <button type="button" onClick={() => this.updateData(this.refs)} className="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
                                                                 </div>

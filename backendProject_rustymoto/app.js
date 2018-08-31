@@ -69,7 +69,7 @@ app.get('/listproduct', (req, res) =>{
     // res.end('berhasil konek'); //memberikan respon menalpikan hanya array string
     // res.json(); //memberikan respon dan menampilkan
     // res.render('form'); //menampilkan file (form pada contoh ini)
-    var panggilData = 'SELECT * FROM product';
+    var panggilData = 'SELECT product.id_motor, product.gambar, product.nama_motor, product.desc_product, product.harga, product.pembuat, master_status.status, product.posted FROM product JOIN master_status ON product.status = master_status.id_status';
     db.query(panggilData, (err, result)=>{
         if(err){
             throw err;
@@ -81,7 +81,7 @@ app.get('/listproduct', (req, res) =>{
 
  //Di form tambah produk untuk memanggil Category dan Jenis
 
- app.get('/getdata', (req,res)=> {
+ app.get('/getdataJenisMotor', (req,res)=> {
      var sql =`SELECT * FROM tbl_jenis`;
 
      db.query(sql, (kaloError, hasil)=>{
@@ -94,19 +94,7 @@ app.get('/listproduct', (req, res) =>{
      })
  })
 
- //mengambil id motor untuk di kirim ke tambah carousel
- app.get('/getdataidmotor',(req,res)=>{
-    sql =`SELECT * FROM
-    product
-    ORDER BY id_motor DESC limit 1`;
-    db.query(sql, (err,result)=>{
-        if(err){
-            throw err;
-        }else{
-            res.send(result)
-        }
-    })
- })
+
 //menambah data product
 app.post('/tambahData', (req, res) => {
     var fileName= req.files.file.name;
@@ -114,30 +102,30 @@ app.post('/tambahData', (req, res) => {
     var descProduk = req.body.desc;
     var hargaProduk = req.body.harga;
     var namaPembuat = req.body.pembuat;
-    var status = req.body.status;
+    
     var jenisMotor = req.body.jenismotor;
-    var status1 = req.body.inputTujuh;
-    var status2 = req.body.inputDelapan;
+    
     var formatedMysqlString = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
     if (req.files){
         var fungsiFile= req.files.file;
 
         fungsiFile.mv("./tampunganFile/" +fileName ,(kaloError) =>{
             if(kaloError){
-                console.log(kaloError);
-                res.send('uploadfailed');
+                throw kaloError;
+                
             }else {
-                res.send('upload sukses');
+                var sql = `INSERT INTO product VALUES("${''}","${jenisMotor}", "${fileName}", "${namaProduk}","${descProduk}","${hargaProduk}","${namaPembuat}","8","${formatedMysqlString}")`;
+                db.query(sql, (kaloError, hasilnya) => {
+                    if(kaloError){
+                        throw kaloError;
+                        }else{
+
+                        }                    
+                });
             }
         })
     }
-    var sql = `INSERT INTO product VALUES("${''}","${jenisMotor}", "${fileName}", "${namaProduk}","${descProduk}","${hargaProduk}","${namaPembuat}","${status}","${formatedMysqlString}")`;
-     db.query(sql, (kaloError, hasilnya) => {
-         if(kaloError){
-             throw kaloError;
-         } 
-        
-     });
+    
  });
 
  
@@ -171,7 +159,7 @@ app.post('/tambahData', (req, res) => {
  })
 
 //untuk update data product 
-    app.post('/ubahData', (req, res) => {
+    app.post('/editDataProduct', (req, res) => {
     var id = req.body.id;
     var jenisMotor=req.body.jenismotor;
     
@@ -183,40 +171,36 @@ app.post('/tambahData', (req, res) => {
     var formatedMysqlString = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
     
 //ketika mendapat kiriman berupa file maka akan di jalankan fungsi ini
-    if(req.files){
-        var fileName = req.files.file.name;
-        var fungsiFile = req.files.file;
-        fungsiFile.mv("./tampunganFile/"+fileName, (kaloError) => {
-            if(kaloError){
-                console.log(kaloError);
-                // res.send('Upload failed');
-            } else {
-                    var queryUpdate = `UPDATE product SET  gambar ="${fileName}",nama_motor ="${namaProduk}",desc_product="${descProduk}", 
-                        harga = "${hargaProduk}", pembuat = "${namaPembuat}",status="${statuS}",posted="${formatedMysqlString}" WHERE id_motor="${id}"`;
-                    db.query(queryUpdate, (err, result) => {
-                        if(err){
-                            throw err;
-                        } else {
-                            res.send('Update berhasil !');
-                        }
-                    });
-                
+        if(req.files){
+            var fileName = req.files.file.name;
+            var fungsiFile = req.files.file;
+            fungsiFile.mv("./tampunganFile/"+fileName, (kaloError) => {
+                if(kaloError){
+                    throw err;
+                } else {
+                        var queryUpdate = `UPDATE product SET  gambar ="${fileName}",nama_motor ="${namaProduk}",desc_product="${descProduk}", 
+                            harga = "${hargaProduk}", pembuat = "${namaPembuat}", posted="${formatedMysqlString}" WHERE id_motor="${id}"`;
+                        db.query(queryUpdate, (err, result) => {
+                            if(err){
+                                throw err;
+                            } else {
+                                res.send('Update Success');
+                            }
+                        });
+                }
+            })
+        } else {
+                var queryUpdate = `UPDATE product SET nama_motor ="${namaProduk}",desc_product="${descProduk}", harga = "${hargaProduk}", pembuat = "${namaPembuat}", posted="${formatedMysqlString}" WHERE id_motor="${id}"`;
+                db.query(queryUpdate, (err, result) => {
+                    if(err){
+                        throw err;
+                    } else {
+                        res.send('Update Success without image !');
+                    }
+                });
             }
-        })
-    } else {
-            var queryUpdate = `UPDATE product SET nama_motor ="${namaProduk}",desc_product="${descProduk}", 
-            harga = "${hargaProduk}", pembuat = "${namaPembuat}",status="${statuS}",posted="${formatedMysqlString}" WHERE id_motor="${id}"`;
-        db.query(queryUpdate, (err, result) => {
-            if(err){
-                throw err;
-            } else {
-                res.send('Update berhasil !');
-            }
-    });
-
-    }
     
-});
+    });
 
 
 
@@ -271,8 +255,19 @@ app.post('/hapusdataCat', (req,res) => {
 
 
 // MENAMBAH DETAIL CAROUSEL  UPLOAD 3 GAMBAR
+app.get('/getIdMotor', (req,res)=>{
+    var getId=`SELECT id_motor FROM product WHERE status=8`;
+    db.query(getId, (err,result)=>{
+        if(err){
+            throw err;
+        }else{
+            res.send(result)
+        }
+    })
+})
+
 app.post('/tambahdataproductcarou', (req,res)=>{
-    var idmotor=req.body.idmotor
+    var idmotor=req.body.id_motor
     var judul =req.body.judulcarou;
     var desc =req.body.desccarou;
     var fileName1= req.files.file1.name;
@@ -282,12 +277,12 @@ app.post('/tambahdataproductcarou', (req,res)=>{
         var fungsiFile1=req.files.file1;
         var fungsiFile2=req.files.file2;
         var fungsiFile3=req.files.file3;
-        fungsiFile1.mv("./filedetailCarou/" +fileName1, (err)=>{
+        fungsiFile1.mv("./filedetailCarou/" +fileName1, (err,result)=>{
             if (err){
                 console.log('upload gagal');
             } else {
                 console.log('upload sukses')
-                var sql=`INSERT INTO tbl_productcarou VALUES ("${''}","${idmotor}","${judul}","${desc}","${fileName1}")`;
+                var sql=`INSERT INTO tbl_productcarou VALUES ("${''}","${idmotor}","${judul}","${desc}","${fileName1}","${fileName2}","${fileName3}")`;
                 db.query(sql, (err, result)=>{
                     if(err){
                         throw err;
@@ -301,30 +296,16 @@ app.post('/tambahdataproductcarou', (req,res)=>{
             if(err){
                 console.log('upload gagal');
             }else {
-                console.log('upload sukses')
-                var sql=` INSER INTO tbl_productcarou (gambar2) VALUES ("${fileName2}")`;
-                db.quert(sql, (err, result)=>{
-                    if(err){
-                        throw err;
-                    }else {
-                        res.send('1');
-                    }
-                })
+                console.log('upload sukses');                
             }
         })
         fungsiFile3.mv("./filedetailCarou/" +fileName3, (err) => {
             if(err){
                 console.log('upload gagal');
             }else {
-                console.log('upload sukses')
-                var sql=` INSER INTO tbl_productcarou (gambar3) VALUES ("${fileName3}")`;
-                db.quert(sql, (err, result)=>{
-                    if(err){
-                        throw err;
-                    }else {
-                        res.send('1');
-                    }
-                })
+                console.log('upload sukses');
+                
+                
             }
         })
     }       
@@ -332,35 +313,9 @@ app.post('/tambahdataproductcarou', (req,res)=>{
 })
 //MENAMBAH DATA PRODUCT DETAILING
 
-// tambah data detail brakes
-app.post('/tambahdetailbrakes', (req,res) =>{
-    var fileName= req.files.file.name;
-    var brakes= req.body.descbrakes;
-    if (req.files){
-        var fungsiFile= req.files.file;
-
-        fungsiFile.mv("./filedetailBrakes/" +fileName ,(kaloError) =>{
-            if(kaloError){
-                console.log(kaloError);
-                res.send('uploadfailed');
-            }else {
-                res.send('upload sukses');
-            }
-        })
-    }
-
-var sql=`INSERT INTO detail_brakes VALUES ("${``}","${fileName}","${brakes}")`;
-db.query(sql,(err,result)=>{
-    if(err){
-        throw err;
-    }else{
-        res.send('data Brakes berhasil di tambah')
-    }
-    });
-})
-
 //tambah data detail light
 app.post('/tambahdatalampu', (req,res) =>{
+    var idmotor=req.body.id_motor
     var fileName= req.files.file.name;
     var light= req.body.detaillampu;
     if (req.files){
@@ -376,7 +331,7 @@ app.post('/tambahdatalampu', (req,res) =>{
         })
     }
 
-var sql=`INSERT INTO detail_light VALUES ("${``}","${fileName}","${light}")`;
+var sql=`INSERT INTO detail_light VALUES ("${``}","${idmotor}","${fileName}","${light}")`;
 db.query(sql,(err,result)=>{
     if(err){
         throw err;
@@ -388,6 +343,7 @@ db.query(sql,(err,result)=>{
 
 //tambah data detail GEARBOX
 app.post('/tambahdatagearbox', (req,res) =>{
+    var idmotor=req.body.id_motor;
     var fileName= req.files.file.name;
     var descbox= req.body.descgearbox;
     if (req.files){
@@ -403,7 +359,7 @@ app.post('/tambahdatagearbox', (req,res) =>{
         })
     }
 
-var sql=`INSERT INTO detail_gearbox VALUES ("${``}","${fileName}","${descbox}")`;
+var sql=`INSERT INTO detail_gearbox VALUES ("${``}","${idmotor}","${fileName}","${descbox}")`;
 db.query(sql,(err,result)=>{
     if(err){
         throw err;
@@ -415,6 +371,8 @@ db.query(sql,(err,result)=>{
 
 // tambah data sadle
 app.post('/tambahdatasadle', (req,res) =>{
+    var idmotor=req.body.id_motor;
+    // console.log(idmotor)
     var fileName= req.files.file.name;
     var descsadle= req.body.descsadle;
     if (req.files){
@@ -430,7 +388,7 @@ app.post('/tambahdatasadle', (req,res) =>{
         })
     }
 
-var sql=`INSERT INTO detail_sadle VALUES ("${``}","${fileName}","${descsadle}")`;
+var sql=`INSERT INTO detail_sadle VALUES ("${``}","${idmotor}","${fileName}","${descsadle}")`;
 db.query(sql,(err,result)=>{
     if(err){
         throw err;
@@ -442,6 +400,7 @@ db.query(sql,(err,result)=>{
 
 // tambah data detail shocks
 app.post('/tambahdatashocks', (req,res) =>{
+    var idmotor=req.body.id_motor;
     var fileName= req.files.file.name;
     var descshocks= req.body.descshocks;
     if (req.files){
@@ -457,7 +416,7 @@ app.post('/tambahdatashocks', (req,res) =>{
         })
     }
 
-var sql=`INSERT INTO detail_shocks VALUES ("${``}","${fileName}","${descshocks}")`;
+var sql=`INSERT INTO detail_shocks VALUES ("${``}","${idmotor}","${fileName}","${descshocks}")`;
 db.query(sql,(err,result)=>{
     if(err){
         throw err;
@@ -467,8 +426,37 @@ db.query(sql,(err,result)=>{
     });
 })
 
-//tambah data detail wheels
-app.post('/tambahdatawheels', (req,res) =>{
+//tambah data detail brakes
+app.post('/tambahdetailbrakes', (req,res) =>{
+    var idmotor=req.body.id_motor;
+    console.log(idmotor)
+    var fileName= req.files.file.name;
+    var descbrakes= req.body.descbrakes;
+    console.log(fileName)
+    console.log(descbrakes)
+    if (req.files){
+        var fungsiFile= req.files.file;
+
+        fungsiFile.mv("./filedetailBrakes/" +fileName ,(kaloError) =>{
+            if(kaloError){
+                throw err;
+            }else {
+                // res.send('upload sukses');
+            }
+        })
+    }
+var insertDetailBrakes=`INSERT INTO detail_brakes VALUES ("${''}","${idmotor}","${fileName}","${descbrakes}")`;
+db.query(insertDetailBrakes, (err,result)=>{
+    if(err){
+        throw err;
+    }else{
+        // res.send('data sadle berhasil di tambah')
+    }
+    });
+})
+//tambah data detail brakes
+app.post('/tambahdetailwheels', (req,res) =>{
+    var idmotor=req.body.id_motor;
     var fileName= req.files.file.name;
     var descwheels= req.body.descwheels;
     if (req.files){
@@ -484,15 +472,105 @@ app.post('/tambahdatawheels', (req,res) =>{
         })
     }
 
-var sql=`INSERT INTO detail_wheels VALUES ("${``}","${fileName}","${descwheels}")`;
+var sql=`INSERT INTO detail_wheels VALUES ("${''}","${idmotor}","${fileName}","${descwheels}")`;
 db.query(sql,(err,result)=>{
     if(err){
         throw err;
     }else{
-        res.send('data wheels berhasil di tambah')
+        res.send('data brakes berhasil di tambah')
     }
     });
 })
+
+//tambah data detail mesin
+app.post('/tambahdatamesin', (req,res)=>{
+    var id_motor=req.body.id_motor;
+    var typemesin=req.body.input1;
+    var diametermesin=req.body.input2;
+    var cilinder=req.body.input3;
+    var sistemstarter=req.body.input4;
+    var pelumasan=req.body.input5;
+    var kapasitasoli=req.body.input6;
+    var bahanbakar=req.body.input7;
+    var typekopling=req.body.input8;
+    var typetransmisi=req.body.input9;
+
+    insertdataMesin =` INSERT INTO detail_mesin VALUES ("${''}","${id_motor}","${typemesin}","${diametermesin}","${cilinder}","${sistemstarter}","${pelumasan}","${kapasitasoli}","${bahanbakar}","${typekopling}","${typetransmisi}")`;
+    db.query(insertdataMesin, (err,result)=>{
+        if(err){
+            throw err;
+        }else{
+            res.send('1')
+        }
+    })
+})
+
+//tambah data detail dimensi
+app.post('/tambahdatadimensi',(req,res)=>{
+    var id_motor=req.body.id_motor;
+    var pjglbrttg=req.body.pjglbrttg;
+    var jaraksumbu=req.body.jaraksumbu;
+    var jarakterendah=req.body.jarakterendah;
+    var tinggit4duduk=req.body.tinggitempatduduk;
+    var beratisi=req.body.beratisi;
+    var kapasitastangki=req.body.kapasitastangki;
+    console.log(id_motor)
+    console.log(pjglbrttg)
+
+    var insertdataDimensi=`INSERT INTO detail_dimensi VALUES ("${''}","${id_motor}","${pjglbrttg}","${jaraksumbu}","${jarakterendah}","${tinggit4duduk}","${beratisi}","${kapasitastangki}")`;
+    db.query(insertdataDimensi,(err,result)=>{
+        if (err){
+            throw err;
+        }else{
+            res.send('1')
+        }
+    })
+})
+
+//tambah data detail rangka
+app.post(`/tambahdatarangka`,(req,res)=>{
+    var id_motor= req.body.id_motor;
+    var typerangka=req.body.inputSatu;
+    var suspensidepan=req.body.inputDua;
+    var suspensibelakang=req.body.inputTiga;
+    var remdep=req.body.inputEmpat;
+    var rembel=req.body.inputLima
+
+    insertdataRangka= `INSERT INTO detail_rangka VALUES ("${''}","${id_motor}","${typerangka}","${suspensidepan}","${suspensibelakang}","${remdep}","${rembel}")`;
+    db.query(insertdataRangka,(err,result)=>{
+        if (err){
+            throw err;
+        }else{
+            res.send('1')
+        }
+    })
+
+})
+
+//tambah detail kelistrikan
+app.post(`/tambahdatakelistrikan`,(req,res)=>{
+    var id_motor=req.body.id_motor;
+    var sistemPengapian=req.body.sistemPengapian;
+    var battery=req.body.battery;
+    var typeBusy=req.body.typeBusy;
+
+    var insertDataPengapian=`INSERT INTO detail_kelistrikan VALUES ("${''}","${id_motor}","${sistemPengapian}","${battery}","${typeBusy}")`;
+    db.query(insertDataPengapian, (err, result)=>{
+        if(err){
+            throw err;
+        }else{
+            var updatesStatusHeadProduct= `UPDATE product SET status="8" WHERE status="7"`
+            db.query(updatesStatusHeadProduct, (err,result)=>{
+                if(err){
+                    throw err;
+                }else{
+
+                }
+            })
+        }
+    })
+})
+
 //AKHIR MENAMBAH DATA PRODUCT DETAILING
 
 //member register from user interface
@@ -599,7 +677,7 @@ app.post(`/updateStatusLunas`, (req,res)=>{
                                 // console.log(kodeCK)
  /**INSERT DATA INVOICE */
                                 for (var i =0; i<motor.length; i++){
-                                    var insertInvoiceData =`INSERT INTO tbl_invoice VALUES ("${''}","${idCheckout[i]}","${iduser}","${kodeCK}","${motor[i]}","${hargaunit[i]}","${nama}","${email}","${alamat}","${kota}","${pos}","${phone}","7","${tgl_buat}")`;
+                                    var insertInvoiceData =`INSERT INTO tbl_invoice VALUES ("${''}","${idCheckout[i]}","${iduser}","${kodeCK}","${motor[i]}","${hargaunit[i]}","${nama}","${email}","${alamat}","${kota}","${pos}","${phone}","9","${tgl_buat}")`;
 
                                     db.query(insertInvoiceData, (err,result)=>{
                                         if(err){
@@ -610,7 +688,7 @@ app.post(`/updateStatusLunas`, (req,res)=>{
                                                 if(err){
                                                     throw err;
                                                 }else{
-
+                                                    
                                                 }
                                             })
                                             }
@@ -701,18 +779,7 @@ app.post('/kirimbuktiPembayaran', (req,res)=>{
     })
 })
 
-/** menampilkan semua bukti transfer/ pembayaran */
-app.get('/getdataPembayaran', (req,res)=>{ 
-    var sql=` SELECT * FROM tbl_buktipembayaran`;
-    db.query(sql,(err,result)=>{
-        if(err){
-            throw err;
-        }else{
-            res.send(result)
-        }
-    })
-})
-/** akhir dari proses bukti pembayaran */
+
 /** menampilkan get data detail pembayaran */
 app.post('/detailpembayaran', (req,res)=>{
     var sql =`SELECT * FROM tbl_buktipembayaran WHERE kode_checkout=${req.body.kodeINV}`;
@@ -754,12 +821,68 @@ app.post('/getdataInvoiceDetail', (req,res)=>{
         }
     })
 })
-/**get data motor pada invoice detail */
-// app.get('/getdataCheckoutonDetailInvoice/:id', (req,res)=>{
-//     var invID=req.params.id
-//     var sql=`SELECT`
-// })
+
+//get data pembayaran for list pembayaran
+app.get(`/getdataPembayaran`,(req,res)=>{
+    var getDataPembayaran=`SELECT * FROM tbl_buktipembayaran`;
+    db.query(getDataPembayaran, (err,result)=>{
+        if (err){
+            throw err;
+        }else{
+            res.send(result)
+        }
+    })
+})
+
+//**Dashboard Section */
+// get data total product
+app.get(`/getdataCountProduct`,(req,res)=>{
+    var getDataCountProduct=`SELECT COUNT(id_motor) as TotalJumlahProduct FROM product`;
+    db.query(getDataCountProduct, (err,result)=>{
+        if (err){
+            throw err;
+        }else{
+            res.send(result)
+        }
+    })
+})
+
+//get data total Invoice
+
+app.get(`/getdataCountInvoice`,(req,res)=>{
+    var getDataCountinvoice=`SELECT COUNT(id_invoice) as TotalJumlahInvoice FROM tbl_invoice`;
+    db.query(getDataCountinvoice, (err,result)=>{
+        if (err){
+            throw err;
+        }else{
+            res.send(result)
+        }
+    })
+})
+//get data failed payment
+app.get(`/getdataCountFailedPayment`,(req,res)=>{
+    var getDataCountfailed=`SELECT COUNT(id_checkout) as TotalJumlahFailedCheckout FROM tbl_Checkout WHERE status=6`;
+    db.query(getDataCountfailed, (err,result)=>{
+        if (err){
+            throw err;
+        }else{
+            res.send(result)
+        }
+    })
+})
+
+//get data count Custumer
+app.get(`/getdataCountUserCostumer`,(req,res)=>{
+    var getDataCountCostumer=`SELECT COUNT(id_user) as TotalJumlahUser FROM tbl_user`;
+    db.query(getDataCountCostumer, (err,result)=>{
+        if (err){
+            throw err;
+        }else{
+            res.send(result)
+        }
+    })
+})
 
     app.listen(8000, () => {
-        console.log('Server started at port 8000 ...')
+        console.log('Server started at port 8000 for Admin UI...')
     });

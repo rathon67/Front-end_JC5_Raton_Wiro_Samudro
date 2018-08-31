@@ -5,15 +5,28 @@ import Footer from './Footer';
 import axios from 'axios';
 
 class TambahdetailRangka extends Component {
-    tambahData = (e) => {
-        axios.post(`http://localhost:8000/tambahdatarangka`,{
-            inputSatu: e.typerangka.value,
-            inputSatu: e.suspensidepan.value,
-            inputSatu: e.suspensibelakang.value,
-            inputSatu: e.remdepan.value,
-            inputSatu: e.rembelakang.value,
-            
+    state ={
+        id_motor:''
+    }
+    componentDidMount(){
+        axios.get(`http://localhost:8000/getIdMotor`)
+        .then((ambilData)=>{
+            this.setState({
+                id_motor:ambilData.data[0].id_motor
+            })
         })
+    }
+    tambahData = (e) => {
+
+        axios.post(`http://localhost:8000/tambahdatarangka`,{
+            id_motor:e.idmotor.value,
+            inputSatu: e.typerangka.value,
+            inputDua: e.suspensidepan.value,
+            inputTiga: e.suspensibelakang.value,
+            inputEmpat: e.remdepan.value,
+            inputLima: e.rembelakang.value,            
+        })
+        
     }
     render(){
         return (
@@ -56,9 +69,9 @@ class TambahdetailRangka extends Component {
                                                             </ul>
                                                         </li>
                                                         <li>
-                                                            <Link to="#">
-                                                                <i className="ti-settings" />
-                                                                <p>Settings</p>
+                                                        <Link to="/logout">
+                                                                <i className="ti-hand-point-right" />
+                                                                <p>Logout</p>
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -82,9 +95,14 @@ class TambahdetailRangka extends Component {
 
                                                 {/* Konten */}
                                                 <div className="container">
-                                                    <form className="form-horizontal">
+                                                    <form className="form-horizontal" >
                                                         <fieldset> 
-                                                            <input type="hidden" className="form-control" ref="idproduk" />
+                                                        <div className="form-group">
+                                                                <label className="col-lg-2 control-label">ID Motor</label>
+                                                                <div className="col-md-1">
+                                                                    <input ref="idmotor" type="text" className="form-control" value={this.state.id_motor} disabled/>
+                                                                </div>
+                                                            </div>
                                                             
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">Type Rangka</label>
@@ -120,7 +138,7 @@ class TambahdetailRangka extends Component {
                                                             <div className="form-group">
                                                                 <div className="col-lg-10 col-lg-offset-2">
                                                                     <button type="reset" className="btn btn-warning"><i className="fa fa-remove"></i> Cancel</button>&nbsp;
-                                                                    <button type="submit" onClick={() => this.tambahData(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
+                                                                    <button type="button" onClick={() => this.tambahData(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
                                                                     <Link to="/tambahdetailkelistrikan" className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Detail Kelistrikan</Link>
                                                                     {/* <button type="button" onClick={() => this.updateData(this.refs)} className="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
                                                                 </div>

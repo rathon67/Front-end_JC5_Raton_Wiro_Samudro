@@ -5,18 +5,30 @@ import Footer from './Footer';
 import axios from 'axios';
 
 class TambahdetailMesin extends Component {
-    tambahData = (e) => {
+    state ={
+        id_motor:''
+    }
+    componentDidMount(){
+        axios.get(`http://localhost:8000/getIdMotor`)
+        .then((ambilData)=>{
+            this.setState({
+                id_motor:ambilData.data[0].id_motor
+            })
+        })
+    }
+
+    tambahData = (e) =>{
         axios.post(`http://localhost:8000/tambahdatamesin`,{
-            inputSatu: e.typemesin.value,
-            inputSatu: e.diametermesin.value,
-            inputSatu: e.volumecilinder.value,
-            inputSatu: e.sistemstarter.value,
-            inputSatu: e.sistempelumasan.value,
-            inputSatu: e.kapasitasoli.value,
-            inputSatu: e.bahanbakar.value,
-            inputSatu: e.typekopling.value,
-            inputSatu: e.typetransmisi.value,
-            
+            id_motor:e.idmotor.value,
+            input1: e.typemesin.value,
+            input2: e.diametermesin.value,
+            input3: e.volumecilinder.value,
+            input4: e.sistemstarter.value,
+            input5: e.sistempelumasan.value,
+            input6: e.kapasitasoli.value,
+            input7: e.bahanbakar.value,
+            input8: e.typekopling.value,
+            input9: e.typetransmisi.value,
         })
     }
     render(){
@@ -60,9 +72,9 @@ class TambahdetailMesin extends Component {
                                                             </ul>
                                                         </li>
                                                         <li>
-                                                            <Link to="#">
-                                                                <i className="ti-settings" />
-                                                                <p>Settings</p>
+                                                        <Link to="/logout">
+                                                                <i className="ti-hand-point-right" />
+                                                                <p>Logout</p>
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -88,7 +100,12 @@ class TambahdetailMesin extends Component {
                                                 <div className="container">
                                                     <form className="form-horizontal">
                                                         <fieldset> 
-                                                            <input type="hidden" className="form-control" ref="idproduk" />
+                                                        <div className="form-group">
+                                                                <label className="col-lg-2 control-label">ID Motor</label>
+                                                                <div className="col-md-1">
+                                                                    <input ref="idmotor" type="text" className="form-control" value={this.state.id_motor} disabled/>
+                                                                </div>
+                                                            </div>
                                                             
                                                             <div className="form-group">
                                                             <label className="col-lg-2 control-label">Type Mesin</label>

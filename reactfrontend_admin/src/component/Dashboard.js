@@ -17,15 +17,32 @@ class Dashboard extends Component
     }
 
     componentDidMount(){
-        axios.get(`http://localhost:8000/getdataPembayaran`)
+        axios.get(`http://localhost:8000/getdataCountProduct`)
         .then((terimaData)=>{
             console.log(terimaData)
             this.setState({
-                dataPeCount:terimaData.data,
-                CounInv:terimaData.data,
-                CountFailedPaid:terimaData.data,
-                CountUser:terimaData.data,
+                CountProduk:terimaData.data[0].TotalJumlahProduct
             });
+        })
+
+        axios.get(`http://localhost:8000/getdataCountInvoice`)
+        .then((terimaData)=>{
+            this.setState({
+                countInv:terimaData.data[0].TotalJumlahInvoice
+            })
+        })
+        axios.get(`http://localhost:8000/getdataCountFailedPayment`)
+        .then((terimaData)=>{
+            this.setState({
+                CountFailedPaid:terimaData.data[0].TotalJumlahFailedCheckout
+            })
+        })
+        
+        axios.get(`http://localhost:8000/getdataCountUserCostumer`)
+        .then((terimaData)=>{
+            this.setState({
+                CountUser:terimaData.data[0].TotalJumlahUser
+            })
         })
     }
     
@@ -78,10 +95,10 @@ class Dashboard extends Component
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <Link to="/logout">
-                                                        <i className="ti-settings" />
-                                                        <p>Settings</p>
-                                                    </Link>
+                                                            <Link to="/logout">
+                                                                <i className="ti-hand-point-right" />
+                                                                <p>Logout</p>
+                                                            </Link>
                                                 </li>
                                             </ul>
                                         </div>
@@ -101,7 +118,7 @@ class Dashboard extends Component
                                                             </div>
                                                             <div className="col-xs-7">
                                                                 <div className="numbers">
-                                                                    <p>Capacity</p>105GB
+                                                                    <p>Data Motors and Scooters</p>{this.state.CountProduk}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -124,8 +141,8 @@ class Dashboard extends Component
                                                         </div>
                                                         <div className="col-xs-7">
                                                         <div className="numbers">
-                                                            <p>Revenue</p>
-                                                            $1,345
+                                                            <p>Total Transaction</p>
+                                                            {this.state.countInv}
                                                         </div>
                                                         </div>
                                                     </div>
@@ -149,8 +166,8 @@ class Dashboard extends Component
                                                         </div>
                                                         <div className="col-xs-7">
                                                         <div className="numbers">
-                                                            <p>Errors</p>
-                                                            23
+                                                            <p>Failed Payment</p>
+                                                            {this.state.CountFailedPaid}
                                                         </div>
                                                         </div>
                                                     </div>
@@ -169,13 +186,13 @@ class Dashboard extends Component
                                                     <div className="row">
                                                         <div className="col-xs-5">
                                                         <div className="icon-big icon-info text-center">
-                                                            <i className="ti-twitter-alt" />
+                                                            <i className="ti-face-smile" />
                                                         </div>
                                                         </div>
                                                         <div className="col-xs-7">
                                                         <div className="numbers">
-                                                            <p>Followers</p>
-                                                            +45
+                                                            <p>Total Users Members</p>
+                                                            +{this.state.CountUser}
                                                         </div>
                                                         </div>
                                                     </div>
