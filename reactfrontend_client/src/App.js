@@ -7,7 +7,7 @@ import Header from './component/Header';
 import HeaderLogin from './component/HeaderLogin';
 import Footer1 from './component/Footer1';
 import Konten from './component/Konten';
-import CetailProduct from './component/Cetailproduct';
+import DetailProduct from './component/Detailproduct';
 import Cart from './component/Cart';
 import Editprofile from './component/Editprofile';
 import Invoice from './component/Invoice';
@@ -31,16 +31,17 @@ class App extends Component {
     return (
       <div>
         {Navigation} 
-        <Route exact path="/" component={Login}/>
+        <Route exact path="/" component={Konten}/>
+        <Route exact path="/konten" component={Konten}/>
         <Route path="/logout" component={Logout}/>
-        <Route path="/cetail" component={CetailProduct}/>
+        <Route path="/detail" component={DetailProduct}/>
         <Route path ="/cart" component={Cart}/>
         <Route path ="/editprofile" component={Editprofile}/> 
         <Route path ="/profile" component={Profile}/> 
         <Route path ="/invoice" component={Invoice}/> 
         <Route path ="/invoicehistory" component={Invoicehistory}/> 
         <Route path ="/listproduct" component={Listproduct}/> 
-        <Route path ="/konten" component={Konten}/> 
+        <Route path ="/login" component={Login}/> 
         <Route path ="/register" component={Register}/>      
         <Route path ="/checkout" component={Checkout}/>
         <Footer1/>

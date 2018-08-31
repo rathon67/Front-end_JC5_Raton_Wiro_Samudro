@@ -101,7 +101,7 @@ const cookies = new Cookies()
                       Belanja
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link to="/" className="dropdown-item " >Login</Link>
+                    <Link to="/login" className="dropdown-item " >Login</Link>
                     <Link to="/register"className="dropdown-item" >Register</Link>
                       <div className="dropdown-divider" />
                       <Link to="/listproduct" className="dropdown-item">Lihat Penawaran</Link>

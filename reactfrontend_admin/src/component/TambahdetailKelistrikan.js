@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import {Link, Route} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
 
 class TambahdetailKelistrikan extends Component {
     state ={
-        id_motor:''
+        id_motor:'',
+       
     }
     componentDidMount(){
         axios.get(`http://localhost:8000/getIdMotor`)
         .then((ambilData)=>{
             this.setState({
-                id_motor:ambilData.data[0].id_motor
+                
+                id_motor:ambilData.data[0].id_motor,
+                
             })
         })
     }
@@ -26,6 +29,7 @@ class TambahdetailKelistrikan extends Component {
         })
     }
     render(){
+        
         return (
                     <div>
                         <div className="wrapper">
@@ -123,7 +127,7 @@ class TambahdetailKelistrikan extends Component {
                                                             <div className="form-group">
                                                                 <div className="col-lg-10 col-lg-offset-2">
                                                                     <button type="reset" className="btn btn-warning"><i className="fa fa-remove"></i> Cancel</button>&nbsp;
-                                                                    <button type="submit" onClick={() => this.tambahData(this.refs)} className="btn btn-success"><i className="fa fa-paper-plane"></i> Submit</button>&nbsp;
+                                                                    <button type="submit" onClick={() => this.tambahData(this.refs)} className="btn btn-success"><Link to="/dashboard"><i className="fa fa-paper-plane"></i> Submit</Link></button>&nbsp;
                                                                     {/* <Link to="/tambahdetailkelistrikan" className="btn btn-primary" ><i className="fa fa-arrow-right"></i>Tambah Detail Kelistrikan</Link> */}
                                                                     {/* <button type="button" onClick={() => this.updateData(this.refs)} className="btn btn-primary"><i className="fa fa-paper-plane"></i> Submit</button> */}
                                                                 </div>

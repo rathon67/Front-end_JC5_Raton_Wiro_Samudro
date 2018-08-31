@@ -16,7 +16,7 @@ class Konten extends Component {
 
   componentDidMount() {
     var self =this;
-    axios.get('http://localhost:8002/productall')
+    axios.get('http://localhost:8002/getMotorCard')
     .then((ambilData)=>{
       self.setState({product:ambilData.data,})
       console.log(this.state.product)
@@ -51,7 +51,7 @@ class Konten extends Component {
     render() 
     {
       // if(this.state.Redirect) return <Redirect to='/cart'/>
-      if(this.state.LoginDulu) return <Redirect to='/'/>
+      if(this.state.LoginDulu) return <Redirect to='/login'/>
      
       // data product untuk di olah
       const data =this.state.product.map((item, index)=>{
@@ -61,7 +61,19 @@ class Konten extends Component {
         var gambar=item.gambar;
         var namamotor=item.nama_motor;
         var descmotor=item.desc_product;
+        // RP mark
         var harga= item.harga;
+            var	string = harga.toString(),
+            sisanya 	= string.length % 3,
+            rupiah 	= string.substr(0, sisanya),
+            ribuan2 	= string.substr(sisanya).match(/\d{3}/g);
+                
+            if (ribuan2) {
+                var sepatator2 = sisanya ? '.' : '';
+                rupiah += sepatator2 + ribuan2.join('.');
+                }
+                var hargaRupiah=rupiah
+         //end          
         var pembuat= item.pembuat;
         var status =item.status;
         var posted = item.posted;
@@ -71,18 +83,18 @@ class Konten extends Component {
                 <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambar}`}  style={{width: 'auto', height: '200px'}} alt="Card image cap"/>
                 <div className="card-body" >
                   <h5 className="card-title bg-light" style={{fontFamily:'serif',fontWeight: 'bold'}} >{namamotor}</h5>
-                  <p className="card-text"> {descmotor}</p>
+                  
                 </div>
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">{status}</li>
-                  <li className="list-group-item">Rp {harga}</li>
+                  <li className="list-group-item">Rp {hargaRupiah}</li>
                   <li className="list-group-item">{pembuat}</li>
                 </ul>
                 <div className="card-body">
                 
-                  <Link to="/cetail" className="card-link" className="btn btn-info">Lihat Detail</Link><br/><br/>
+                  <Link to={{pathname:"/detail", state:{id_motor:id}}} className="card-link" className="btn btn-info">Lihat Detail</Link><br/><br/>
                   {/* <Link to={{pathname:'/cart', state:{dataID:id}}} className="card-link"> <i className="fa fa-shopping-cart">Tambah ke Daftar Belanja</i></Link> */}
-                  <button onClick ={()=>this.addtoCart(id)} className="card-link" className="btn btn-warning"> <Link to ='/cart'><i className="fa fa-shopping-cart">&nbsp;Tambah ke Daftar Belanja</i></Link></button>
+                  <button type="button" onClick ={()=>this.addtoCart(id)} className="card-link" className="btn btn-warning"> <Link to ='/cart'><i className="fa fa-shopping-cart">&nbsp;Tambah ke Daftar Belanja</i></Link></button>
                 </div>
               </div><br/>
         </div>
@@ -173,7 +185,7 @@ class Konten extends Component {
       <div className="row">
         <div className="col-sm-8">
           <div className="embed-responsive embed-responsive-16by9">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/YpVpjzyGJPU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/YpVpjzyGJPU" frameBorder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
         <div className="col-sm-4" style={{color: 'antiquewhite', marginTop: '50px'}}>

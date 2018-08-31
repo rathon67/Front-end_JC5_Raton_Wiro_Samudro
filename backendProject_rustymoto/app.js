@@ -114,7 +114,7 @@ app.post('/tambahData', (req, res) => {
                 throw kaloError;
                 
             }else {
-                var sql = `INSERT INTO product VALUES("${''}","${jenisMotor}", "${fileName}", "${namaProduk}","${descProduk}","${hargaProduk}","${namaPembuat}","8","${formatedMysqlString}")`;
+                var sql = `INSERT INTO product VALUES("${''}","${jenisMotor}", "${fileName}", "${namaProduk}","${descProduk}","${hargaProduk}","${namaPembuat}","7","${formatedMysqlString}")`;
                 db.query(sql, (kaloError, hasilnya) => {
                     if(kaloError){
                         throw kaloError;
@@ -248,7 +248,7 @@ app.post('/hapusdataCat', (req,res) => {
     db.query(hapusData,id, (err,hasil) =>{
         if (err)
         throw err;
-       //  res.redirect('/listproduct')
+        // res.redirect('/listproduct')
        // console.log(hasil)
     })
 })
@@ -256,7 +256,7 @@ app.post('/hapusdataCat', (req,res) => {
 
 // MENAMBAH DETAIL CAROUSEL  UPLOAD 3 GAMBAR
 app.get('/getIdMotor', (req,res)=>{
-    var getId=`SELECT id_motor FROM product WHERE status=8`;
+    var getId=`SELECT id_motor FROM product WHERE status=7`;
     db.query(getId, (err,result)=>{
         if(err){
             throw err;
@@ -287,23 +287,23 @@ app.post('/tambahdataproductcarou', (req,res)=>{
                     if(err){
                         throw err;
                     }else{
-                        res.send('1');
+                      
                     }
                 })
             }
         }),
         fungsiFile2.mv("./filedetailCarou/" +fileName2, (err) => {
             if(err){
-                console.log('upload gagal');
+                throw err;
             }else {
-                console.log('upload sukses');                
+                              
             }
         })
         fungsiFile3.mv("./filedetailCarou/" +fileName3, (err) => {
             if(err){
-                console.log('upload gagal');
+                throw err;
             }else {
-                console.log('upload sukses');
+               
                 
                 
             }
@@ -323,8 +323,7 @@ app.post('/tambahdatalampu', (req,res) =>{
 
         fungsiFile.mv("./filedetailLight/" +fileName ,(kaloError) =>{
             if(kaloError){
-                console.log(kaloError);
-                res.send('uploadfailed');
+               throw err;
             }else {
                 // res.send('upload sukses');
             }
@@ -351,8 +350,8 @@ app.post('/tambahdatagearbox', (req,res) =>{
 
         fungsiFile.mv("./filedetailGearbox/" +fileName ,(kaloError) =>{
             if(kaloError){
-                console.log(kaloError);
-                res.send('uploadfailed');
+               throw err;
+            
             }else {
                 // res.send('upload sukses');
             }
@@ -364,7 +363,7 @@ db.query(sql,(err,result)=>{
     if(err){
         throw err;
     }else{
-        // res.send('data gearbox berhasil di tambah')
+      
     }
     });
 })
@@ -380,8 +379,8 @@ app.post('/tambahdatasadle', (req,res) =>{
 
         fungsiFile.mv("./filedetailSadle/" +fileName ,(kaloError) =>{
             if(kaloError){
-                console.log(kaloError);
-                res.send('uploadfailed');
+                throw err;
+                
             }else {
                 // res.send('upload sukses');
             }
@@ -408,10 +407,10 @@ app.post('/tambahdatashocks', (req,res) =>{
 
         fungsiFile.mv("./filedetailShocks/" +fileName ,(kaloError) =>{
             if(kaloError){
-                console.log(kaloError);
-                res.send('uploadfailed');
+                throw err;
+                
             }else {
-                res.send('upload sukses');
+              
             }
         })
     }
@@ -464,20 +463,20 @@ app.post('/tambahdetailwheels', (req,res) =>{
 
         fungsiFile.mv("./filedetailWheels/" +fileName ,(kaloError) =>{
             if(kaloError){
-                console.log(kaloError);
-                res.send('uploadfailed');
+                throw err;
+                // res.send('uploadfailed');
             }else {
-                res.send('upload sukses');
+                // res.send('upload sukses');
             }
         })
     }
 
-var sql=`INSERT INTO detail_wheels VALUES ("${''}","${idmotor}","${fileName}","${descwheels}")`;
-db.query(sql,(err,result)=>{
+var insertDataWheels=`INSERT INTO detail_wheels VALUES ("${''}","${idmotor}","${fileName}","${descwheels}")`;
+db.query(insertDataWheels,(err,result)=>{
     if(err){
         throw err;
     }else{
-        res.send('data brakes berhasil di tambah')
+        // res.send('data brakes berhasil di tambah')
     }
     });
 })
@@ -522,7 +521,7 @@ app.post('/tambahdatadimensi',(req,res)=>{
         if (err){
             throw err;
         }else{
-            res.send('1')
+            
         }
     })
 })
@@ -541,7 +540,7 @@ app.post(`/tambahdatarangka`,(req,res)=>{
         if (err){
             throw err;
         }else{
-            res.send('1')
+            
         }
     })
 
@@ -796,7 +795,7 @@ app.post('/detailpembayaran', (req,res)=>{
 
 /**untuk menampilkan data invoice */
 app.get (`/getdataInvoice`, (req,res)=>{
-    var sql=`SELECT tbl_invoice.id_invoice,tbl_invoice.kode_invoice, tbl_invoice.nama, tbl_invoice.email, tbl_invoice.harga, tbl_invoice.tgl_buat, master_status.status FROM tbl_invoice JOIN master_status ON tbl_invoice.status=master_status.id_status`;
+    var sql=`SELECT tbl_invoice.kode_invoice, tbl_invoice.id_invoice,tbl_invoice.kode_invoice, tbl_invoice.nama, tbl_invoice.email, tbl_invoice.harga, tbl_invoice.tgl_buat, master_status.status FROM tbl_invoice JOIN master_status ON tbl_invoice.status=master_status.id_status`;
     db.query(sql,(err,result)=>{
         if(err){
             throw err;

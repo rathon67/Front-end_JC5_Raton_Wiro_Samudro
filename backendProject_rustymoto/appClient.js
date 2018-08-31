@@ -84,11 +84,11 @@ app.post('/profileuser', (req,res)=>{
 /** akhir dari proses perubahan pada header */
 
 //menampilkan produk di konten(halaman utama)
-app.get('/productall', function (req, res) {
+app.get('/getMotorCard', function (req, res) {
 
     // // console.log(req.query.page)
   
-      var sql = 'SELECT * FROM product ORDER BY posted DESC LIMIT 6';
+      var sql = 'SELECT product.id_motor, product.id_jenis, product.gambar, product.nama_motor, product.harga, product.pembuat, product.posted, master_status.status FROM product JOIN master_status ON master_status.id_status=product.status WHERE product.status=7 OR product.status=8 OR product.status=9 ORDER BY posted DESC LIMIT 6';
       db.query(sql, (err, result) => {
         if (err) throw err;
         res.send(result)
@@ -96,6 +96,34 @@ app.get('/productall', function (req, res) {
       });
   })
 /** akhir dari produk di konten */
+
+/** Menampilkan Detail per Motor */ //memanggil parameter
+app.get(`/getDetailMotor/:id_motor`, (req,res)=>{
+  console.log(req.params.id_motor)
+  var selectJoinDetailOnProduct =`SELECT product.gambar, product.nama_motor, product.desc_product, product.harga, product.harga, detail_light.gambar_light, detail_light.desc_light, detail_brakes.gambar_brakes, detail_brakes.desc_brakes, detail_gearbox.gambar_gearbox, detail_gearbox.desc_gearbox, detail_sadle.gambar_sadle, detail_sadle.desc_sadle, detail_shocks.gambar_shocks, detail_shocks.desc_shocks, detail_wheels.gambar_wheels, detail_wheels.desc_wheels, detail_rangka.type_rangka, detail_rangka.suspensi_depan, detail_rangka.suspensi_belakang, detail_rangka.rem_depan, detail_rangka.rem_belakang, detail_mesin.type_mesin,
+  detail_mesin.diameter_mesin, detail_mesin.volume_cilinder, detail_mesin.system_starter, detail_mesin.system_pelumasan, detail_mesin.kapasitas_oli, detail_mesin.bahan_bakar, detail_mesin.type_kopling, detail_mesin.type_transmisi, detail_dimensi.pjg_lbr_ttg, detail_dimensi.jarak_sumbu_roda, detail_dimensi.jarak_terendah_ketanah, detail_dimensi.tinggi_tempat_duduk, detail_dimensi.berat_isi, detail_dimensi.kapasitas_tangki, detail_kelistrikan.sistem_pengapian, detail_kelistrikan.battery, detail_kelistrikan.type_busy
+  FROM product
+  JOIN detail_light ON detail_light.id_motor =product.id_motor
+  JOIN detail_brakes ON detail_brakes.id_motor=product.id_motor
+  JOIN detail_gearbox ON detail_gearbox.id_motor=product.id_motor
+  JOIN detail_sadle ON detail_sadle.id_motor=product.id_motor
+  JOIN detail_shocks ON detail_shocks.id_motor=product.id_motor
+  JOIN detail_wheels ON detail_wheels.id_motor=product.id_motor
+  JOIN detail_rangka ON detail_rangka.id_motor=product.id_motor
+  JOIN detail_mesin ON detail_mesin.id_motor=product.id_motor
+  JOIN detail_dimensi ON detail_dimensi.id_motor=product.id_motor
+  JOIN detail_kelistrikan ON detail_kelistrikan.id_motor=product.id_motor
+  WHERE product.id_motor="${req.params.id_motor}"
+  `
+  db.query(selectJoinDetailOnProduct,(err,result)=>{
+    if(err){
+      throw err;
+    }else{
+      res.send(result)
+    }
+  })
+})
+/** end */
 
 
 

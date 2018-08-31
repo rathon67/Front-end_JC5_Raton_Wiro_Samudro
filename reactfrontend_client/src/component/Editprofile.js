@@ -11,7 +11,7 @@ class Editprofile extends Component
      //Cookies login
      if (cookies.get('userID') === undefined)
      {
-         return <Redirect to='/'/>
+         return <Redirect to='/login'/>
      }
      //akhir cookies login
     return(

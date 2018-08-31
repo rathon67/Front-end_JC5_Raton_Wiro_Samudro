@@ -10,7 +10,7 @@ class Header extends Component
                         <div className="sidebar" data-background-color="white" data-active-color="danger">
                             <div className="sidebar-wrapper">
                                 <div className="logo">
-                                    <Link to="/" style={{fontFamily:"Fantasy",fontSize:"25px"}} className="simple-text">rustymoTo Corp</Link>
+                                    <Link to="/dashboard" style={{fontFamily:"Fantasy",fontSize:"25px"}} className="simple-text">rustymoTo Corp</Link>
                                 </div>
                                 <ul className="nav">
                                     <li className="active">

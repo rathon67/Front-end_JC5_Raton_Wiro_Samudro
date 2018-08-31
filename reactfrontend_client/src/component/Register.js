@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link,Redirect} from 'react-router-dom';
 import axios from'axios';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 class Register extends Component
 {
@@ -37,7 +40,12 @@ class Register extends Component
   })
   }
     render()
-{
+{ 
+  if (cookies.get('userID') !== undefined)
+     {
+         return <Redirect to='/login'/>
+     }
+
     return(
         (
             <div>

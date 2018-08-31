@@ -87,15 +87,6 @@ class Cart extends Component
         // window.location.reload();
     }
 
-    // kirimIdKeCheckout=(e)=>{
-    //     var idCart = this.state.dataCart
-    //     axios.post('http://localhost:8002/cartidtoCheckout',{
-    //     idCart:idCart
-    //     })
-    //     .then((ambilData)=>{
-        
-    //     })
-    // }
    
     updateKodeCart=(e)=>{
         var id=cookies.get('userID');
@@ -115,7 +106,7 @@ class Cart extends Component
     /**Cookies login*/
     if (cookies.get('userID') === undefined)
     {
-        return <Redirect to='/'/>
+        return <Redirect to='/login'/>
     }
     /**akhir cookies login*/
     

@@ -9,7 +9,7 @@ export default class Logout extends Component {
 
         if (cookies.get('userID') === undefined)
         {
-            return <Redirect to='/'/>
+            return <Redirect to='/login'/>
         }
     return (
       <div>

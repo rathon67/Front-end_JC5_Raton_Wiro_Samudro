@@ -46,6 +46,7 @@ class Invoice extends Component
             return <tr key={index} style={{textAlign: 'center'}} className="success">
                 <td>{urut}</td>
                 <td>{idINV}</td>
+                <td>{kdINV}</td>
                 <td>{namaCos}</td>
                 <td>{Email}</td>
                 <td>{Tanggal}</td>
@@ -130,6 +131,7 @@ class Invoice extends Component
                                                                     
                                                                     <th style={{textAlign: 'center'}}>No. Invoice</th>
                                                                     <th style={{textAlign: 'center'}}>ID Invoice</th>
+                                                                    <th style={{textAlign: 'center'}}>kode Invoice</th>
                                                                     <th style={{textAlign: 'center'}}>Costumer</th>
                                                                     <th style={{textAlign: 'center'}}>Email</th>
                                                                     <th style={{textAlign: 'center'}}>Tanggal</th>

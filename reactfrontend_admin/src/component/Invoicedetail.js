@@ -62,7 +62,7 @@ class Invoicedetail extends Component
                 ribuan2 	= string.substr(sisanya).match(/\d{3}/g);
                     
                 if (ribuan2) {
-                    var sepatator2 = sisa ? '.' : '';
+                    var sepatator2 = sisanya ? '.' : '';
                     rupiah2 += sepatator2 + ribuan2.join('.');
                     }
                     var totalSub=rupiah2         
