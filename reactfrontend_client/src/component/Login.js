@@ -59,8 +59,8 @@ class Login extends Component
                         <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                         <label className="form-check-label" htmlFor="exampleCheck1" required>Check me out</label>
                       </div>
-                      <button type="button" onClick={() => this.fungsiLogin(this.refs)} className="btn-lg btn-outline-success" tabIndex={-1} role="button" aria-disabled="true">Masuk</button>
-                      <Link to="/register" className="btn-lg btn-primary" tabIndex={-1} role="button" aria-disabled="true">Daftar Disini!</Link>
+                      <button type="button" onClick={() => this.fungsiLogin(this.refs)} className="btn-md btn-success"  role="button" aria-disabled="true">Masuk</button>&nbsp;
+                      <i className="fas fa-arrow-right" ><Link to="/register" style={{textDecoration:'none',color:"black"}}>&nbsp;Daftar Disini!</Link></i>
                     </form>
                   </div>
                 </div>

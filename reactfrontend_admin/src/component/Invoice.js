@@ -33,20 +33,11 @@ class Invoice extends Component
             var Tanggal=item.tgl_buat
             var Harga=item.harga
             var status=item.status
-            var gantiStatus='';
-                if(status === 0){
-                     gantiStatus ='Belum Check'
-                }else if(status ===1){
-                    gantiStatus ='Lunas'
-                }else if(status ===2){
-                    gantiStatus='Angsur'
-                }else if(status ===3){
-                    gantiStatus='Gagal'
-                }
+            
             return <tr key={index} style={{textAlign: 'center'}} className="success">
                 <td>{urut}</td>
                 <td>{idINV}</td>
-                <td>{kdINV}</td>
+                <td>INV{kdINV}</td>
                 <td>{namaCos}</td>
                 <td>{Email}</td>
                 <td>{Tanggal}</td>

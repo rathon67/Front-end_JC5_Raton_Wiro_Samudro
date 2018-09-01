@@ -46,30 +46,30 @@ class HeaderLogin extends Component {
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                               <ul className="navbar-nav mr-auto">
                                     <li className="nav-item ">
-                                    <Link to="/konten" className="nav-link " img src="" style={{fontFamily: 'fantasy'}}><h5>Home</h5></Link>
+                                    <Link to="/konten" className="nav-link " img src="" style={{fontFamily: 'fantasy', color:"#FDFEFE"}}><h5>Home</h5></Link>
                                     </li>
                                     <li className="nav-item">
-                                    <Link to ="listproduct" className="nav-link" style={{fontFamily: 'fantasy'}}><h5>Feature &amp; Model</h5></Link>
+                                    <Link to ="listproduct" className="nav-link" style={{fontFamily: 'fantasy', color:"#FDFEFE"}}><h5>Feature &amp; Model</h5></Link>
                                     </li>
                                     <li className="nav-item dropdown">
-                                      <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{fontFamily: 'fantasy'}}>
+                                      <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{fontFamily: 'fantasy', color:"#FDFEFE"}}>
                                         Belanja
                                       </a>
                                       <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <Link to="/cart" className="dropdown-item" ><i className="fa fa-shopping-cart">&nbsp;Cart</i></Link>                                          
-                                            <Link to="/invoicehistory" className="dropdown-item" ><i className="fa fa-profile">&nbsp;Invoice</i></Link>                                          
-                                            <Link to="/profile"className="dropdown-item" >{this.state.namadep} &nbsp;{this.state.namabel}</Link>                                          
+                                            <Link to="/cart" className="dropdown-item" style={{color: '#B20000',fontFamily: 'fantasy'}}><i className="fas fa-cart-plus"></i>&nbsp;Cart</Link>                                          
+                                            <Link to="/invoicehistory" className="dropdown-item" style={{color: '#B20000',fontFamily: 'fantasy'}}><i className="fas fa-receipt"></i>&nbsp;Invoice</Link>                                          
+                                            <Link to="/profile"className="dropdown-item" style={{color: '#B20000',fontFamily: 'fantasy'}}><i className="far fa-user-circle"></i>&nbsp;{this.state.namadep} &nbsp;{this.state.namabel}</Link>                                          
                                         <div className="dropdown-divider" />
-                                        <Link to="/logout" className="dropdown-item " >Logout</Link> 
+                                        <Link to="/logout" className="dropdown-item " style={{color: '#B20000',fontFamily: 'fantasy'}}><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</Link> 
                                       </div>
                                     </li>
-                                    <li className="nav-item">
+                                    {/* <li className="nav-item">
                                       <a className="nav-link disabled" href=""style={{fontFamily: 'fantasy'}}>Newest</a>
-                                    </li>
+                                    </li> */}
                               </ul>
                               <form className="form-inline my-2 my-lg-0">
                                 <input className="form-control mr-sm-2" type="search" placeholder="Temukan pencarian" aria-label="Search" />
-                                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Cari..</button>
+                                <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Cari..</button>
                               </form>
                             </div>
                        </nav>

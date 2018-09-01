@@ -156,7 +156,7 @@ class Invoicedetail extends Component
                                     <div className="row">
                                     <div className="col-md-11">
                                         <div className="invoice-title">
-                                        <h1 style={{color: 'brown'}}>Invoice</h1><h3 className="text-right">Order CODE: {this.state.kodeINV}</h3>
+                                        <h1 style={{color: 'brown'}}>Invoice</h1><h3 className="text-right">Order CODE: INV{this.state.kodeINV}</h3>
                                         </div>
                                         <hr />
                                         <div className="row">

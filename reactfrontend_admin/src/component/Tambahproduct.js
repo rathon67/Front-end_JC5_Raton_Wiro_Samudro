@@ -14,6 +14,7 @@ class Tambahproduct extends Component {
         namamotor:'',
         desc:'',
         harga:'',
+        tahunpembuatan:'',
         pembuat:'',
         datajenis: [],
         jenismotor:'',
@@ -47,6 +48,7 @@ class Tambahproduct extends Component {
             namamotor:e.namaproduk.value,
             desc:e.descproduk.value,
             harga:e.hargaproduk.value,
+            tahunpembuatan:e.tahunpembuatan.value,
             pembuat:e.namapembuat.value,
             jenismotor:this.jenismotor.value
         })
@@ -59,6 +61,7 @@ class Tambahproduct extends Component {
         formData.append('namamotor',this.state.namamotor);
         formData.append('desc',this.state.desc);
         formData.append('harga',this.state.harga);
+        formData.append('tahunpembuatan',this.state.tahunpembuatan);
         formData.append('pembuat',this.state.pembuat);        
         formData.append('jenismotor',this.state.jenismotor);
         axios.post('http://localhost:8000/tambahData/', formData);
@@ -177,6 +180,12 @@ class Tambahproduct extends Component {
                                                                 <label  className="col-lg-2 control-label">Harga</label>
                                                                 <div className="col-lg-8">
                                                                     <input ref="hargaproduk" type="number" className="form-control" id="inputEmail" placeholder="Rp." />
+                                                                </div>
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label  className="col-lg-2 control-label">Tahun Pembuatan</label>
+                                                                <div className="col-lg-8">
+                                                                    <input ref="tahunpembuatan" type="number" className="form-control"  placeholder="1940s - 2018" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group">

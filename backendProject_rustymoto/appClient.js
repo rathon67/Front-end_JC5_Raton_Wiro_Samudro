@@ -48,14 +48,14 @@ app.post('/userlogin', (req, res) => {
   var encpass = crypto.createHash('sha256', secret).update(Password).digest('hex');
 
   // console.log(Email)
-  // console.log(Password)
+  console.log(encpass)
   var sql = `SELECT id_user,email,password FROM tbl_user`;
   db.query(sql, (error, result) => {
       if(error) {
           throw error;
       } else { 
           for(var i=0; i < result.length; i++ ){
-              if(Email === result[i].email && Password === result[i].password){
+              if(Email === result[i].email && encpass === result[i].password){
                 console.log('Login Berhasil')
                 //console.log(result[i].id)
                 var userID= result[i].id_user;
@@ -124,6 +124,65 @@ app.get(`/getDetailMotor/:id_motor`, (req,res)=>{
   })
 })
 /** end */
+
+/** List motor section */
+/**list motor classic */
+app.get('/getListMotorClassic', (req,res)=>{
+  var getListMotor= `SELECT product.id_motor, product.nama_motor, product.gambar, master_status.status FROM product JOIN master_status ON master_status.id_status=product.status WHERE tahun_pembuatan <=2000`;
+  db.query(getListMotor, (err,result)=>{
+    if(err){
+      throw err;
+    }else{
+      res.send(result)
+    }
+  })
+})
+
+/**list motor bobber */
+app.get('/getListMotorBobber', (req,res)=>{
+  var getListMotor= `SELECT product.id_motor, product.nama_motor, product.gambar, master_status.status FROM product JOIN master_status ON master_status.id_status=product.status WHERE product.id_jenis=9`;
+  db.query(getListMotor, (err,result)=>{
+    if(err){
+      throw err;
+    }else{
+      res.send(result)
+    }
+  })
+})
+
+app.get('/getListMotorChopper', (req,res)=>{
+  var getListMotor= `SELECT product.id_motor, product.nama_motor, product.gambar, master_status.status FROM product JOIN master_status ON master_status.id_status=product.status WHERE product.id_jenis=8`;
+  db.query(getListMotor, (err,result)=>{
+    if(err){
+      throw err;
+    }else{
+      res.send(result)
+    }
+  })
+})
+
+app.get('/getListMotorCaferacer', (req,res)=>{
+  var getListMotor= `SELECT product.id_motor, product.nama_motor, product.gambar, master_status.status FROM product JOIN master_status ON master_status.id_status=product.status WHERE product.id_jenis=10`;
+  db.query(getListMotor, (err,result)=>{
+    if(err){
+      throw err;
+    }else{
+      res.send(result)
+    }
+  })
+})
+
+app.get('/getListMotorTracker', (req,res)=>{
+  var getListMotor= `SELECT product.id_motor, product.nama_motor, product.gambar, master_status.status FROM product JOIN master_status ON master_status.id_status=product.status WHERE product.id_jenis=11`;
+  db.query(getListMotor, (err,result)=>{
+    if(err){
+      throw err;
+    }else{
+      res.send(result)
+    }
+  })
+})
+/**End of section */
 
 
 

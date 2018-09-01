@@ -1,10 +1,163 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {Pager} from 'react-bootstrap';
+import axios from 'axios';
 
 class Listproduct extends Component
 {
+  state={
+    listProductClassic:[],
+    listMotorBobber:[],
+    listProductChopper:[],
+    listProductCaferacer:[],
+    listProductTracker:[],
+  } 
+
+  componentDidMount(){
+    axios.get('http://localhost:8002/getListMotorClassic')
+    .then((ambilData)=>{
+      console.log(ambilData)
+      this.setState({
+        listProductClassic:ambilData.data
+      })
+    })
+
+    axios.get('http://localhost:8002/getListMotorBobber')
+    .then((ambilData)=>{
+      // console.log(ambilData)
+      this.setState({
+        listMotorBobber:ambilData.data
+      })
+    })
+
+    axios.get('http://localhost:8002/getListMotorChopper')
+    .then((ambilData)=>{
+      // console.log(ambilData)
+      this.setState({
+        listProductChopper:ambilData.data
+      })
+    })
+
+    axios.get('http://localhost:8002/getListMotorCaferacer')
+    .then((ambilData)=>{
+      // console.log(ambilData)
+      this.setState({
+        listProductCaferacer:ambilData.data
+      })
+    })
+
+    axios.get('http://localhost:8002/getListMotorTracker')
+    .then((ambilData)=>{
+      // console.log(ambilData)
+      this.setState({
+        listProductTracker:ambilData.data
+      })
+    })
+  }
+
     render()
 {
+  const dataListMotorClassic=this.state.listProductClassic.map((isidata, index)=>{
+    var urutan = index+1;
+    var idMotor =isidata.id_motor
+    console.log(idMotor)
+    var namaMotor=isidata.nama_motor;
+    var gambarMotor=isidata.gambar;
+    var status=isidata.status;    
+    return (
+            <div className="card-group">
+                <div className="card" style={{width: '185px',}}>
+                  <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
+                  <div className="card-body">
+                    <h5 className="card-title">{namaMotor}</h5>
+                    <p className="card-text"><b>{status}</b></p>
+                    <Link to={{pathname:"/detail", state:{id_motor:idMotor}}} className="card-link" className="btn btn-info pull-bottom">Lihat Detail</Link>
+                  </div>
+                </div>&nbsp;&nbsp;                          
+              </div>
+    )
+  })
+  const dataMotorChopper=this.state.listProductChopper.map((isidata, index)=>{
+      var urutan = index+1;
+      var idMotor =isidata.id_motor
+      var namaMotor=isidata.nama_motor;
+      var gambarMotor=isidata.gambar;
+      var status=isidata.status;
+      return (
+              <div className="card-group">
+                  <div className="card" style={{width: '185px',}}>
+                    <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
+                    <div className="card-body">
+                      <h5 className="card-title">{namaMotor}</h5>
+                      <p className="card-text"><b>{status}</b></p>
+                      <Link to={{pathname:"/detail", state:{id_motor:idMotor}}} className="card-link" className="btn btn-info pull-bottom">Lihat Detail</Link>
+                    </div>
+                  </div>&nbsp;&nbsp;                          
+                </div>
+      ) 
+  })
+
+  const dataMotorBobber=this.state.listMotorBobber.map((isidata, index)=>{
+    var urutan = index+1;
+    var idMotor =isidata.id_motor
+    var namaMotor=isidata.nama_motor;
+    var gambarMotor=isidata.gambar;
+    var status=isidata.status;
+    return (
+            <div className="card-group">
+                <div className="card" style={{width: '185px',}}>
+                  <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
+                  <div className="card-body">
+                    <h5 className="card-title">{namaMotor}</h5>
+                    <p className="card-text"><b>{status}</b></p>
+                    <Link to={{pathname:"/detail", state:{id_motor:idMotor}}} className="card-link" className="btn btn-info pull-bottom">Lihat Detail</Link>
+                  </div>
+                </div>&nbsp;&nbsp;                          
+              </div>
+    ) 
+}) 
+
+  const dataMotorCaferacer=this.state.listProductCaferacer.map((isidata, index)=>{
+    var urutan = index+1;
+    var idMotor =isidata.id_motor
+    var namaMotor=isidata.nama_motor;
+    var gambarMotor=isidata.gambar;
+    var status=isidata.status;
+    return (
+            <div className="card-group">
+                <div className="card" style={{width: '185px',}}>
+                  <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
+                  <div className="card-body">
+                    <h5 className="card-title">{namaMotor}</h5>
+                    <p className="card-text"><b>{status}</b></p>
+                    <Link to={{pathname:"/detail", state:{id_motor:idMotor}}} className="card-link" className="btn btn-info pull-bottom">Lihat Detail</Link>
+                  </div>
+                </div>&nbsp;&nbsp;                          
+              </div>
+    ) 
+  })
+
+  const dataMotorTracker=this.state.listProductTracker.map((isidata, index)=>{
+    var urutan = index+1;
+    var idMotor =isidata.id_motor
+    var namaMotor=isidata.nama_motor;
+    var gambarMotor=isidata.gambar;
+    var status=isidata.status;
+    return (
+            <div className="card-group">
+                <div className="card" style={{width: '185px',}}>
+                  <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
+                  <div className="card-body">
+                    <h5 className="card-title">{namaMotor}</h5>
+                    <p className="card-text"><b>{status}</b></p>
+                    <Link to={{pathname:"/detail", state:{id_motor:idMotor}}} className="card-link" className="btn btn-info pull-bottom">Lihat Detail</Link>
+                  </div>
+                </div>&nbsp;&nbsp;                          
+              </div>
+    ) 
+  })
+  
+  
     return(
         (
             <div>
@@ -30,14 +183,14 @@ class Listproduct extends Component
           <a className="navbar-brand" href="">All-moTos</a>
           <nav className="nav nav-pills flex-column">
             <nav className="nav nav-pills flex-column">
-              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-1-1">Original Classic</a>
-              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-1-2">Costume Bobber</a>
+              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-1">Original Classic</a>
+              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-2">Costume Bobber</a>
             </nav>
-            <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-2">Costume Chopper</a>
-            <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-3">Costume Bratstyle</a>
+            <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-3">Costume Chopper</a>
+            
             <nav className="nav nav-pills flex-column">
-              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-3-1">Costume Caferacer</a>
-              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-3-2">Costume Tracker</a>
+              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-4">Costume Caferacer</a>
+              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-5">Costume Tracker</a>
             </nav>
           </nav>
         </nav>
@@ -45,232 +198,101 @@ class Listproduct extends Component
       <div className="col-lg-9">
         <div data-spy="scroll" data-target="#navbar-example3" data-offset={0}>
           <h4 id="item-1">
-            Original Classic
+            All Classic Motorcyle And Scooter
           </h4>
-          <hr />
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>
           <div className="card-group">
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/motorbike113103.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/lambretta scooter.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '12rem'}}>
-              <img className="card-img-top" src="Image/Old_military_BSA_motorcycle,_C5554828,_pic1.JPG" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/MemorableMotorcycleBSAM2011.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>
+            {dataListMotorClassic}
           </div>
-          <h4 id="item-1-1">
+            
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>            
+          <div className="col-lg-11">
+            <Pager>
+              <Pager.Item previous href="#" className="pull-left">
+                &larr; Previous
+              </Pager.Item>
+              <Pager.Item next href="#" className="pull-right"> 
+                Next &rarr;
+              </Pager.Item>
+            </Pager>;
+          </div>
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
+          <h4 id="item-2">
             Bobber Style
           </h4>
-          <hr />
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
           <div className="card-group">
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/Royal-Enfield-by-Bulleteer-5.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/Modified-Royal-Enfield-Thunderbird-350-Spartan-Images-1.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '12rem'}}>
-              <img className="card-img-top" src="Image/MY18-Bobber-road-sideview-LB.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/royalenfeld2.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>
+            {dataMotorBobber}
           </div>
-          <h4 id="item-1-2">
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
+          <div className="col-lg-11">
+            <Pager>
+              <Pager.Item previous href="#" className="pull-left">
+                &larr; Previous
+              </Pager.Item>
+              <Pager.Item next href="#" className="pull-right"> 
+                Next &rarr;
+              </Pager.Item>
+            </Pager>;
+          </div>
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
+          <h4 id="item-3">
             CHOPPER
           </h4>
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
           <div className="card-group">
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/main-banner.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/BSA-1960-brochure.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '12rem'}}>
-              <img className="card-img-top" src="Image/main-banner.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/motorbike113103.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>
+          {dataMotorChopper}
           </div>
-          <h4 id="item-2">
-            Brats style
-          </h4>
-          <hr />
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
+          <div className="col-lg-11">
+            <Pager>
+              <Pager.Item previous href="#" className="pull-left">
+                &larr; Previous
+              </Pager.Item>
+              <Pager.Item next href="#" className="pull-right"> 
+                Next &rarr;
+              </Pager.Item>
+            </Pager>;
+          </div>
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
+          <h4 id="item-4">
+            Caferacer
+          </h4>          
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
           <div className="card-group">
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/motorbike113103.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/motorbike113103.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '12rem'}}>
-              <img className="card-img-top" src="Image/motorbike113103.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/motorbike113103.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>
+            {dataMotorCaferacer}
           </div>
-          <h4 id="item-3">
-            Cafe Racer Moto
-          </h4>
-          <hr />
-          <div className="card-group">
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/MotoB-Side-copy.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/motoguzzi-850t-caferacer-4.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '12rem'}}>
-              <img className="card-img-top" src="Image/custom-triumph.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/building-a-cafe-racer-triumph.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
+          <div className="col-lg-11">
+            <Pager>
+              <Pager.Item previous href="#" className="pull-left">
+                &larr; Previous
+              </Pager.Item>
+              <Pager.Item next href="#" className="pull-right"> 
+                Next &rarr;
+              </Pager.Item>
+            </Pager>;
           </div>
-          <h4 id="item-3-1">
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>            
+          <h4 id="item-5">
             Adventure Tracker
           </h4>
-          <hr />
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
           <div className="card-group">
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/indian_scout_ftr1200_street_tracker_01.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/05-honda-africa-twin-2017.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '12rem'}}>
-              <img className="card-img-top" src="Image/Snow-Male.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>&nbsp;
-            <div className="card" style={{width: '10rem'}}>
-              <img className="card-img-top" src="Image/trackerHD.jpg" alt="Card image cap" />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example .</p>
-                <a href="" className="btn btn-outline-success">View Detail</a>
-              </div>
-            </div>
+          {dataMotorTracker}
           </div>
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
+          <div className="col-lg-11">
+            <Pager>
+              <Pager.Item previous href="#" className="pull-left">
+                &larr; Previous
+              </Pager.Item>
+              <Pager.Item next href="#" className="pull-right"> 
+                Next &rarr;
+              </Pager.Item>
+            </Pager>;
+          </div>          
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>           
         </div>
       </div>
     </div>

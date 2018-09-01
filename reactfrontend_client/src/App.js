@@ -22,13 +22,18 @@ import Logout from './component/Logout';
 
 
 
+
+
 class App extends Component {
   render() {
     const cookies = new Cookies()
     let cookieid =cookies.get('userID')
     let Navigation =(!cookieid) ? <Header/> :  <HeaderLogin/>
 
+    
+
     return (
+   
       <div>
         {Navigation} 
         <Route exact path="/" component={Konten}/>

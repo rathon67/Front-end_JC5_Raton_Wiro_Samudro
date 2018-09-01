@@ -19,7 +19,7 @@ class Konten extends Component {
     axios.get('http://localhost:8002/getMotorCard')
     .then((ambilData)=>{
       self.setState({product:ambilData.data,})
-      console.log(this.state.product)
+      // console.log(this.state.product)
     })
    
   }
@@ -57,6 +57,7 @@ class Konten extends Component {
       const data =this.state.product.map((item, index)=>{
         var urut =index+1;
         var id=item.id_motor;
+        console.log(id)
         var jenis=item.id_jenis;
         var gambar=item.gambar;
         var namamotor=item.nama_motor;
@@ -82,19 +83,19 @@ class Konten extends Component {
             <div className="card" style={{width: '18rem'}}>
                 <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambar}`}  style={{width: 'auto', height: '200px'}} alt="Card image cap"/>
                 <div className="card-body" >
-                  <h5 className="card-title bg-light" style={{fontFamily:'serif',fontWeight: 'bold'}} >{namamotor}</h5>
+                  <h5 className="card-title" style={{fontFamily:'fantasy',fontWeight: 'bold'}} >{namamotor}</h5>
                   
                 </div>
                 <ul className="list-group list-group-flush">
-                  <li className="list-group-item">{status}</li>
-                  <li className="list-group-item">Rp {hargaRupiah}</li>
-                  <li className="list-group-item">{pembuat}</li>
+                  <li className="list-group-item" style={{fontFamily:"fantasy"}}>{status}</li>
+                  <li className="list-group-item" style={{fontFamily:"fantasy"}}>Rp {hargaRupiah}</li>
+                  <li className="list-group-item" style={{fontFamily:"fantasy"}}>{pembuat}</li>
                 </ul>
                 <div className="card-body">
                 
-                  <Link to={{pathname:"/detail", state:{id_motor:id}}} className="card-link" className="btn btn-info">Lihat Detail</Link><br/><br/>
+                  <Link to={{pathname:"/detail", state:{id_motor:id}}} className="card-link" className="btn btn-info" style={{fontFamily:"fantasy",color:"#E6F5F5",width:"213px"}}>Lihat Detail</Link><br/><br/>
                   {/* <Link to={{pathname:'/cart', state:{dataID:id}}} className="card-link"> <i className="fa fa-shopping-cart">Tambah ke Daftar Belanja</i></Link> */}
-                  <button type="button" onClick ={()=>this.addtoCart(id)} className="card-link" className="btn btn-warning"> <Link to ='/cart'><i className="fa fa-shopping-cart">&nbsp;Tambah ke Daftar Belanja</i></Link></button>
+                  <button type="button" onClick ={()=>this.addtoCart(id)} className="card-link" className="btn btn-warning"> <Link to ='/cart' style={{fontFamily:"fantasy",color:"#365152"}}><i className="fa fa-shopping-cart"></i>&nbsp;Tambah ke Daftar Belanja</Link></button>
                 </div>
               </div><br/>
         </div>
@@ -110,14 +111,14 @@ class Konten extends Component {
               <div className="carousel-item active">
                 <img className="d-block w-100" src="Image/Royalenfieldcarousel.jpeg" alt="First slide" />
                 <article className="carousel-caption d-none d-md-block">
-                <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Nikmati berkendara sesuai Gayamu</h1>
+                <h1 style={{color: '#B20000',fontFamily: 'fantasy',fontWeight: 'bold'}}>Nikmati berkendara sesuai Gayamu</h1>
                 <h3 style={{color: 'Black'}}>THE ALL NEW BONNEVILLE SPEEDMASTER brings a new dimension to the Bonneville line-up. With much more classic British custom laid-back attitude, forward footpegs, swept-back beach bars and comfortable pillion capability, the new Speedmaster delivers a distinctive cruiser riding style. High specification rider-focused-technology combines with elegant engineering to provide a superior level of handling, comfort and control.</h3>
                 </article> {/* carousel-caption .// */}
               </div>
               <div className="carousel-item">
                 <img className="d-block w-100" src="Image/vespasip5.jpg" alt="Second slide" />
                 <article className="carousel-caption d-none d-md-block">
-                <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Disini Pilih Selera Lo</h1>
+                <h1 style={{color: '#B20000',fontFamily: 'fantasy',fontWeight: 'bold'}}>Disini Pilih Selera Lo</h1>
                 <h3 style={{color: 'Black'}}>The critically acclaimed high-torque engine, with its powerful hot rod ride and raw sound, has a reassuringly high first major service interval of 10,000 mile / 16,000km.</h3>
                             
                 </article> {/* carousel-caption .// */}
@@ -125,7 +126,7 @@ class Konten extends Component {
               <div className="carousel-item">
                 <img className="d-block w-100" src="Image/building-a-cafe-racer-triumph.jpg" alt="Third slide" />
                 <article className="carousel-caption d-none d-md-block">
-                <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Tunjukan Siapa kamu dengan kuda besimu</h1>
+                <h1 style={{color: '#B20000',fontFamily: 'fantasy',fontWeight: 'bold'}}>Tunjukan Siapa kamu dengan kuda besimu</h1>
                 <h3 style={{color: 'Black'}}>Perfect for riders looking for greater touring capability and a more laid-back cruiser style than the Bonneville T120, the new Speedmaster's comfortable yet versatile twin seat set-up offers increased practicality together with all the Bonneville Bobber's attitude.</h3>
                             
                 </article> {/* carousel-caption .// */}
@@ -148,7 +149,7 @@ class Konten extends Component {
               <div className="row justify-content-md-center">
                 <div className="col col-lg-2"></div>
                 <div className="col-md-auto">
-                  <h1 style={{color: 'crimson',fontFamily: 'fantasy',fontWeight: 'bold'}}>Newest Feature Motorycles or Scooters</h1>
+                  <h2 style={{color: '#B20000',fontFamily: 'fantasy',fontWeight: 'bold'}}>Newest Feature Motorycles or Scooters</h2>
                 </div>
                 <div className="col col-lg-2"></div>
               </div>
@@ -250,45 +251,48 @@ class Konten extends Component {
   <br></br>
   {/* Badge Sebelum Footer */}
   <div className="container-fluid bg-secondary">
-      <div className="row align-items-center">
-        <div className="col col-sm-4">
-            <Link to="" className="badge badge-secondary"><h1> More Information</h1></Link>
-        </div>
-        <div className="col col-sm-4">
-            < Link to="" className="badge badge-secondary"><h1>Find Dealer near City</h1></Link>
-        </div>
-        <div className="col col-sm-4">
-            < Link to="" className="badge badge-secondary"><h1>Download Brochure</h1></Link>
-        </div>
+    <div className="col-lg-12">
+        <div className="row">
+          <div className="col col-sm-4 text-center">
+              <Link to="" className="badge badge-secondary"><h2 style={{fontFamily:"fantasy"}}>&emsp;&emsp;&emsp;More Information</h2></Link>
+          </div>
+          <div className="col col-sm-4">
+              < Link to="" className="badge badge-secondary"><h2 style={{fontFamily:"fantasy"}}>&emsp;&emsp;Find Dealer near City</h2></Link>
+          </div>
+          <div className="col col-sm-4">
+              < Link to="" className="badge badge-secondary"><h2 style={{fontFamily:"fantasy"}}>&emsp;Download Brochure</h2></Link>
+          </div>
+      </div>
       </div>
     </div>
     <br></br>
     {/* Footer Article */}
-    <div className="row" style={{backgrounColor: 'white'}} >   
+    <div className="container">
+    <div className=" row" style={{backgrounColor: 'white'}} >   
       <div className="col col-sm-4">
         <ul style={{listStyle: 'none' }}>
           <li><p>
-            <h2>All moTos</h2>
-              <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3 style={{fontFamily:"fantasy",color:"#B20000"}}>&emsp;&emsp;All motos</h3>
+              <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                 Adventure
               </a>
             </p></li>
           <li> 
               <p>
-                <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                  classNameics
+                <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
+                  Classics
                 </a>
               </p>
           </li>
           <li>
               <p>
-                  <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                     Roadsters
                   </a>
                 </p>
           </li>
           <li><p>
-              <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                 Modist
               </a>
             </p></li>
@@ -296,30 +300,30 @@ class Konten extends Component {
         </ul>
         
       </div>
-      <div className="col col-sm-4">
+      <div className="col col-sm-4 pull-center" >
           <ul style={{listStyle: 'none'}}>
             <li><p>
-              <h2>Inside us</h2>
-                <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              <h3 style={{fontFamily:"fantasy",color:"#B20000"}}>&emsp;&emsp;Inside us</h3>
+                <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                   Visitor experience
                 </a>
               </p></li>
             <li> 
                 <p>
-                  <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                     The Distinguished gentleman Ride
                   </a>
                 </p>
             </li>
             <li>
                 <p>
-                    <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                       News and Event
                     </a>
                   </p>
             </li>
             <li><p>
-                <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                   Career
                 </a>
               </p></li>
@@ -327,35 +331,36 @@ class Konten extends Component {
           </ul>
           
         </div>
-        <div className="col col-sm-4">
+        <div className="col col-sm-4 pull-center">
             <ul style={{listStyle: 'none', alignContent: 'center'}}>
               <li><p>
-                <h2>Service & Support </h2>
-                  <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <h3 style={{fontFamily:"fantasy",color:"#B20000"}}>Service & Support </h3>
+                  <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                     Genuine Part
                   </a>
                 </p></li>
               <li> 
                   <p>
-                    <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                      Rider Advice
                     </a>
                   </p>
               </li>
               <li>
                   <p>
-                      <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                         Download Brochure
                       </a>
                     </p>
               </li>
               <li><p>
-                  <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <a className="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{fontFamily:"fantasy",color:"#F7FCF8",width:"250px"}}>
                     Find a Dealer
                   </a>
                 </p></li>              
             </ul>            
           </div>
+    </div>
     </div>
 <hr/>
 </div>

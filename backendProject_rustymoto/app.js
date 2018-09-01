@@ -101,6 +101,7 @@ app.post('/tambahData', (req, res) => {
     var namaProduk = req.body.namamotor;
     var descProduk = req.body.desc;
     var hargaProduk = req.body.harga;
+    var tahunPembuatan =req.body.tahunpembuatan;
     var namaPembuat = req.body.pembuat;
     
     var jenisMotor = req.body.jenismotor;
@@ -114,7 +115,7 @@ app.post('/tambahData', (req, res) => {
                 throw kaloError;
                 
             }else {
-                var sql = `INSERT INTO product VALUES("${''}","${jenisMotor}", "${fileName}", "${namaProduk}","${descProduk}","${hargaProduk}","${namaPembuat}","7","${formatedMysqlString}")`;
+                var sql = `INSERT INTO product VALUES("${''}","${jenisMotor}", "${fileName}", "${namaProduk}","${descProduk}","${hargaProduk}",""${tahunPembuatan},"${namaPembuat}","7","${formatedMysqlString}")`;
                 db.query(sql, (kaloError, hasilnya) => {
                     if(kaloError){
                         throw kaloError;
@@ -574,18 +575,14 @@ app.post(`/tambahdatakelistrikan`,(req,res)=>{
 
 //member register from user interface
 
-    app.post('/register',(req,res)=>{
-        var nmDepan =req.body.input1;
-        var nmBlkg =req.body.input2;
-        var email= req.body.input3;
-        var address=req.body.input4;
-        var state=req.body.input5;
-        var pos=req.body.input6;
-        var Password=req.body.input7;
-        var phone=req.body.input8;
-        var ttl=req.body.input9;
-        var encpass = crypto.createHash('sha256', secret).update(Password).digest('hex');
-        var insertData= `INSERT INTO tbl_user VALUES ("${''}","${nmDepan}","${nmBlkg}","${email}","${address}","${state}","${pos}","${Password}","${phone}","${ttl}")`;
+    app.post('/register', (req,res)=>{
+        var nmDepan =req.body.username;
+        var password =req.body.password;
+        var email= req.body.email;
+        console.log(email)
+        var encpass = crypto.createHash('sha256', secret).update(password).digest('hex');
+        console.log(encpass)
+        var insertData= `INSERT INTO tbl_user VALUES ("${''}","${nmDepan}","${''}","${email}","${''}","${''}","${''}","${encpass}","${''}","${''}")`;
         db.query(insertData, (err,result)=>{
             if(err){
                 throw err;
@@ -667,13 +664,13 @@ app.post(`/updateStatusLunas`, (req,res)=>{
                                 var kodeCK = '';
                                 // console.log(kodeCK)
                                 
-                                if (INV < 10)  kodeCK = kodeCK + 'INV0000' + INV
-                                else if (INV >= 10 && INV < 100) kodeCK = kodeCK + 'INV000' + INV
-                                else if (INV >= 100 && INV < 1000) kodeCK = kodeCK + 'INV00' + INV
-                                else if (INV >= 1000 && INV < 10000) kodeCK = kodeCK + 'INV0' + INV
+                                if (INV < 10)  kodeCK = kodeCK + '0000' + INV
+                                else if (INV >= 10 && INV < 100) kodeCK = kodeCK + '000' + INV
+                                else if (INV >= 100 && INV < 1000) kodeCK = kodeCK + '00' + INV
+                                else if (INV >= 1000 && INV < 10000) kodeCK = kodeCK + "0" + INV
                                 else kodeCK = kodeCK + INV
                                 // generate Invoice Code
-                                // console.log(kodeCK)
+                                console.log(kodeCK)
  /**INSERT DATA INVOICE */
                                 for (var i =0; i<motor.length; i++){
                                     var insertInvoiceData =`INSERT INTO tbl_invoice VALUES ("${''}","${idCheckout[i]}","${iduser}","${kodeCK}","${motor[i]}","${hargaunit[i]}","${nama}","${email}","${alamat}","${kota}","${pos}","${phone}","9","${tgl_buat}")`;
