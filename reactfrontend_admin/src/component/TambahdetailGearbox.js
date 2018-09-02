@@ -46,7 +46,13 @@ class TambahdetailGearbox extends Component {
         formData.append('id_motor',this.state.id_motor);
         formData.append('file',this.state.gambar);
         formData.append('descgearbox',this.state.descgearbox);        
-        axios.post('http://localhost:8000/tambahdatagearbox/', formData);
+        axios.post('http://localhost:8000/tambahdatagearbox/', formData)
+        .then((ambilData)=>{
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di input")
+            }
+        })
     }
     render(){
         return (

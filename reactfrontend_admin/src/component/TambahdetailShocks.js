@@ -46,7 +46,14 @@ class TambahdetailShocks extends Component {
         formData.append('file',this.state.gambar);
         formData.append('descshocks',this.state.descshocks);
         
-        axios.post('http://localhost:8000/tambahdatashocks/', formData);
+        axios.post('http://localhost:8000/tambahdatashocks/', formData)
+            .then((ambilData)=>{
+                var notife= ambilData.data
+                if(notife==1){
+                    alert("data berhasil di input")
+                }
+            
+        })
     }
     render(){
         return (

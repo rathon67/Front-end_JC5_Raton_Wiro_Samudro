@@ -30,6 +30,13 @@ class TambahdetailMesin extends Component {
             input8: e.typekopling.value,
             input9: e.typetransmisi.value,
         })
+        .then((ambilData)=>{
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di input")
+            }
+        
+    })
     }
     render(){
         return (

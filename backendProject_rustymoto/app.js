@@ -96,7 +96,7 @@ app.get('/listproduct', (req, res) =>{
 
 
 //menambah data product
-app.post('/tambahData', (req, res) => {
+app.post('/tambahDataMotor', (req, res) => {
     var fileName= req.files.file.name;
     var namaProduk = req.body.namamotor;
     var descProduk = req.body.desc;
@@ -115,12 +115,12 @@ app.post('/tambahData', (req, res) => {
                 throw kaloError;
                 
             }else {
-                var sql = `INSERT INTO product VALUES("${''}","${jenisMotor}", "${fileName}", "${namaProduk}","${descProduk}","${hargaProduk}",""${tahunPembuatan},"${namaPembuat}","7","${formatedMysqlString}")`;
+                var sql = `INSERT INTO product VALUES("${''}","${jenisMotor}", "${fileName}", "${namaProduk}","${descProduk}","${hargaProduk}",${tahunPembuatan},"${namaPembuat}","7","${formatedMysqlString}")`;
                 db.query(sql, (kaloError, hasilnya) => {
                     if(kaloError){
                         throw kaloError;
                         }else{
-
+                            res.send('1')
                         }                    
                 });
             }
@@ -288,7 +288,7 @@ app.post('/tambahdataproductcarou', (req,res)=>{
                     if(err){
                         throw err;
                     }else{
-                      
+                      res.send('1')
                     }
                 })
             }
@@ -297,15 +297,13 @@ app.post('/tambahdataproductcarou', (req,res)=>{
             if(err){
                 throw err;
             }else {
-                              
+                          
             }
         })
         fungsiFile3.mv("./filedetailCarou/" +fileName3, (err) => {
             if(err){
                 throw err;
             }else {
-               
-                
                 
             }
         })
@@ -326,7 +324,7 @@ app.post('/tambahdatalampu', (req,res) =>{
             if(kaloError){
                throw err;
             }else {
-                // res.send('upload sukses');
+                res.send('1')
             }
         })
     }
@@ -364,7 +362,7 @@ db.query(sql,(err,result)=>{
     if(err){
         throw err;
     }else{
-      
+      res.send('1')
     }
     });
 })
@@ -383,7 +381,7 @@ app.post('/tambahdatasadle', (req,res) =>{
                 throw err;
                 
             }else {
-                // res.send('upload sukses');
+              
             }
         })
     }
@@ -393,7 +391,7 @@ db.query(sql,(err,result)=>{
     if(err){
         throw err;
     }else{
-        // res.send('data sadle berhasil di tambah')
+        res.send('1')
     }
     });
 })
@@ -421,7 +419,7 @@ db.query(sql,(err,result)=>{
     if(err){
         throw err;
     }else{
-        res.send('data shocks berhasil di tambah')
+        res.send('1')
     }
     });
 })
@@ -450,7 +448,7 @@ db.query(insertDetailBrakes, (err,result)=>{
     if(err){
         throw err;
     }else{
-        // res.send('data sadle berhasil di tambah')
+        res.send('1')
     }
     });
 })
@@ -477,7 +475,7 @@ db.query(insertDataWheels,(err,result)=>{
     if(err){
         throw err;
     }else{
-        // res.send('data brakes berhasil di tambah')
+        res.send('1')
     }
     });
 })
@@ -522,7 +520,7 @@ app.post('/tambahdatadimensi',(req,res)=>{
         if (err){
             throw err;
         }else{
-            
+            res.send('1')
         }
     })
 })
@@ -541,7 +539,7 @@ app.post(`/tambahdatarangka`,(req,res)=>{
         if (err){
             throw err;
         }else{
-            
+            res.send('1')
         }
     })
 
@@ -564,7 +562,7 @@ app.post(`/tambahdatakelistrikan`,(req,res)=>{
                 if(err){
                     throw err;
                 }else{
-
+                    res.send('1')
                 }
             })
         }

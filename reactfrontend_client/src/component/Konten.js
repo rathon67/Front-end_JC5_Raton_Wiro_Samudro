@@ -8,8 +8,8 @@ const cookies = new Cookies()
 class Konten extends Component {
   state={
     product :[],
-    // Redirect: false,
-    LoginDulu: false
+    redirect: false,
+  
     
    
   }
@@ -18,7 +18,9 @@ class Konten extends Component {
     var self =this;
     axios.get('http://localhost:8002/getMotorCard')
     .then((ambilData)=>{
-      self.setState({product:ambilData.data,})
+      self.setState({
+        product:ambilData.data,
+      })
       // console.log(this.state.product)
     })
    
@@ -27,37 +29,41 @@ class Konten extends Component {
   addtoCart = (event) => {
     if(cookies.get('userID') !== undefined){
       var idUser= cookies.get('userID')
-    axios.post('http://localhost:8002/addtoCart',{
-      e:event,
-      idUser:idUser   
-
-    }).then((Response) =>{
-      var block = Response.data
-      if(block == -1){
-        console.log('gagal cuy')
-      }
-      this.setState({
-        Redirect :true
-      })
-    })
-    }else {
-      this.setState({
-        LoginDulu :true
+      axios.post('http://localhost:8002/addtoCart',{
+                e:event,
+                idUser:idUser})
+                .then((Response) =>{
+                var block = Response.data
+                if(block == -1){
+                  alert('This item has Carting')
+                  console.log("gagal menambah cari, motor sudah dipilih sebelumnya")
+                }                
+                })
+                this.setState({
+                  redirect :true
+                })
+    }else{    
+    this.setState({
+      // notifelogin:true
+      LoginDulu :true,
+    
       })    
     }
-   window.location.reload();
+     window.location.reload();
   }
   
     render() 
     {
-      // if(this.state.Redirect) return <Redirect to='/cart'/>
-      if(this.state.LoginDulu) return <Redirect to='/login'/>
+      if(this.state.redirect === true ) return <Redirect to='/cart'/>
+      if(this.state.LoginDulu === true) return <Redirect to='/login'/>
+      if(this.state.doubleItem === true) return <Redirect to='/konten'/>
+      // if(this.state.notifelogin === true) return alert('You should login before carting!')
      
       // data product untuk di olah
       const data =this.state.product.map((item, index)=>{
         var urut =index+1;
         var id=item.id_motor;
-        console.log(id)
+        // console.log(id)
         var jenis=item.id_jenis;
         var gambar=item.gambar;
         var namamotor=item.nama_motor;
@@ -95,7 +101,8 @@ class Konten extends Component {
                 
                   <Link to={{pathname:"/detail", state:{id_motor:id}}} className="card-link" className="btn btn-info" style={{fontFamily:"fantasy",color:"#E6F5F5",width:"213px"}}>Lihat Detail</Link><br/><br/>
                   {/* <Link to={{pathname:'/cart', state:{dataID:id}}} className="card-link"> <i className="fa fa-shopping-cart">Tambah ke Daftar Belanja</i></Link> */}
-                  <button type="button" onClick ={()=>this.addtoCart(id)} className="card-link" className="btn btn-warning"> <Link to ='/cart' style={{fontFamily:"fantasy",color:"#365152"}}><i className="fa fa-shopping-cart"></i>&nbsp;Tambah ke Daftar Belanja</Link></button>
+                  <button type="button" onClick ={()=>this.addtoCart(id)} className="card-link" className="btn btn-warning"> <i className="fa fa-shopping-cart"></i>&nbsp;Tambah ke Daftar Belanja</button>
+                  {/* <Link to ='/cart' style={{fontFamily:"fantasy",color:"#365152"}}> */}
                 </div>
               </div><br/>
         </div>

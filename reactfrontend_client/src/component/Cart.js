@@ -83,8 +83,8 @@ class Cart extends Component
         axios.post('http://localhost:8002/hapusdataitemCart',{
             id:e
         })
-
-        // window.location.reload();
+        alert("Item dihapus, silahkan pilih motor kembali!")
+        window.location.reload();
     }
 
    

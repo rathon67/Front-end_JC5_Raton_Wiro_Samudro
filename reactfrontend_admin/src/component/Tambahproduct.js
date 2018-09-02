@@ -64,7 +64,13 @@ class Tambahproduct extends Component {
         formData.append('tahunpembuatan',this.state.tahunpembuatan);
         formData.append('pembuat',this.state.pembuat);        
         formData.append('jenismotor',this.state.jenismotor);
-        axios.post('http://localhost:8000/tambahData/', formData);
+        axios.post('http://localhost:8000/tambahDataMotor/', formData)
+        .then((ambilData)=>{
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di input")
+            }
+        })
     }
     render(){
         //login cookies
@@ -145,7 +151,7 @@ class Tambahproduct extends Component {
                                                 </div>
 
                                                 {/* Konten */}
-                                                <div className="container">
+                                                <div className="container-fluid">
                                                     <form className="form-horizontal" onSubmit={this.tambahData} encType="multipart/form-data">
                                                         <fieldset> 
                                                             <input type="hidden" className="form-control" ref="idproduk" />

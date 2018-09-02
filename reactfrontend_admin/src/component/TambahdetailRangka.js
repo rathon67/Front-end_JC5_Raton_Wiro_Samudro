@@ -26,6 +26,12 @@ class TambahdetailRangka extends Component {
             inputEmpat: e.remdepan.value,
             inputLima: e.rembelakang.value,            
         })
+        .then((ambilData)=>{
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di input")
+            }        
+        })
         
     }
     render(){

@@ -45,7 +45,13 @@ class TambahdetailBrakes extends Component {
         formData.append('file', this.state.gambar);
         formData.append('descbrakes', this.state.descbrakes);
         
-        axios.post('http://localhost:8000/tambahdetailbrakes/', formData);
+        axios.post('http://localhost:8000/tambahdetailbrakes/', formData)
+        .then((ambilData)=>{
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di input")
+            }        
+        })
     }
     render(){
         return (

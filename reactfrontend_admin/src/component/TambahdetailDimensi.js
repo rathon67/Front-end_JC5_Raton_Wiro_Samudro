@@ -27,6 +27,12 @@ class TambahdetailDimensi extends Component {
             beratisi: e.beratisi.value,
             kapasitastangki: e.kapasistastangki.value            
         })
+        .then((ambilData)=>{
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di input")
+            }        
+        })
         
     }
     render(){

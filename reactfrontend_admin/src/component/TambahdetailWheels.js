@@ -45,7 +45,14 @@ class TambahdetailWheels extends Component {
         formData.append('id_motor',this.state.id_motor);
         formData.append('file',this.state.gambar);
         formData.append('descwheels',this.state.descwheels);
-        axios.post('http://localhost:8000/tambahdetailwheels', formData);
+        axios.post('http://localhost:8000/tambahdetailwheels', formData)
+        .then((ambilData)=>{
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di input")
+            }
+        
+    })
     }
     render(){
         return (

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
-
+const cookies = new Cookies()
 class Detailproduct extends Component {
     state={
-        id_motor:'',
+        idM:'',
+        redirect: false,
 
         bahanbakar:'',
         battery:'',
@@ -93,9 +95,41 @@ class Detailproduct extends Component {
                 type_transmisi:GetDataDetailMotor.data[0].type_transmisi,
                 volume_cilinder:GetDataDetailMotor.data[0].volume_cilinder
             })
+            this.setState({
+                id:id_motor
+            })
         })
     }
+
+    addtoCart = (event) => {
+        if(cookies.get('userID') !== undefined){
+          var idUser= cookies.get('userID')
+          axios.post('http://localhost:8002/addtoCart',{
+                    e:event,
+                    idUser:idUser})
+                    .then((Response) =>{
+                    var block = Response.data
+                    if(block == -1){
+                      alert('This item has Carting')
+                      console.log("gagal menambah cari, motor sudah dipilih sebelumnya")
+                    }                
+                    })
+                    this.setState({
+                      redirect :true
+                    })
+        }else{    
+        this.setState({
+          // notifelogin:true
+          LoginDulu :true,
+        
+          })    
+        }
+         window.location.reload();
+      }
   render() {
+    if(this.state.redirect === true ) return <Redirect to='/cart'/>
+    if(this.state.LoginDulu === true) return <Redirect to='/login'/>
+    if(this.state.doubleItem === true) return <Redirect to='/konten'/>
     return (
             <div>
                         
@@ -110,7 +144,7 @@ class Detailproduct extends Component {
                                     <nav aria-label="breadcrumb">
                                         <ol className="breadcrumb" style={{backgroundColor:"white"}}>
                                         <li className="breadcrumb-item"><Link to="/konten" style={{color:"black"}}>Home</Link></li>
-                                        <li className="breadcrumb-item"><Link to="/listproduck" style={{color:"black"}}>List Motor</Link></li>
+                                        <li className="breadcrumb-item"><Link to="/listproduct" style={{color:"black"}}>List Motor</Link></li>
                                         <li className="breadcrumb-item active" aria-current="page">Detail Motor </li>
                                         </ol>
                                     </nav>
@@ -122,10 +156,10 @@ class Detailproduct extends Component {
                             </div>
                             <div className="col-sm-3">
                                 <p><h2>Lihat Detail Motor yang kamu Pilih!</h2></p>
-                                <button type="button" className="btn nav-link btn-light btn-lg"  href="#desdetail">Lihat Detail</button><br/><br/>
+                                
                                 <button type="button" className="btn btn-light btn-lg" href="">Hubungin Dealer</button><br/><br/>
-                                <button type="button" className="btn btn-light btn-lg" href="cart.html">Booking</button><br/><br/>
-                                <p>
+                                <button type="button" onClick ={()=>this.addtoCart(this.state.id)} className="card-link" className="btn nav-link btn-light btn-lg"> <i className="fa fa-shopping-cart"></i>&nbsp;Beli Sekarang!</button>
+                                <p><br/>
                                     <a className="btn btn-light btn-lg" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
                                     Informasi Harga
                                     </a><br/><br/>

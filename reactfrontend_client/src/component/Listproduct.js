@@ -66,7 +66,7 @@ class Listproduct extends Component
     var status=isidata.status;    
     return (
             <div className="card-group">
-                <div className="card" style={{width: '185px',}}>
+                <div className="card" style={{width: '186px',}}>
                   <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
                   <div className="card-body">
                     <h5 className="card-title">{namaMotor}</h5>
@@ -85,7 +85,7 @@ class Listproduct extends Component
       var status=isidata.status;
       return (
               <div className="card-group">
-                  <div className="card" style={{width: '185px',}}>
+                  <div className="card" style={{width: '186px',}}>
                     <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
                     <div className="card-body">
                       <h5 className="card-title">{namaMotor}</h5>
@@ -105,7 +105,7 @@ class Listproduct extends Component
     var status=isidata.status;
     return (
             <div className="card-group">
-                <div className="card" style={{width: '185px',}}>
+                <div className="card" style={{width: '186px',}}>
                   <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
                   <div className="card-body">
                     <h5 className="card-title">{namaMotor}</h5>
@@ -125,7 +125,7 @@ class Listproduct extends Component
     var status=isidata.status;
     return (
             <div className="card-group">
-                <div className="card" style={{width: '185px',}}>
+                <div className="card" style={{width: '186px',}}>
                   <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
                   <div className="card-body">
                     <h5 className="card-title">{namaMotor}</h5>
@@ -145,7 +145,7 @@ class Listproduct extends Component
     var status=isidata.status;
     return (
             <div className="card-group">
-                <div className="card" style={{width: '185px',}}>
+                <div className="card" style={{width: '186px',}}>
                   <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
                   <div className="card-body">
                     <h5 className="card-title">{namaMotor}</h5>
@@ -167,7 +167,7 @@ class Listproduct extends Component
       <div className="col-xs-3">
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
-            <li className="breadcrumb-item"><Link to="/index">Home</Link></li>
+            <li className="breadcrumb-item"><Link to="/konten">Home</Link></li>
             <li className="breadcrumb-item active"><Link to="/listproduct">List Motor</Link></li>
           </ol>
         </nav>
@@ -204,11 +204,10 @@ class Listproduct extends Component
           <div className="card-group">
             {dataListMotorClassic}
           </div>
-            
-          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>            
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>                      
           <div className="col-lg-11">
             <Pager>
-              <Pager.Item previous href="#" className="pull-left">
+              <Pager.Item previous onClick={()=>this.previosClassic()} className="pull-left">
                 &larr; Previous
               </Pager.Item>
               <Pager.Item next href="#" className="pull-right"> 

@@ -47,7 +47,13 @@ class TambahdetailLight extends Component {
         formData.append('file',this.state.gambar);
         formData.append('detaillampu',this.state.detaillampu);
         
-        axios.post('http://localhost:8000/tambahdatalampu/', formData);
+        axios.post('http://localhost:8000/tambahdatalampu/', formData)
+        .then((ambilData)=>{
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di input")
+            }
+        })
     }
     render(){
         return (

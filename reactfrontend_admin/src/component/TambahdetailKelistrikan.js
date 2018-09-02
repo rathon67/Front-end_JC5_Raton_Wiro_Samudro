@@ -24,8 +24,13 @@ class TambahdetailKelistrikan extends Component {
             id_motor:e.idmotor.value,
             sistemPengapian: e.sistempengapian.value,
             battery: e.battery.value,
-            typeBusy: e.typebusy.value
-            
+            typeBusy: e.typebusy.value            
+        })
+        .then((ambilData)=>{
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di input")
+            }        
         })
     }
     render(){

@@ -64,12 +64,11 @@ class Tambahproductcarousel extends Component {
       
         axios.post('http://localhost:8000/tambahdataproductcarou', formData)
         .then((hasil)=> {
-            var respon=hasil.data;
-            if(respon === 1){
-                this.setState({
-                    status:true
-                })
-            }
+            var notife= hasil.data
+            if(notife==1){
+                alert("data berhasil di input")
+            }        
+        
         })
     }
     render(){

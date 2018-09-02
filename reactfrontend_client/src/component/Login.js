@@ -20,11 +20,16 @@ class Login extends Component
       })
       .then((response) =>{
         var userID =response.data;
-        //console.log(response.data);
-        cookies.set('userID', userID, {path: '/'});
-        this.setState({
-          statusRedirect: true
-        });
+            if(userID==1){
+                alert("Please insert correct Email and Password!")
+            }else{
+                alert('Anda Berhasil Login')
+                cookies.set('userID', userID, {path: '/'});
+                this.setState({
+                  statusRedirect: true
+                });
+            }   
+        
       });
 
     }

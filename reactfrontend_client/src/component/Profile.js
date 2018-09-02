@@ -1,10 +1,28 @@
 import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
 
 const cookies = new Cookies()
 class Profile extends Component
 {
+    componentDidMount(){
+        
+    }
+
+    // updateDataUser =(e)=>{
+    //     var user =cookies.get('userID')
+    //     var namadepan=
+    //     var namabelakang=
+    //     var email=
+    //     var alamat=
+    //     var kota=
+    //     var negara=
+    //     var pos=
+    //     var tentangSaya=
+
+    // }
+    
     render()
 {
    //Cookies login
@@ -187,7 +205,7 @@ class Profile extends Component
                                                                 </div>
                                                             </div>
                                                             <div className="text-center">
-                                                                <button type="submit" className="btn btn-info btn-fill btn-wd">Update Profile</button>
+                                                                <button type="submit" onClick={()=>this.updateDataUser(this.refs)} className="btn btn-info btn-fill btn-wd">Update Profile</button>
                                                             </div>
                                                             <div className="clearfix" />
                                                         </form>

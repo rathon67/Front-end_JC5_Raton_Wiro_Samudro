@@ -63,7 +63,7 @@ app.post('/userlogin', (req, res) => {
                 break;  
               } 
               else if (i === result.length - 1) {                   
-                  console.log('Data tidak sesuai. silahkan Input correct Account')
+                  res.send('1')
               }
           }
       }
@@ -128,7 +128,7 @@ app.get(`/getDetailMotor/:id_motor`, (req,res)=>{
 /** List motor section */
 /**list motor classic */
 app.get('/getListMotorClassic', (req,res)=>{
-  var getListMotor= `SELECT product.id_motor, product.nama_motor, product.gambar, master_status.status FROM product JOIN master_status ON master_status.id_status=product.status WHERE tahun_pembuatan <=2000`;
+  var getListMotor= `SELECT product.id_motor, product.nama_motor, product.gambar, master_status.status FROM product JOIN master_status ON master_status.id_status=product.status WHERE tahun_pembuatan <=1990`;
   db.query(getListMotor, (err,result)=>{
     if(err){
       throw err;
@@ -213,25 +213,23 @@ app.post('/addtoCart', (req, res)=>{
           if(err){
             throw err;
           } else {
-            if(result.length == 0 ){
-              
-              var sql = ` INSERT INTO tbl_cart VALUES ("${''}","${idUser}","${idMotor}","${1}","${namaMotor}","${hargaMotor}","${posted}")`;
-                db.query(sql, (kaloError, hasilnya) =>{
-                if(kaloError){
-                  throw kaloError;
-                }else{   
-                  res.send('1')
-                }
-              }) 
-              }else{
-                 res.send('-1')
-            }
+            if(result.length == 0 ){              
+                  var sql = ` INSERT INTO tbl_cart VALUES ("${''}","${idUser}","${idMotor}","${1}","${namaMotor}","${hargaMotor}","${posted}")`;
+                    db.query(sql, (kaloError, hasilnya) =>{
+                    if(kaloError){
+                      throw kaloError;
+                    }else{   
+                      res.send('1')
+                    }
+                  }) 
+            } else {
+            res.send('-1')
           }
-        })
-      }
-  
-    }
-  })
+        }
+      })
+    }  
+  }
+})
 })
 
 /** memanggil sebuah parameter id di cart */
@@ -387,6 +385,39 @@ app.get(`/idcarttoChecout`, (req,res)=>{
     }
   })
 })
+/**end */
+
+/**menampilkan history invoice  */
+app.post('/getInvoiceHistory', (req,res)=>{
+  var idCookiesUser=req.body.idUser
+  console.log(idCookiesUser)
+  getInvoiceH=`SELECT * FROM tbl_invoice WHERE id_user='${idCookiesUser}'`;
+  db.query(getInvoiceH, (err,result)=>{
+    if (err){
+      throw err;
+    }else{
+      res.send(result)
+    }
+  })
+})
+/**end */
+
+/**menampilkan invoice user */
+app.post('/getdataInvoiceUser', (req,res)=>{
+  var kdInvoice=req.body.kdInvoice
+  kdInvoice ="'"+kdInvoice+"'"
+
+  var sql=`SELECT * FROM tbl_invoice WHERE kode_invoice=${kdInvoice}`;
+  db.query(sql,(err,result)=>{
+      if(err){
+          throw err;
+      }else{
+          res.send(result)
+          // console.log(result)          
+      }
+  })
+})
+/** */
 //port localhost paling bawah
 app.listen(8002, () => {
   console.log('Server started at port 8002 for Client UI...')
