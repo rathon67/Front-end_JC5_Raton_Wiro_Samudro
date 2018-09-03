@@ -678,9 +678,9 @@ app.post(`/updateStatusLunas`, (req,res)=>{
                                             throw err;
                                         }else{
                                             var updateStatCheckout= `UPDATE tbl_checkout SET status=4 WHERE kode_checkout="${idklick1}"`;
-                                            db.query(updateStatCheckout,(err,result)=>{
-                                                if(err){
-                                                    throw err;
+                                            db.query(updateStatCheckout,(error,result)=>{
+                                                if(error){
+                                                    throw error;
                                                 }else{
                                                     var updateStatusProduk =`UPDATE product SET status=9 WHERE nama_motor="${motor}"`;
                                                     db.query(updateStatusProduk, (err,result)=>{
