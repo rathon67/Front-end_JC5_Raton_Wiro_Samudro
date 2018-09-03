@@ -208,7 +208,7 @@ app.post('/addtoCart', (req, res)=>{
       // console.log(namaMotor)
       // console.log(hargaMotor)
       for(var i=0; i<hasilnya.length; i++){
-        var dataP= ` SELECT id_product FROM tbl_cart WHERE id_product =${idMotor}`
+        var dataP= ` SELECT id_product FROM tbl_cart WHERE id_product =${idMotor} AND id_user=${idUser} AND id_status=1`;
         db.query(dataP, (err, result)=>{
           if(err){
             throw err;

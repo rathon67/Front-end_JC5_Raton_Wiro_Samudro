@@ -682,7 +682,14 @@ app.post(`/updateStatusLunas`, (req,res)=>{
                                                 if(err){
                                                     throw err;
                                                 }else{
-                                                    
+                                                    var updateStatusProduk =`UPDATE product SET status=9 WHERE nama_motor="${motor}"`;
+                                                    db.query(updateStatusProduk, (err,result)=>{
+                                                        if(err){
+                                                            throw err;
+                                                        }else{
+
+                                                        }
+                                                    })
                                                 }
                                             })
                                             }
