@@ -1,20 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
--- http://www.phpmyadmin.net
+-- version 4.8.1
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2018 at 08:22 AM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Sep 12, 2018 at 04:54 AM
+-- Server version: 10.1.33-MariaDB
+-- PHP Version: 7.2.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `db_rustymoto`
@@ -26,19 +28,22 @@ SET time_zone = "+00:00";
 -- Table structure for table `detail_brakes`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_brakes` (
-`id_brakes` int(10) NOT NULL,
+CREATE TABLE `detail_brakes` (
+  `id_brakes` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
-  `gambar` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `gambar_brakes` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `desc_brakes` varchar(100) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `detail_brakes`
 --
 
-INSERT INTO `detail_brakes` (`id_brakes`, `id_motor`, `gambar`, `desc_brakes`) VALUES
-(1, 19, 'vespasip2.jpg', 'Dijamin Masuk datanya!');
+INSERT INTO `detail_brakes` (`id_brakes`, `id_motor`, `gambar_brakes`, `desc_brakes`) VALUES
+(1, 19, 'vespasip2.jpg', 'Dijamin Masuk datanya!'),
+(2, 20, 'lambretta scooter.jpg', 'Lambretta LI150S'),
+(3, 21, 'Snow-Male.jpg', 'Snow White Tracker, Ride With An Honor for a Woman'),
+(4, 22, 'building-a-cafe-racer-triumph.jpg', 'Caferacer Triumps');
 
 -- --------------------------------------------------------
 
@@ -46,8 +51,8 @@ INSERT INTO `detail_brakes` (`id_brakes`, `id_motor`, `gambar`, `desc_brakes`) V
 -- Table structure for table `detail_dimensi`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_dimensi` (
-`id_dimensi` int(10) NOT NULL,
+CREATE TABLE `detail_dimensi` (
+  `id_dimensi` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
   `pjg_lbr_ttg` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `jarak_sumbu_roda` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
@@ -55,14 +60,17 @@ CREATE TABLE IF NOT EXISTS `detail_dimensi` (
   `tinggi_tempat_duduk` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `berat_isi` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `kapasitas_tangki` varchar(25) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `detail_dimensi`
 --
 
 INSERT INTO `detail_dimensi` (`id_dimensi`, `id_motor`, `pjg_lbr_ttg`, `jarak_sumbu_roda`, `jarak_terendah_ketanah`, `tinggi_tempat_duduk`, `berat_isi`, `kapasitas_tangki`) VALUES
-(2, 19, '20Cm, 32Cm, 67Cm', '12Cm', '5Cm', '56Cm', '120Kg', '7.7Liter');
+(2, 19, '20Cm, 32Cm, 67Cm', '12Cm', '5Cm', '56Cm', '120Kg', '7.7Liter'),
+(3, 20, 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S'),
+(4, 21, 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride '),
+(5, 22, 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps');
 
 -- --------------------------------------------------------
 
@@ -70,19 +78,22 @@ INSERT INTO `detail_dimensi` (`id_dimensi`, `id_motor`, `pjg_lbr_ttg`, `jarak_su
 -- Table structure for table `detail_gearbox`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_gearbox` (
-`id_gearbox` int(10) NOT NULL,
+CREATE TABLE `detail_gearbox` (
+  `id_gearbox` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
-  `gambar` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `gambar_gearbox` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `desc_gearbox` varchar(100) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `detail_gearbox`
 --
 
-INSERT INTO `detail_gearbox` (`id_gearbox`, `id_motor`, `gambar`, `desc_gearbox`) VALUES
-(1, 19, 'sipclass.jpg', 'masuk!');
+INSERT INTO `detail_gearbox` (`id_gearbox`, `id_motor`, `gambar_gearbox`, `desc_gearbox`) VALUES
+(1, 19, 'sipclass.jpg', 'masuk!'),
+(2, 20, 'lambretta scooter.jpg', 'Lambretta LI150S'),
+(3, 21, '152823928-4e18dc5f-5d5e-42d3-b10d-9f79770c52a8.jpg', 'Snow White Tracker, Ride With An Honor for a Woman'),
+(4, 22, 'building-a-cafe-racer-triumph.jpg', 'Caferacer Triumps');
 
 -- --------------------------------------------------------
 
@@ -90,20 +101,23 @@ INSERT INTO `detail_gearbox` (`id_gearbox`, `id_motor`, `gambar`, `desc_gearbox`
 -- Table structure for table `detail_kelistrikan`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_kelistrikan` (
-`id_kelistrikan` int(10) NOT NULL,
+CREATE TABLE `detail_kelistrikan` (
+  `id_kelistrikan` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
   `sistem_pengapian` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `battery` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `type_busy` varchar(25) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `detail_kelistrikan`
 --
 
 INSERT INTO `detail_kelistrikan` (`id_kelistrikan`, `id_motor`, `sistem_pengapian`, `battery`, `type_busy`) VALUES
-(3, 19, 'CDI ignition HV 3000', 'Aki Cuan 6500', 'NGK 3000L');
+(3, 19, 'CDI ignition HV 3000', 'Aki Cuan 6500', 'NGK 3000L'),
+(4, 20, 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S'),
+(5, 21, 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride '),
+(6, 22, 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps');
 
 -- --------------------------------------------------------
 
@@ -111,22 +125,25 @@ INSERT INTO `detail_kelistrikan` (`id_kelistrikan`, `id_motor`, `sistem_pengapia
 -- Table structure for table `detail_light`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_light` (
-`id_light` int(10) NOT NULL,
+CREATE TABLE `detail_light` (
+  `id_light` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
-  `gambar` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `gambar_light` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `desc_light` varchar(100) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `detail_light`
 --
 
-INSERT INTO `detail_light` (`id_light`, `id_motor`, `gambar`, `desc_light`) VALUES
+INSERT INTO `detail_light` (`id_light`, `id_motor`, `gambar_light`, `desc_light`) VALUES
 (1, 0, 'BSA4.jpg', 'Lampu HD White '),
 (2, 0, 'motobene cafe racer rocketgarage-001.JPG', 'lampu detail test'),
 (3, 0, 'motorbike113103.jpg', 'lampu detail test lagi'),
-(5, 19, 'vespa62.jpg', 'masuk !');
+(5, 19, 'vespa62.jpg', 'masuk !'),
+(6, 20, 'Lambretta_scooter,_Malt.jpg', 'Lambretta LI150S'),
+(7, 21, 'Snow-Male.jpg', 'Snow White Tracker, Ride With An Honor for a Woman'),
+(8, 22, 'building-a-cafe-racer-triumph.jpg', 'Caferacer Triumps');
 
 -- --------------------------------------------------------
 
@@ -134,8 +151,8 @@ INSERT INTO `detail_light` (`id_light`, `id_motor`, `gambar`, `desc_light`) VALU
 -- Table structure for table `detail_mesin`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_mesin` (
-`id_mesin` int(10) NOT NULL,
+CREATE TABLE `detail_mesin` (
+  `id_mesin` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
   `type_mesin` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `diameter_mesin` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -146,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `detail_mesin` (
   `bahan_bakar` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `type_kopling` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `type_transmisi` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `detail_mesin`
@@ -154,7 +171,10 @@ CREATE TABLE IF NOT EXISTS `detail_mesin` (
 
 INSERT INTO `detail_mesin` (`id_mesin`, `id_motor`, `type_mesin`, `diameter_mesin`, `volume_cilinder`, `system_starter`, `system_pelumasan`, `kapasitas_oli`, `bahan_bakar`, `type_kopling`, `type_transmisi`) VALUES
 (1, 19, 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'),
-(2, 19, '1', '1', '1', '1', '1', '1', '1', '1', '1');
+(2, 19, '1', '1', '1', '1', '1', '1', '1', '1', '1'),
+(3, 20, 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S'),
+(4, 21, 'Snow White Tracker, Ride With An Honor for a Woman', 'Snow White Tracker, Ride With An Honor for a Woman', 'Snow White Tracker, Ride With An Honor for a Woman', 'Snow White Tracker, Ride With An Honor for a Woman', 'Snow White Tracker, Ride With An Honor for a Woman', 'Snow White Tracker, Ride With An Honor for a Woman', 'Snow White Tracker, Ride With An Honor for a Woman', 'Snow White Tracker, Ride With An Honor for a Woman', 'Snow White Tracker, Ride With An Honor for a Woman'),
+(5, 22, 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps');
 
 -- --------------------------------------------------------
 
@@ -162,22 +182,25 @@ INSERT INTO `detail_mesin` (`id_mesin`, `id_motor`, `type_mesin`, `diameter_mesi
 -- Table structure for table `detail_rangka`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_rangka` (
-`id_detailrangka` int(10) NOT NULL,
+CREATE TABLE `detail_rangka` (
+  `id_detailrangka` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
   `type_rangka` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `suspensi_depan` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `suspensi_belakang` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `rem_depan` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `rem_belakang` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `detail_rangka`
 --
 
 INSERT INTO `detail_rangka` (`id_detailrangka`, `id_motor`, `type_rangka`, `suspensi_depan`, `suspensi_belakang`, `rem_depan`, `rem_belakang`) VALUES
-(1, 19, 'test', 'test', 'test', 'test', 'test');
+(1, 19, 'test', 'test', 'test', 'test', 'test'),
+(2, 20, 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S', 'Lambretta LI150S'),
+(3, 21, 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride With An Honor for a Woman', 'Snow White Tracker, Ride With An Honor for a Woman'),
+(4, 22, 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps', 'Caferacer Triumps');
 
 -- --------------------------------------------------------
 
@@ -185,19 +208,22 @@ INSERT INTO `detail_rangka` (`id_detailrangka`, `id_motor`, `type_rangka`, `susp
 -- Table structure for table `detail_sadle`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_sadle` (
-`id_sadle` int(10) NOT NULL,
+CREATE TABLE `detail_sadle` (
+  `id_sadle` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
-  `gambar` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `gambar_sadle` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `desc_sadle` varchar(100) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `detail_sadle`
 --
 
-INSERT INTO `detail_sadle` (`id_sadle`, `id_motor`, `gambar`, `desc_sadle`) VALUES
-(4, 19, 'vespa62.jpg', 'masuk!');
+INSERT INTO `detail_sadle` (`id_sadle`, `id_motor`, `gambar_sadle`, `desc_sadle`) VALUES
+(4, 19, 'vespa62.jpg', 'masuk!'),
+(5, 20, 'lambretta-scooter-125dl-1969-going-underground-250', 'Lambretta LI150S'),
+(6, 21, '152823928-4e18dc5f-5d5e-42d3-b10d-9f79770c52a8.jpg', 'Snow White Tracker, Ride With An Honor for a Woman'),
+(7, 22, 'building-a-cafe-racer-triumph.jpg', 'Caferacer Triumps');
 
 -- --------------------------------------------------------
 
@@ -205,19 +231,22 @@ INSERT INTO `detail_sadle` (`id_sadle`, `id_motor`, `gambar`, `desc_sadle`) VALU
 -- Table structure for table `detail_shocks`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_shocks` (
-`id_shocks` int(10) NOT NULL,
+CREATE TABLE `detail_shocks` (
+  `id_shocks` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
-  `gambar` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `gambar_shocks` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `desc_shocks` varchar(100) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `detail_shocks`
 --
 
-INSERT INTO `detail_shocks` (`id_shocks`, `id_motor`, `gambar`, `desc_shocks`) VALUES
-(4, 19, 'vesparoad.jpg', 'wkwkwkwk');
+INSERT INTO `detail_shocks` (`id_shocks`, `id_motor`, `gambar_shocks`, `desc_shocks`) VALUES
+(4, 19, 'vesparoad.jpg', 'wkwkwkwk'),
+(5, 20, 'lambretta scooter.jpg', 'Lambretta LI150S'),
+(6, 21, '152823928-4e18dc5f-5d5e-42d3-b10d-9f79770c52a8.jpg', 'Snow White Tracker, Ride With An Honor for a Woman'),
+(7, 22, 'BSA3.jpg', 'Caferacer Triumps');
 
 -- --------------------------------------------------------
 
@@ -225,12 +254,21 @@ INSERT INTO `detail_shocks` (`id_shocks`, `id_motor`, `gambar`, `desc_shocks`) V
 -- Table structure for table `detail_wheels`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_wheels` (
-`id_wheels` int(10) NOT NULL,
+CREATE TABLE `detail_wheels` (
+  `id_wheels` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
-  `gambar` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `gambar_wheels` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `desc_wheels` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `detail_wheels`
+--
+
+INSERT INTO `detail_wheels` (`id_wheels`, `id_motor`, `gambar_wheels`, `desc_wheels`) VALUES
+(1, 20, 'lambretta-scooter-125dl-1969-going-underground-250', 'Lambretta LI150S'),
+(2, 21, '152823928-4e18dc5f-5d5e-42d3-b10d-9f79770c52a8.jpg', 'Snow White Tracker, Ride With An Honor for a Woman'),
+(3, 22, 'building-a-cafe-racer-triumph.jpg', 'Caferacer Triumps');
 
 -- --------------------------------------------------------
 
@@ -238,10 +276,10 @@ CREATE TABLE IF NOT EXISTS `detail_wheels` (
 -- Table structure for table `master_status`
 --
 
-CREATE TABLE IF NOT EXISTS `master_status` (
-`id_status` int(11) NOT NULL,
+CREATE TABLE `master_status` (
+  `id_status` int(11) NOT NULL,
   `status` varchar(25) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `master_status`
@@ -264,31 +302,27 @@ INSERT INTO `master_status` (`id_status`, `status`) VALUES
 -- Table structure for table `product`
 --
 
-CREATE TABLE IF NOT EXISTS `product` (
-`id_motor` int(11) NOT NULL,
+CREATE TABLE `product` (
+  `id_motor` int(11) NOT NULL,
   `id_jenis` int(11) NOT NULL,
   `gambar` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nama_motor` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `desc_product` text COLLATE utf8_unicode_ci NOT NULL,
   `harga` int(25) NOT NULL,
+  `tahun_pembuatan` int(11) NOT NULL,
   `pembuat` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `status` int(10) NOT NULL DEFAULT '1',
   `posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id_motor`, `id_jenis`, `gambar`, `nama_motor`, `desc_product`, `harga`, `pembuat`, `status`, `posted`) VALUES
-(8, 7, 'vespasip2.jpg', 'Vespa VNB 1961 New', 'New Avaible', 20000000, '67garages', 1, '2018-08-05 13:56:18'),
-(9, 10, 'motoguzzi-850t-caferacer-4.jpg', 'MotoGuzii 850L Buildup', 'NEW AVAIBLE. SUPER MOTO', 78000000, 'Faldo Engine', 1, '2018-08-27 02:14:12'),
-(10, 12, 'Lambretta_scooter,_Malt.jpg', 'Lambretta LI150S', 'Lambretta pembuatan tahun 1967. dengan build original dan classin paint. Catch up!', 125000000, '67Grg', 1, '2018-08-07 08:31:59'),
-(11, 9, 'Royal-Enfield-by-Bulleteer-5.jpg', 'BB BlackBulleter 1200XL', 'Dengan Sentuhan', 75000000, 'Udin Garage', 1, '2018-08-07 08:36:22'),
-(12, 11, 'maxrestracker.jpg', 'SNOW WHITE YALE 1200L Edit ke 3', 'Special Price', 120000000, 'BWM Motors4', 1, '2018-08-27 02:17:34'),
-(13, 9, 'Motor_bobber.jpg', 'MotoR Bobber', 'Test', 25000000, 'Udin', 1, '2018-08-09 08:28:20'),
-(14, 8, 'Triumph.jpg', 'Triump New 900 cc edited', 'edit ', 27800000, 'udin46 Grg', 1, '2018-08-31 03:43:46'),
-(19, 7, 'vespasip3.jpg', 'Vespa VBA 1960 Custom SIP', 'Vespa VBA 1960 Custom Made by SIP Scooter Performance', 46000000, 'udin46', 8, '2018-08-31 02:47:52');
+INSERT INTO `product` (`id_motor`, `id_jenis`, `gambar`, `nama_motor`, `desc_product`, `harga`, `tahun_pembuatan`, `pembuat`, `status`, `posted`) VALUES
+(20, 7, 'lambretta scooter.jpg', 'Lambretta LI150S', 'Lambretta LI150S New Rebuild', 57000000, 1967, 'Udin Garage', 8, '2018-09-03 05:15:05'),
+(21, 11, '152823928-4e18dc5f-5d5e-42d3-b10d-9f79770c52a8.jpg', 'Snow White Tracker', 'Snow White Tracker, Ride With An Honor for a Woman', 340000000, 2015, 'Royal Enfield', 8, '2018-09-03 04:00:01'),
+(22, 10, 'building-a-cafe-racer-triumph.jpg', 'Caferacer Triumps', 'Caferacer Triumps new', 220000000, 2018, 'MasAdhi motor', 9, '2018-09-03 05:33:22');
 
 -- --------------------------------------------------------
 
@@ -296,12 +330,12 @@ INSERT INTO `product` (`id_motor`, `id_jenis`, `gambar`, `nama_motor`, `desc_pro
 -- Table structure for table `tbl_admin`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_admin` (
-`id_admin` int(11) NOT NULL,
+CREATE TABLE `tbl_admin` (
+  `id_admin` int(11) NOT NULL,
   `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_admin`
@@ -319,26 +353,20 @@ INSERT INTO `tbl_admin` (`id_admin`, `username`, `email`, `password`) VALUES
 -- Table structure for table `tbl_buktipembayaran`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_buktipembayaran` (
-`id_buktipembayaran` int(11) NOT NULL,
+CREATE TABLE `tbl_buktipembayaran` (
+  `id_buktipembayaran` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `kode_checkout` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `data` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `deskripsi` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `tgl_upload` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_buktipembayaran`
 --
 
 INSERT INTO `tbl_buktipembayaran` (`id_buktipembayaran`, `id_user`, `kode_checkout`, `data`, `deskripsi`, `tgl_upload`) VALUES
-(1, 2, '', 'logomandiri.jpg', 'struk pembayaran pertama', '2018-08-25 08:37:12'),
-(2, 2, '', 'logoBNI.jpg', 'struk pembayaran ke dua', '2018-08-25 08:37:16'),
-(3, 3, '', 'logo bri.jpg', 'pembayaran transfer motor', '2018-08-27 00:48:48'),
-(4, 2, '', 'logo bri.jpg', 'pembayaran strun a/n Ichan', '2018-08-27 06:14:28'),
-(5, 2, '', 'JC5.jpg', 'struk pembayaran nih', '2018-08-27 07:28:38'),
-(6, 2, '', 'logo bri.jpg', 'bukti transfer okki', '2018-08-27 08:21:32'),
 (7, 4, '00017', 'THE BEST.jpg', 'Mantap nih', '2018-08-28 09:04:48'),
 (8, 4, '00017', 'JC5.jpg', 'struk pembayaran ke dua', '2018-08-28 10:10:58'),
 (9, 4, '00017', 'logo BNI.jpg', 'Coba', '2018-08-28 10:14:05'),
@@ -349,7 +377,9 @@ INSERT INTO `tbl_buktipembayaran` (`id_buktipembayaran`, `id_user`, `kode_checko
 (14, 4, '00017', 'WhatsApp Image 2018-07-10 at 20.38.33.jpeg', 'Coba ke 5', '2018-08-28 10:24:14'),
 (15, 4, '00017', 'WhatsApp Image 2018-07-10 at 20.38.33.jpeg', 'Coba ke 6', '2018-08-28 10:26:46'),
 (16, 4, '00017', 'WhatsApp Image 2018-07-10 at 20.38.33.jpeg', 'Coba ke 7', '2018-08-28 10:27:25'),
-(17, 2, '00018', 'logo mandiri.jpg', 'struk pembayaran rathon', '2018-08-30 01:04:20');
+(17, 2, '00018', 'logo mandiri.jpg', 'struk pembayaran rathon', '2018-08-30 01:04:20'),
+(18, 5, '00019', 'Silentnight_Beds_old_logo.png', 'Pembayaran Motor Lambretta', '2018-09-03 04:26:01'),
+(19, 8, '00020', 'Silentnight_Beds_old_logo.png', 'struke pembayaran motor', '2018-09-03 05:31:57');
 
 -- --------------------------------------------------------
 
@@ -357,15 +387,15 @@ INSERT INTO `tbl_buktipembayaran` (`id_buktipembayaran`, `id_user`, `kode_checko
 -- Table structure for table `tbl_cart`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_cart` (
-`id_cart` int(11) NOT NULL,
+CREATE TABLE `tbl_cart` (
+  `id_cart` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
   `id_status` int(11) DEFAULT NULL,
   `nama_item` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `harga_item` int(25) NOT NULL,
   `cart_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_cart`
@@ -375,7 +405,12 @@ INSERT INTO `tbl_cart` (`id_cart`, `id_user`, `id_product`, `id_status`, `nama_i
 (162, 4, 10, 3, 'Lambretta LI150S', 125000000, '2018-08-28 10:27:25'),
 (163, 4, 11, 3, 'BB BlackBulleter 1200XL', 75000000, '2018-08-28 10:27:25'),
 (165, 4, 9, 3, 'MotoGuzii 850L Buildup', 78000000, '2018-08-28 10:27:25'),
-(168, 2, 13, 3, 'MotoR Bobber', 25000000, '2018-08-30 01:04:21');
+(168, 2, 13, 3, 'MotoR Bobber', 25000000, '2018-08-30 01:04:21'),
+(171, 6, 21, 1, 'Snow White Tracker', 340000000, '2018-09-03 04:20:37'),
+(173, 5, 20, 3, 'Lambretta LI150S', 57000000, '2018-09-03 04:26:01'),
+(175, 8, 22, 3, 'Caferacer Triumps', 220000000, '2018-09-03 05:31:57'),
+(176, 8, 22, 1, 'Caferacer Triumps', 220000000, '2018-09-03 05:36:16'),
+(177, 6, 22, 1, 'Caferacer Triumps', 220000000, '2018-09-05 12:05:52');
 
 -- --------------------------------------------------------
 
@@ -383,8 +418,8 @@ INSERT INTO `tbl_cart` (`id_cart`, `id_user`, `id_product`, `id_status`, `nama_i
 -- Table structure for table `tbl_checkout`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_checkout` (
-`id_checkout` int(11) NOT NULL,
+CREATE TABLE `tbl_checkout` (
+  `id_checkout` int(11) NOT NULL,
   `id_cart` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `kode_checkout` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
@@ -398,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `tbl_checkout` (
   `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `status` int(5) NOT NULL DEFAULT '0',
   `order_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_checkout`
@@ -407,7 +442,9 @@ CREATE TABLE IF NOT EXISTS `tbl_checkout` (
 INSERT INTO `tbl_checkout` (`id_checkout`, `id_cart`, `id_user`, `kode_checkout`, `nama_motor`, `harga`, `email`, `nama`, `alamat`, `kota`, `pos`, `phone`, `status`, `order_time`) VALUES
 (121, 163, 4, '00017', 'BB BlackBulleter 1200XL', '75000000', 'rendijs@gmail.com', 'rendi', 'Bekasi Indah', 'Bekasi', '890234', '0876833342222', 4, '2018-08-28 16:14:12'),
 (122, 165, 4, '00017', 'MotoGuzii 850L Buildup', '78000000', 'rendijs@gmail.com', 'rendi', 'Bekasi Indah', 'Bekasi', '890234', '0876833342222', 4, '2018-08-28 16:14:12'),
-(123, 168, 2, '00018', 'MotoR Bobber', '25000000', 'rathovespa@gmail.com', 'Rathon Wiro Samudro', 'Jalan raya Kopo Margahayu No 80 Bandung', 'Bandung', '768933', '082132545464', 6, '2018-08-30 02:00:23');
+(123, 168, 2, '00018', 'MotoR Bobber', '25000000', 'rathovespa@gmail.com', 'Rathon Wiro Samudro', 'Jalan raya Kopo Margahayu No 80 Bandung', 'Bandung', '768933', '082132545464', 6, '2018-08-30 02:00:23'),
+(124, 173, 5, '00019', 'Lambretta LI150S', '57000000', 'okky@gmail.com', 'okky satria', 'Kampung rawa Jakarta Pusat', 'DKI Jakarta', '092238', '081322441234', 4, '2018-09-03 04:26:18'),
+(125, 175, 8, '00020', 'Caferacer Triumps', '220000000', 'iksan@gmail.com', 'iksan ', 'Kalibata Jakarta', 'DKI Jakarta', '087798', '021383546676', 4, '2018-09-03 05:33:22');
 
 -- --------------------------------------------------------
 
@@ -415,8 +452,8 @@ INSERT INTO `tbl_checkout` (`id_checkout`, `id_cart`, `id_user`, `kode_checkout`
 -- Table structure for table `tbl_invoice`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_invoice` (
-`id_invoice` int(11) NOT NULL,
+CREATE TABLE `tbl_invoice` (
+  `id_invoice` int(11) NOT NULL,
   `id_checkout` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `kode_invoice` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
@@ -430,17 +467,21 @@ CREATE TABLE IF NOT EXISTS `tbl_invoice` (
   `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `status` int(10) NOT NULL,
   `tgl_buat` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_invoice`
 --
 
 INSERT INTO `tbl_invoice` (`id_invoice`, `id_checkout`, `id_user`, `kode_invoice`, `nama_product`, `harga`, `nama`, `email`, `alamat`, `kota`, `pos`, `phone`, `status`, `tgl_buat`) VALUES
-(109, 120, 4, 'INV00001', 'Lambretta LI150S', '125000000', 'rendi', 'rendijs@gmail.com', 'Bekasi Indah', 'Bekasi', '890234', '0876833342222', 9, '2018-08-31 03:49:09'),
-(110, 121, 4, 'INV00001', 'BB BlackBulleter 1200XL', '75000000', 'rendi', 'rendijs@gmail.com', 'Bekasi Indah', 'Bekasi', '890234', '0876833342222', 9, '2018-08-31 03:49:05'),
-(111, 122, 4, 'INV00001', 'MotoGuzii 850L Buildup', '78000000', 'rendi', 'rendijs@gmail.com', 'Bekasi Indah', 'Bekasi', '890234', '0876833342222', 9, '2018-08-31 03:49:02'),
-(123, 123, 2, 'INV00002', 'MotoR Bobber', '25000000', 'Rathon Wiro Samudro', 'rathovespa@gmail.com', 'Jalan raya Kopo Margahayu No 80 Bandung', 'Bandung', '768933', '082132545464', 9, '2018-08-31 03:48:54');
+(109, 120, 4, '00001', 'Lambretta LI150S', '125000000', 'rendi', 'rendijs@gmail.com', 'Bekasi Indah', 'Bekasi', '890234', '0876833342222', 9, '2018-09-03 04:48:32'),
+(110, 121, 4, '00001', 'BB BlackBulleter 1200XL', '75000000', 'rendi', 'rendijs@gmail.com', 'Bekasi Indah', 'Bekasi', '890234', '0876833342222', 9, '2018-09-03 04:48:37'),
+(111, 122, 4, '00001', 'MotoGuzii 850L Buildup', '78000000', 'rendi', 'rendijs@gmail.com', 'Bekasi Indah', 'Bekasi', '890234', '0876833342222', 9, '2018-09-03 04:48:51'),
+(123, 123, 2, '00002', 'MotoR Bobber', '25000000', 'Rathon Wiro Samudro', 'rathovespa@gmail.com', 'Jalan raya Kopo Margahayu No 80 Bandung', 'Bandung', '768933', '082132545464', 9, '2018-09-03 04:48:58'),
+(126, 124, 5, '00003', 'Lambretta LI150S', '57000000', 'okky satria', 'okky@gmail.com', 'Kampung rawa Jakarta Pusat', 'DKI Jakarta', '092238', '081322441234', 9, '2018-09-03 04:49:27'),
+(133, 124, 5, '00004', 'Lambretta LI150S', '57000000', 'okky satria', 'okky@gmail.com', 'Kampung rawa Jakarta Pusat', 'DKI Jakarta', '092238', '081322441234', 9, '2018-09-03 05:19:57'),
+(134, 124, 5, '00005', 'Lambretta LI150S', '57000000', 'okky satria', 'okky@gmail.com', 'Kampung rawa Jakarta Pusat', 'DKI Jakarta', '092238', '081322441234', 9, '2018-09-03 05:20:40'),
+(135, 125, 8, '00006', 'Caferacer Triumps', '220000000', 'iksan ', 'iksan@gmail.com', 'Kalibata Jakarta', 'DKI Jakarta', '087798', '021383546676', 9, '2018-09-03 05:33:22');
 
 -- --------------------------------------------------------
 
@@ -448,11 +489,11 @@ INSERT INTO `tbl_invoice` (`id_invoice`, `id_checkout`, `id_user`, `kode_invoice
 -- Table structure for table `tbl_jenis`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_jenis` (
-`id_jenis` int(11) NOT NULL,
+CREATE TABLE `tbl_jenis` (
+  `id_jenis` int(11) NOT NULL,
   `kategori_id` int(11) NOT NULL,
   `nama_jenis` varchar(25) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_jenis`
@@ -473,10 +514,10 @@ INSERT INTO `tbl_jenis` (`id_jenis`, `kategori_id`, `nama_jenis`) VALUES
 -- Table structure for table `tbl_kategori`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_kategori` (
-`id_kategori` int(10) NOT NULL,
+CREATE TABLE `tbl_kategori` (
+  `id_kategori` int(10) NOT NULL,
   `nama_kategori` varchar(25) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_kategori`
@@ -492,10 +533,10 @@ INSERT INTO `tbl_kategori` (`id_kategori`, `nama_kategori`) VALUES
 -- Table structure for table `tbl_pembuat`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_pembuat` (
-`id_pembuat` int(11) NOT NULL,
+CREATE TABLE `tbl_pembuat` (
+  `id_pembuat` int(11) NOT NULL,
   `nama_pembuat` varchar(25) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_pembuat`
@@ -511,22 +552,25 @@ INSERT INTO `tbl_pembuat` (`id_pembuat`, `nama_pembuat`) VALUES
 -- Table structure for table `tbl_productcarou`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_productcarou` (
-`id_productcarou` int(10) NOT NULL,
+CREATE TABLE `tbl_productcarou` (
+  `id_productcarou` int(10) NOT NULL,
   `id_motor` int(11) NOT NULL,
   `judul_productcarou` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `desc_productcarou` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `gambar1` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `gambar2` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `gambar3` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_productcarou`
 --
 
 INSERT INTO `tbl_productcarou` (`id_productcarou`, `id_motor`, `judul_productcarou`, `desc_productcarou`, `gambar1`, `gambar2`, `gambar3`) VALUES
-(2, 19, 'coba test', 'test', 'vespasip5.jpg', 'vespasip3.jpg', 'vespastyle.jpg');
+(2, 19, 'coba test', 'test', 'vespasip5.jpg', 'vespasip3.jpg', 'vespastyle.jpg'),
+(3, 20, 'Lambretta LI150S', 'Lambretta LI150S', 'lambretta scooter.jpg', 'lambretta scooter.jpg', 'lambretta scooter.jpg'),
+(4, 21, 'Snow White Tracker, Ride ', 'Snow White Tracker, Ride With An Honor for a Woman', '152823928-4e18dc5f-5d5e-42d3-b10d-9f79770c52a8.jpg', '152823928-4e18dc5f-5d5e-42d3-b10d-9f79770c52a8.jpg', '152823928-4e18dc5f-5d5e-42d3-b10d-9f79770c52a8.jpg'),
+(5, 22, 'Caferacer Triumps', 'Caferacer Triumps new', 'building-a-cafe-racer-triumph.jpg', 'building-a-cafe-racer-triumph.jpg', 'building-a-cafe-racer-triumph.jpg');
 
 -- --------------------------------------------------------
 
@@ -534,12 +578,12 @@ INSERT INTO `tbl_productcarou` (`id_productcarou`, `id_motor`, `judul_productcar
 -- Table structure for table `tbl_test`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_test` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_test` (
+  `id` int(11) NOT NULL,
   `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_test`
@@ -557,18 +601,18 @@ INSERT INTO `tbl_test` (`id`, `username`, `password`, `email`) VALUES
 -- Table structure for table `tbl_user`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_user` (
-`id_user` int(10) NOT NULL,
+CREATE TABLE `tbl_user` (
+  `id_user` int(10) NOT NULL,
   `nama_depan` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `nama_belakang` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `nama_belakang` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `alamat_lengkap` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `alamat_negara` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `kodepos` int(6) NOT NULL,
+  `alamat_lengkap` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `alamat_negara` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `kodepos` int(6) DEFAULT NULL,
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `no_telp` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `no_telp` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ttl` date DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_user`
@@ -578,7 +622,11 @@ INSERT INTO `tbl_user` (`id_user`, `nama_depan`, `nama_belakang`, `email`, `alam
 (1, 'Udin', 'Mantap', 'udin@gmail.com', 'Jakarta Selatan', 'Indonesia', 732130, 'asdf', '081232545464', '1994-04-11'),
 (2, 'rathon', 'vespa', 'rathonvespa@gmail.com', 'Jakarta Selatan', 'Indonesia', 82222, 'asdf', '082132545464', '1994-02-11'),
 (3, 'Okki', 'Jelly', 'okky@gmail.com', 'Jakarta Timur', 'Indonesia', 222232, 'asdf', '082311223321', '1994-04-12'),
-(4, 'rathon67', 'wiro', 'rathonv@gmail.com', 'Jakarta', 'Indonesia', 88893, 'asdf', '081321545464', '1994-02-12');
+(4, 'rathon67', 'wiro', 'rathonv@gmail.com', 'Jakarta', 'Indonesia', 88893, 'asdf', '081321545464', '1994-02-12'),
+(5, 'okky satria', '', 'okkyjelly@gmail.com', '', '', 0, 'f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b', '', '0000-00-00'),
+(6, 'samin', '', 'samid@gmail.com', '', '', 0, 'f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b', '', '0000-00-00'),
+(7, 'rathon wiro samudro', '', 'vespasprint@gmail.com', '', '', 0, 'f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b', '', '0000-00-00'),
+(8, 'iksan', '', 'iksan@gmail.com', '', '', 0, 'f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b', '', '0000-00-00');
 
 --
 -- Indexes for dumped tables
@@ -588,139 +636,139 @@ INSERT INTO `tbl_user` (`id_user`, `nama_depan`, `nama_belakang`, `email`, `alam
 -- Indexes for table `detail_brakes`
 --
 ALTER TABLE `detail_brakes`
- ADD PRIMARY KEY (`id_brakes`);
+  ADD PRIMARY KEY (`id_brakes`);
 
 --
 -- Indexes for table `detail_dimensi`
 --
 ALTER TABLE `detail_dimensi`
- ADD PRIMARY KEY (`id_dimensi`);
+  ADD PRIMARY KEY (`id_dimensi`);
 
 --
 -- Indexes for table `detail_gearbox`
 --
 ALTER TABLE `detail_gearbox`
- ADD PRIMARY KEY (`id_gearbox`);
+  ADD PRIMARY KEY (`id_gearbox`);
 
 --
 -- Indexes for table `detail_kelistrikan`
 --
 ALTER TABLE `detail_kelistrikan`
- ADD PRIMARY KEY (`id_kelistrikan`);
+  ADD PRIMARY KEY (`id_kelistrikan`);
 
 --
 -- Indexes for table `detail_light`
 --
 ALTER TABLE `detail_light`
- ADD PRIMARY KEY (`id_light`);
+  ADD PRIMARY KEY (`id_light`);
 
 --
 -- Indexes for table `detail_mesin`
 --
 ALTER TABLE `detail_mesin`
- ADD PRIMARY KEY (`id_mesin`);
+  ADD PRIMARY KEY (`id_mesin`);
 
 --
 -- Indexes for table `detail_rangka`
 --
 ALTER TABLE `detail_rangka`
- ADD PRIMARY KEY (`id_detailrangka`);
+  ADD PRIMARY KEY (`id_detailrangka`);
 
 --
 -- Indexes for table `detail_sadle`
 --
 ALTER TABLE `detail_sadle`
- ADD PRIMARY KEY (`id_sadle`);
+  ADD PRIMARY KEY (`id_sadle`);
 
 --
 -- Indexes for table `detail_shocks`
 --
 ALTER TABLE `detail_shocks`
- ADD PRIMARY KEY (`id_shocks`);
+  ADD PRIMARY KEY (`id_shocks`);
 
 --
 -- Indexes for table `detail_wheels`
 --
 ALTER TABLE `detail_wheels`
- ADD PRIMARY KEY (`id_wheels`);
+  ADD PRIMARY KEY (`id_wheels`);
 
 --
 -- Indexes for table `master_status`
 --
 ALTER TABLE `master_status`
- ADD PRIMARY KEY (`id_status`);
+  ADD PRIMARY KEY (`id_status`);
 
 --
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
- ADD PRIMARY KEY (`id_motor`);
+  ADD PRIMARY KEY (`id_motor`);
 
 --
 -- Indexes for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
- ADD PRIMARY KEY (`id_admin`);
+  ADD PRIMARY KEY (`id_admin`);
 
 --
 -- Indexes for table `tbl_buktipembayaran`
 --
 ALTER TABLE `tbl_buktipembayaran`
- ADD PRIMARY KEY (`id_buktipembayaran`);
+  ADD PRIMARY KEY (`id_buktipembayaran`);
 
 --
 -- Indexes for table `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
- ADD PRIMARY KEY (`id_cart`);
+  ADD PRIMARY KEY (`id_cart`);
 
 --
 -- Indexes for table `tbl_checkout`
 --
 ALTER TABLE `tbl_checkout`
- ADD PRIMARY KEY (`id_checkout`);
+  ADD PRIMARY KEY (`id_checkout`);
 
 --
 -- Indexes for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
- ADD PRIMARY KEY (`id_invoice`);
+  ADD PRIMARY KEY (`id_invoice`);
 
 --
 -- Indexes for table `tbl_jenis`
 --
 ALTER TABLE `tbl_jenis`
- ADD PRIMARY KEY (`id_jenis`);
+  ADD PRIMARY KEY (`id_jenis`);
 
 --
 -- Indexes for table `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
- ADD PRIMARY KEY (`id_kategori`);
+  ADD PRIMARY KEY (`id_kategori`);
 
 --
 -- Indexes for table `tbl_pembuat`
 --
 ALTER TABLE `tbl_pembuat`
- ADD PRIMARY KEY (`id_pembuat`);
+  ADD PRIMARY KEY (`id_pembuat`);
 
 --
 -- Indexes for table `tbl_productcarou`
 --
 ALTER TABLE `tbl_productcarou`
- ADD PRIMARY KEY (`id_productcarou`);
+  ADD PRIMARY KEY (`id_productcarou`);
 
 --
 -- Indexes for table `tbl_test`
 --
 ALTER TABLE `tbl_test`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
- ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -730,117 +778,141 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `detail_brakes`
 --
 ALTER TABLE `detail_brakes`
-MODIFY `id_brakes` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_brakes` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `detail_dimensi`
 --
 ALTER TABLE `detail_dimensi`
-MODIFY `id_dimensi` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_dimensi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `detail_gearbox`
 --
 ALTER TABLE `detail_gearbox`
-MODIFY `id_gearbox` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_gearbox` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `detail_kelistrikan`
 --
 ALTER TABLE `detail_kelistrikan`
-MODIFY `id_kelistrikan` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id_kelistrikan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `detail_light`
 --
 ALTER TABLE `detail_light`
-MODIFY `id_light` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id_light` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `detail_mesin`
 --
 ALTER TABLE `detail_mesin`
-MODIFY `id_mesin` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_mesin` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `detail_rangka`
 --
 ALTER TABLE `detail_rangka`
-MODIFY `id_detailrangka` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_detailrangka` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `detail_sadle`
 --
 ALTER TABLE `detail_sadle`
-MODIFY `id_sadle` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id_sadle` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `detail_shocks`
 --
 ALTER TABLE `detail_shocks`
-MODIFY `id_shocks` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id_shocks` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `detail_wheels`
 --
 ALTER TABLE `detail_wheels`
-MODIFY `id_wheels` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_wheels` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `master_status`
 --
 ALTER TABLE `master_status`
-MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-MODIFY `id_motor` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `id_motor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
 --
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `tbl_buktipembayaran`
 --
 ALTER TABLE `tbl_buktipembayaran`
-MODIFY `id_buktipembayaran` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+  MODIFY `id_buktipembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 --
 -- AUTO_INCREMENT for table `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
-MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=169;
+  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
+
 --
 -- AUTO_INCREMENT for table `tbl_checkout`
 --
 ALTER TABLE `tbl_checkout`
-MODIFY `id_checkout` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=124;
+  MODIFY `id_checkout` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+
 --
 -- AUTO_INCREMENT for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-MODIFY `id_invoice` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=124;
+  MODIFY `id_invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+
 --
 -- AUTO_INCREMENT for table `tbl_jenis`
 --
 ALTER TABLE `tbl_jenis`
-MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
-MODIFY `id_kategori` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_kategori` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `tbl_pembuat`
 --
 ALTER TABLE `tbl_pembuat`
-MODIFY `id_pembuat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_pembuat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `tbl_productcarou`
 --
 ALTER TABLE `tbl_productcarou`
-MODIFY `id_productcarou` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_productcarou` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `tbl_test`
 --
 ALTER TABLE `tbl_test`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
