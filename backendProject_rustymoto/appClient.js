@@ -182,6 +182,17 @@ app.get('/getListMotorTracker', (req,res)=>{
     }
   })
 })
+
+app.get('/getListMotorScrambler', (req,res)=>{
+  var getListMotor= `SELECT product.id_motor, product.nama_motor, product.gambar, master_status.status FROM product JOIN master_status ON master_status.id_status=product.status WHERE product.id_jenis=13`;
+  db.query(getListMotor, (err,result)=>{
+    if(err){
+      throw err;
+    }else{
+      res.send(result)
+    }
+  })
+})
 /**End of section */
 
 

@@ -161,10 +161,10 @@ class Detailproduct extends Component {
                                 <button type="button" onClick ={()=>this.addtoCart(this.state.id)} className="card-link" className="btn nav-link btn-light btn-lg"> <i className="fa fa-shopping-cart"></i>&nbsp;Beli Sekarang!</button>
                                 <p><br/>
                                     <a className="btn btn-light btn-lg" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    Informasi Harga
+                                    Informasi Motor
                                     </a><br/><br/>
                                     <button className="btn btn-light btn-lg" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-                                    Informasi Motor
+                                    Informasi Harga
                                     </button><br/>
                                 </p>
                                 <div className="collapse" id="collapseExample1">
@@ -180,7 +180,7 @@ class Detailproduct extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div><br/><br/>
                         
                         {/* Detail Motor display  */}
                             <div className="container-fluid" id="featuredetail">
@@ -242,18 +242,21 @@ class Detailproduct extends Component {
                             </ul><br/> 
 
                             {/* <!-- Spesifikasi dengan gambar dan deskripsi -->  */}
-                            <div className="container-fluid" id="partdetail">
+                            <div className="container-fluid">
+                            <div className="" id="partdetail">
                                 <div className="row">
                                     <div className="col-sm-2"></div>
                                         <div className="col-sm-4">
                                             <img src={'http://localhost:8002/'+ `filedetailLight/${this.state.gambar_light}`} style={{width: '27rem',height:'17rem'}} alt=""/>
                                         </div>
-                                    <div className="col-sm-4">{this.state.desc_light}</div>
+                                    <div className="col-sm-4">{this.state.desc_light}                                    
+                                    </div>                                                                        
                                 </div>
-                                <div className="col-sm-2"></div>
+                                <div className="col-sm-2">                                
+                                </div>
                             </div>
                             <br/>
-                            <div className="container-fluid">
+                            <div className="">
                                 <div className="row">
                                     <div className="col-sm-2"></div>
                                         <div className="col-sm-4">
@@ -265,7 +268,7 @@ class Detailproduct extends Component {
                                     <div className="col-sm-2"></div>
                                 </div>
                             </div>
-                            <div className="container-fluid">
+                            <div className="">
                                 <div className="row">
                                     <div className="col-sm-2"></div>
                                     <div className="col-sm-4">
@@ -276,7 +279,7 @@ class Detailproduct extends Component {
                                 <div className="col-sm-2"></div>
                             </div>
                         <br/>
-                            <div className="container-fluid">
+                            <div className="">
                                 <div className="row">
                                     <div className="col-sm-2"></div>
                                     <div className="col-sm-4">
@@ -288,8 +291,8 @@ class Detailproduct extends Component {
                                     <div className="col-sm-2"></div>
                                 </div>
                             </div>
-
-                            <div className="container-fluid">
+                        <br/>
+                            <div className="">
                                     <div className="row">
                                     <div className="col-sm-2"></div>
                                     <div className="col-sm-4">
@@ -300,7 +303,7 @@ class Detailproduct extends Component {
                                     <div className="col-sm-2"></div>
                             </div>
                         <br/>
-                            <div className="container-fluid">
+                            <div className="">
                                     <div className="row">
                                         <div className="col-sm-2"></div>
                                         <div className="col-sm-4">
@@ -311,6 +314,7 @@ class Detailproduct extends Component {
                                     </div>
                                         <div className="col-sm-2"></div>
                                     </div>
+                            </div>
                             </div>
                             <br/><br/>
                             {/* <!--Progress bar  --> */}

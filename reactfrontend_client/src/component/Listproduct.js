@@ -11,6 +11,7 @@ class Listproduct extends Component
     listProductChopper:[],
     listProductCaferacer:[],
     listProductTracker:[],
+    listProductScrambler:[]
   } 
 
   componentDidMount(){
@@ -51,6 +52,15 @@ class Listproduct extends Component
       // console.log(ambilData)
       this.setState({
         listProductTracker:ambilData.data
+      })
+    })
+  
+
+  axios.get('http://localhost:8002/getListMotorScrambler')
+    .then((ambilData)=>{
+      // console.log(ambilData)
+      this.setState({
+        listProductScrambler:ambilData.data
       })
     })
   }
@@ -156,6 +166,26 @@ class Listproduct extends Component
               </div>
     ) 
   })
+
+  const dataMotorScrambler=this.state.listProductScrambler.map((isidata, index)=>{
+    var urutan = index+1;
+    var idMotor =isidata.id_motor
+    var namaMotor=isidata.nama_motor;
+    var gambarMotor=isidata.gambar;
+    var status=isidata.status;
+    return (
+            <div className="card-group">
+                <div className="card" style={{width: '186px',}}>
+                  <img className="card-img-top" src={'http://localhost:8002/'+ `tampunganFile/${gambarMotor}`} alt="Card image cap" style={{height:"150px", width:"184px"}} />
+                  <div className="card-body">
+                    <h5 className="card-title">{namaMotor}</h5>
+                    <p className="card-text"><b>{status}</b></p>
+                    <Link to={{pathname:"/detail", state:{id_motor:idMotor}}} className="card-link" className="btn btn-info pull-bottom">Lihat Detail</Link>
+                  </div>
+                </div>&nbsp;&nbsp;                          
+              </div>
+    ) 
+  })
   
   
     return(
@@ -184,13 +214,14 @@ class Listproduct extends Component
           <nav className="nav nav-pills flex-column">
             <nav className="nav nav-pills flex-column">
               <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-1">Original Classic</a>
-              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-2">Costume Bobber</a>
+              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-2">Custom Bobber</a>
             </nav>
-            <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-3">Costume Chopper</a>
+            <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-3">Custom Chopper</a>
             
             <nav className="nav nav-pills flex-column">
-              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-4">Costume Caferacer</a>
-              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-5">Costume Tracker</a>
+              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-4">Custom Caferacer</a>
+              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-5">Custom Tracker</a>              
+              <a className="nav-link ml-3 my-1 bg-light" style={{color: 'black'}} href="#item-6">Custom Scrambler</a>
             </nav>
           </nav>
         </nav>
@@ -213,7 +244,7 @@ class Listproduct extends Component
               <Pager.Item next href="#" className="pull-right"> 
                 Next &rarr;
               </Pager.Item>
-            </Pager>;
+            </Pager><br/>
           </div>
           <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
           <h4 id="item-2">
@@ -232,7 +263,7 @@ class Listproduct extends Component
               <Pager.Item next href="#" className="pull-right"> 
                 Next &rarr;
               </Pager.Item>
-            </Pager>;
+            </Pager><br/>
           </div>
           <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
           <h4 id="item-3">
@@ -251,7 +282,7 @@ class Listproduct extends Component
               <Pager.Item next href="#" className="pull-right"> 
                 Next &rarr;
               </Pager.Item>
-            </Pager>;
+            </Pager><br/>
           </div>
           <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
           <h4 id="item-4">
@@ -270,7 +301,7 @@ class Listproduct extends Component
               <Pager.Item next href="#" className="pull-right"> 
                 Next &rarr;
               </Pager.Item>
-            </Pager>;
+            </Pager><br/>
           </div>
           <div className="col-lg-11"><hr style={{height:"20px"}}/></div>            
           <h4 id="item-5">
@@ -289,7 +320,28 @@ class Listproduct extends Component
               <Pager.Item next href="#" className="pull-right"> 
                 Next &rarr;
               </Pager.Item>
-            </Pager>;
+            </Pager><br/>
+          </div>          
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>
+
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>            
+          <h4 id="item-6">
+            Scrambler 
+          </h4>
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
+          <div className="card-group">
+          {dataMotorScrambler}
+          </div>
+          <div className="col-lg-11"><hr style={{height:"20px"}}/></div>  
+          <div className="col-lg-11">
+            <Pager>
+              <Pager.Item previous href="#" className="pull-left">
+                &larr; Previous
+              </Pager.Item>
+              <Pager.Item next href="#" className="pull-right"> 
+                Next &rarr;
+              </Pager.Item>
+            </Pager><br/>
           </div>          
           <div className="col-lg-11"><hr style={{height:"20px"}}/></div>           
         </div>

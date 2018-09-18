@@ -152,10 +152,11 @@ app.post('/tambahDataMotor', (req, res) => {
     //  console.log(id)
      var hapusData =`DELETE FROM product WHERE id_motor=?`;
      db.query(hapusData,id, (err,hasil) =>{
-         if (err)
-         throw err;
-        //  res.redirect('/listproduct')
-        // console.log(hasil)
+         if (err){
+             throw err;
+         }else{
+             res.send('1')
+         }
      })
  })
 
@@ -687,7 +688,7 @@ app.post(`/updateStatusLunas`, (req,res)=>{
                                                         if(err){
                                                             throw err;
                                                         }else{
-
+                                                            res.send('1')
                                                         }
                                                     })
                                                 }
@@ -713,7 +714,7 @@ app.post(`/updateStatusAngsur`, (req,res)=>{
         if(err){
             throw err;
         }else{
-            res.send('update status menjadi Angsur')
+            res.send('1')
         }
     })
 })
@@ -725,7 +726,7 @@ app.post(`/updateStatusGagal`, (req,res)=>{
         if(err){
             throw err;
         }else{
-            res.send('update status menjadi gagal')
+            res.send('1')
         }
     })
 })

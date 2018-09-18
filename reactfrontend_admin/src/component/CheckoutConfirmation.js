@@ -35,13 +35,16 @@ class CheckoutConfirmation extends Component
         })
         // axios.get('http://localhost:8000/listproduct')        
         .then((ambilData) =>{
-            console.log(ambilData);
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di update")
+            }
             this.setState({
                 idcheckout:ambilData.data,
                 iduser:ambilData.data
             });            
         })     
-        // window.location.reload()
+        window.location.reload()
     }
     updateStatusAngsur =(e) =>{
          
@@ -53,8 +56,10 @@ class CheckoutConfirmation extends Component
 
         // axios.get('http://localhost:8000/listproduct')        
         .then((ambilData) =>{
-            // console.log(ambilData.data);
-            // this.setState({dataProduk:ambilData.data});
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di update status angsur")
+            }
             
         })       
         window.location.reload()
@@ -69,7 +74,10 @@ class CheckoutConfirmation extends Component
         
         // axios.get('http://localhost:8000/listproduct')        
         .then((ambilData) =>{
-            // console.log(ambilData.data);
+            var notife= ambilData.data
+            if(notife==1){
+                alert("data berhasil di update menjadi gagal")
+            }
          
         })       
         window.location.reload()

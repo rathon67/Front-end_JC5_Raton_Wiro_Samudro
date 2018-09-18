@@ -35,8 +35,12 @@ class Listproduct extends Component
             // console.log(e)
             axios.post('http://localhost:8000/hapusdata',{
             id : e
+            }).then((response)=>{
+                var dataTerima=response.data
+                if (dataTerima==1){
+                    alert("Data berhasil di hapus")
+                }
             });
-
             axios.get('http://localhost:8000/listproduct')        
             .then((ambilData) =>{
                 // console.log(ambilData.data);
